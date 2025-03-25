@@ -32,10 +32,10 @@ export default function ContactForm() {
   }
 
   return (
-    <section className="relative -mt-10 mb-10">
+    <section className="relative mb-10" style={{ marginTop: "-10rem" }}>
       <div className="container px-4 md:px-6">
         <div className="mx-auto">
-          <div className="overflow-hidden rounded-lg bg-teal-500 shadow-xl">
+          <div className="overflow-hidden rounded-lg shadow-xl" style={{ backgroundColor: "#00CECC" }}>
             <div className="p-8 text-center text-white">
               <h3 className="mb-6 text-xl font-bold" dir="rtl">
                 اترك بياناتك وسوف نتواصل معك
@@ -82,11 +82,11 @@ export default function ContactForm() {
                 </div>
 
                 <div className="flex justify-center gap-4">
+                  <Button type="submit" style={{ backgroundColor: "#008486" }} className="text-white hover:opacity-90">
+                    إرســال
+                  </Button>
                   <Button type="button" onClick={handleReset} className="bg-white/20 text-white hover:bg-white/30">
                     عرض الدورات
-                  </Button>
-                  <Button type="submit" className="bg-blue-700 text-white hover:bg-blue-800">
-                    إرســال
                   </Button>
                 </div>
               </form>
@@ -97,4 +97,3 @@ export default function ContactForm() {
     </section>
   )
 }
-

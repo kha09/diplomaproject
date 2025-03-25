@@ -14,7 +14,7 @@ export default function AwardsSection() {
             <div key={item} className="bg-white rounded-lg shadow-md overflow-hidden">
               <div className="relative h-48">
                 <Image
-                  src="/placeholder.svg?height=200&width=300"
+                  src="/static/images/Group 8.png?height=200&width=300"
                   alt="Tourism category"
                   fill
                   className="object-cover"

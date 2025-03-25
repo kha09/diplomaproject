@@ -6,25 +6,25 @@ export default function ServicesSection() {
     {
       id: 1,
       title: "جائزة الجودة السياحية",
-      icon: "/placeholder.svg?height=60&width=60",
+      icon: "/static/images/qualityy.png?height=60&width=60",
       href: "#quality",
     },
     {
       id: 2,
       title: "جائزة التميز السياحي",
-      icon: "/placeholder.svg?height=60&width=60",
+      icon: "/static/images/idealistic.png?height=60&width=60",
       href: "#excellence",
     },
     {
       id: 3,
       title: "التدريب والتأهيل",
-      icon: "/placeholder.svg?height=60&width=60",
+      icon: "/static/images/presentation.png?height=60&width=60",
       href: "#training",
     },
     {
       id: 4,
       title: "الاستشارات والتطوير",
-      icon: "/placeholder.svg?height=60&width=60",
+      icon: "/static/images/discussion.png?height=160&width=160",
       href: "#consulting",
     },
   ]
