@@ -16,7 +16,7 @@ export default function TrainingSection() {
             <div className="flex flex-col md:flex-row gap-4 items-start">
               <div className="w-full md:w-1/3 order-2 md:order-1">
                 <Image
-                  src="/placeholder.svg?height=150&width=200"
+                  src="/static/images/Mask Group 13.png?height=150&width=200"
                   alt="Desert with camels"
                   width={200}
                   height={150}
@@ -38,7 +38,7 @@ export default function TrainingSection() {
             <div className="flex flex-col md:flex-row gap-4 items-start">
               <div className="w-full md:w-1/3 order-2 md:order-1">
                 <Image
-                  src="/placeholder.svg?height=150&width=200"
+                  src="/static/images/Mask Group 14.png?height=150&width=200"
                   alt="Rock formation"
                   width={200}
                   height={150}
@@ -60,13 +60,19 @@ export default function TrainingSection() {
             {/* Course 3 */}
             <div className="flex flex-col md:flex-row gap-4 items-start">
               <div className="w-full md:w-1/3 order-2 md:order-1">
-                <div className="bg-teal-400 rounded-md h-full w-full min-h-[150px]"></div>
+                <Image
+                  src="/static/images/Mask Group 13.png?height=150&width=200"
+                  alt="Rock formation"
+                  width={200}
+                  height={150}
+                  className="rounded-md object-cover w-full h-auto"
+                />
               </div>
               <div className="w-full md:w-2/3 order-1 md:order-2 text-right">
-                <h3 className="text-xl font-bold text-teal-700 mb-2">اسم الدورة التدريبية</h3>
+                <h3 className="text-xl font-bold text-teal-700 mb-2">رخصة مقيم خارجي</h3>
                 <p className="text-sm text-gray-600 mb-2">
-                  انضم للدبلوم مكون من مجموعة مقررات دراسية في الجودة والتميز تركز على تطبيق المعايير والإرشادات
-                  القياسية ودمجها في خدمات ومنتجات المجال السياحي
+                  يقدم الدبلوم نظرة شاملة على معايير تحسين تجربة الزوار وتطوير الخدمات، مثالية للراغبين في التميز في
+                  قطاع السياحة وتقديم خدمات استثنائية
                 </p>
                 <Link href="#" className="text-teal-500 hover:text-teal-700 text-sm font-medium">
                   عرض المزيد
@@ -74,29 +80,20 @@ export default function TrainingSection() {
               </div>
             </div>
 
-            {/* Diploma */}
-            <div className="text-right">
-              <h3 className="text-xl font-bold text-teal-700 mb-2">دبلوم أخصائي جودة وتميز سياحي</h3>
-              <p className="text-sm text-gray-600 mb-2">
-                يتكون الدبلوم من مجموعة دورات متخصصة في الجودة والتميز تركز على تطبيق المعايير والإرشادات القياسية
-                ودمجها في خدمات ومنتجات المجال السياحي
-              </p>
-              <Link href="#" className="text-teal-500 hover:text-teal-700 text-sm font-medium">
-                عرض المزيد
-              </Link>
-            </div>
+            
           </div>
 
           {/* Left column - Large image */}
           <div className="flex items-center justify-center">
             <Image
-              src="/placeholder.svg?height=500&width=600"
+              src="/static/images/Mask Group 12.png?height=500&width=600"
               alt="World landmarks in hands"
               width={600}
               height={500}
               className="rounded-md object-cover"
             />
           </div>
+          
         </div>
 
         {/* Buttons */}
