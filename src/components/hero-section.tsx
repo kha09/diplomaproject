@@ -13,14 +13,14 @@ const slides = [
   {
     id: 2,
     image: "/static/images/01.jpg",
-    titleAr: "تعزيز الخدمات السياحية",
-    titleEn: "Enhancing Tourism Services",
+    titleAr: "جائزة الجودة والتميز السياحي",
+    titleEn: "Tourism Quality and Excellence Award",
   },
   {
     id: 3,
     image: "/static/images/03.jpg",
-    titleAr: "تطوير المواقع السياحية",
-    titleEn: "Developing Tourism Destinations",
+    titleAr: "جائزة الجودة والتميز السياحي",
+    titleEn: "Tourism Quality and Excellence Award",
   },
 ]
 
