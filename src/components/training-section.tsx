@@ -9,7 +9,7 @@ export default function TrainingSection() {
           <h2 className="text-2xl font-bold text-teal-500">الدورات التدريبية</h2>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8" dir="rtl">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8" >
           {/* Right column - Training courses */}
           <div className="space-y-8">
             {/* Course 1 */}

@@ -20,7 +20,7 @@ export default function Home() {
       <AwardsSection />
       <TourismCategories />
       <ExcellenceAwards />
-      <EventsSection />
+      
       <TrainingSection />
       <PartnersSection />
       <Footer />

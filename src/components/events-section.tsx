@@ -12,7 +12,7 @@ export default function EventsSection() {
           <div className="flex flex-col md:flex-row gap-4 items-center bg-white rounded-lg shadow-md p-4">
             <div className="w-full md:w-1/3">
               <Image
-                src="/placeholder.svg?height=150&width=150"
+                src="/static/images/Group 8.png?height=150&width=150"
                 alt="Training course"
                 width={150}
                 height={150}
@@ -34,7 +34,7 @@ export default function EventsSection() {
           <div className="flex flex-col md:flex-row gap-4 items-center bg-white rounded-lg shadow-md p-4">
             <div className="w-full md:w-1/3">
               <Image
-                src="/placeholder.svg?height=150&width=150"
+                src="/static/images/Group 8.png?height=150&width=150"
                 alt="Training course"
                 width={150}
                 height={150}
