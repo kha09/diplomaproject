@@ -1,6 +1,6 @@
 "use client"
 
-import { useState, useEffect } from "react"
+import { useState, useEffect, useRef } from "react"
 import Image from "next/image"
 import Link from "next/link"
 import { ChevronLeft, ChevronRight } from "lucide-react"
@@ -64,6 +64,14 @@ export default function AwardsSection() {
   const itemsPerPage = 4
   // Calculate total number of pages
   const totalPages = Math.ceil(awardItems.length / itemsPerPage)
+  // State to track which award is being hovered
+  const [hoveredAward, setHoveredAward] = useState<number | null>(null)
+  // State to track if the section is visible
+  const [isVisible, setIsVisible] = useState(false)
+  // State to track if auto-rotation is paused
+  const [isPaused, setIsPaused] = useState(false)
+  // Ref for the section element
+  const sectionRef = useRef<HTMLElement>(null)
 
   // Function to go to the next page
   const nextPage = () => {
@@ -77,10 +85,32 @@ export default function AwardsSection() {
 
   // Auto-rotate carousel
   useEffect(() => {
+    if (isPaused) return
+
     const interval = setInterval(() => {
       nextPage()
     }, 6000)
     return () => clearInterval(interval)
+  }, [isPaused, totalPages])
+
+  // Check if section is visible on scroll
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        setIsVisible(entry.isIntersecting)
+      },
+      { threshold: 0.1 }
+    )
+
+    if (sectionRef.current) {
+      observer.observe(sectionRef.current)
+    }
+
+    return () => {
+      if (sectionRef.current) {
+        observer.unobserve(sectionRef.current)
+      }
+    }
   }, [])
 
   // Get current items to display
@@ -90,30 +120,71 @@ export default function AwardsSection() {
   }
 
   return (
-    <section className="py-10 bg-gray-50">
+    <section 
+      ref={sectionRef}
+      className="py-10 bg-gray-50"
+      onMouseEnter={() => setIsPaused(true)}
+      onMouseLeave={() => setIsPaused(false)}
+    >
       <div className="container px-4 md:px-6">
-        <div className="text-center mb-8" dir="rtl">
+        <div 
+          className={`text-center mb-8 transition-all duration-700 transform ${
+            isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"
+          }`} 
+          dir="rtl"
+        >
           <h2 className="text-xl font-semibold text-teal-600">محاور جائزة الجودة السياحية</h2>
         </div>
 
         <div className="relative">
-          <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4" dir="rtl">
-            {getCurrentItems().map((item) => (
-              <div key={item.id} className="bg-white rounded-lg shadow-md overflow-hidden transition-all duration-300 hover:shadow-lg">
-                <div className="relative h-48">
+          <div 
+            className={`grid gap-6 md:grid-cols-2 lg:grid-cols-4 transition-all duration-500 ${
+              isPaused ? "scale-[0.98]" : "scale-100"
+            }`} 
+            dir="rtl"
+          >
+            {getCurrentItems().map((item, index) => (
+              <div 
+                key={item.id} 
+                className={`bg-white rounded-lg shadow-md overflow-hidden transition-all duration-500 transform ${
+                  isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-20"
+                } ${
+                  hoveredAward === item.id 
+                    ? "shadow-xl scale-[1.03] bg-white" 
+                    : ""
+                }`}
+                style={{ transitionDelay: `${index * 100}ms` }}
+                onMouseEnter={() => setHoveredAward(item.id)}
+                onMouseLeave={() => setHoveredAward(null)}
+              >
+                <div className="relative h-48 overflow-hidden">
                   <Image
                     src={item.image}
                     alt={item.title}
                     fill
-                    className="object-cover"
+                    className={`object-cover transition-all duration-700 ${
+                      hoveredAward === item.id ? "scale-110" : "scale-100"
+                    }`}
                   />
+                  <div className={`absolute inset-0 bg-gradient-to-t from-black/60 to-transparent transition-opacity duration-300 ${
+                    hoveredAward === item.id ? "opacity-70" : "opacity-0"
+                  }`}></div>
                 </div>
                 <div className="p-4">
-                  <p className="text-xs text-gray-600 mb-2">
+                  <p className={`text-xs text-gray-600 mb-2 transition-all duration-300 ${
+                    hoveredAward === item.id ? "text-gray-800" : ""
+                  }`}>
                     {item.description}
                   </p>
                   <div className="flex justify-center mt-4">
-                    <Link href="#" className="bg-blue-700 text-white px-4 py-2 rounded-md text-sm font-medium hover:bg-blue-800 transition-colors">
+                    <Link 
+                      href="#" 
+                      className={`px-4 py-2 rounded-md text-sm font-medium transition-all duration-300 ${
+                        hoveredAward === item.id 
+                          ? "bg-teal-600 text-white" 
+                          : "bg-blue-700 text-white"
+                      }`}
+                    >
                       {item.title}
                     </Link>
                   </div>
@@ -125,14 +196,14 @@ export default function AwardsSection() {
           {/* Navigation buttons */}
           <button
             onClick={prevPage}
-            className="absolute left-0 top-1/2 z-10 -translate-y-1/2 -translate-x-4 rounded-full bg-white shadow-md p-2 text-teal-600 transition-all hover:bg-gray-100"
+            className="absolute left-0 top-1/2 z-10 -translate-y-1/2 -translate-x-4 rounded-full bg-white shadow-md p-2 text-teal-600 transition-all hover:bg-teal-50 hover:text-teal-700 hover:scale-110"
             aria-label="Previous page"
           >
             <ChevronLeft className="h-6 w-6" />
           </button>
           <button
             onClick={nextPage}
-            className="absolute right-0 top-1/2 z-10 -translate-y-1/2 translate-x-4 rounded-full bg-white shadow-md p-2 text-teal-600 transition-all hover:bg-gray-100"
+            className="absolute right-0 top-1/2 z-10 -translate-y-1/2 translate-x-4 rounded-full bg-white shadow-md p-2 text-teal-600 transition-all hover:bg-teal-50 hover:text-teal-700 hover:scale-110"
             aria-label="Next page"
           >
             <ChevronRight className="h-6 w-6" />
@@ -145,8 +216,10 @@ export default function AwardsSection() {
             <button
               key={index}
               onClick={() => setCurrentPage(index)}
-              className={`w-8 h-2 rounded-full transition-all ${
-                index === currentPage ? "bg-teal-600" : "bg-gray-300"
+              className={`w-8 h-2 rounded-full transition-all duration-300 ${
+                index === currentPage 
+                  ? "bg-teal-600 w-12" 
+                  : "bg-gray-300 hover:bg-gray-400"
               }`}
               aria-label={`Go to page ${index + 1}`}
             />
