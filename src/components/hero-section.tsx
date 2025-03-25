@@ -52,7 +52,8 @@ export default function HeroSection() {
               className="object-cover"
               priority={index === 0}
             />
-            <div className="absolute inset-0 bg-gradient-to-b from-teal-500/40 to-teal-600/70" />
+            {/* Subtle dark overlay for text readability */}
+            <div className="absolute inset-0 bg-black/30" />
 
             <div className="absolute inset-0 flex flex-col items-end justify-center px-12 text-right text-white">
               <div className="mb-8 max-w-2xl">
@@ -66,18 +67,19 @@ export default function HeroSection() {
         </div>
       ))}
 
-      {/* Wave shape at bottom */}
-      <div className="absolute bottom-0 left-0 w-full">
+      {/* Wave shape curve at the bottom */}
+      <div className="absolute bottom-0 left-0 w-full overflow-hidden">
         <svg
           xmlns="http://www.w3.org/2000/svg"
-          viewBox="0 0 1440 120"
+          viewBox="0 0 1440 80"
           className="h-auto w-full"
           preserveAspectRatio="none"
+          style={{ display: 'block', marginBottom: '-1px' }}
         >
           <path
             fill="#ffffff"
-            fillOpacity="1"
-            d="M0,32L80,42.7C160,53,320,75,480,74.7C640,75,800,53,960,48C1120,43,1280,53,1360,58.7L1440,64L1440,120L1360,120C1280,120,1120,120,960,120C800,120,640,120,480,120C320,120,160,120,80,120L0,120Z"
+            d="M0,64L48,69.3C96,75,192,85,288,80C384,75,480,53,576,48C672,43,768,53,864,58.7C960,64,1056,64,1152,58.7C1248,53,1344,43,1392,37.3L1440,32L1440,80L1392,80C1344,80,1248,80,1152,80C1056,80,960,80,864,80C768,80,672,80,576,80C480,80,384,80,288,80C192,80,96,80,48,80L0,80Z"
+            style={{ stroke: 'none' }}
           ></path>
         </svg>
       </div>
