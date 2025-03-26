@@ -82,7 +82,7 @@ export default function ContactForm() {
                 </div>
 
                 <div className="flex justify-center gap-4">
-                  <Button type="submit" style={{ backgroundColor: "#008486" }} className="text-white hover:opacity-90">
+                  <Button type="submit" style={{ backgroundColor: "#005A98" }} className="text-white hover:opacity-90">
                     إرســال
                   </Button>
                   <Button type="button" onClick={handleReset} className="bg-white/20 text-white hover:bg-white/30">
