@@ -18,9 +18,9 @@ export default function Home() {
       <ContactForm />
       <ServicesSection />
       <AwardsSection />
+      
       <TourismCategories />
       <ExcellenceAwards />
-      
       <TrainingSection />
       <PartnersSection />
       <Footer />

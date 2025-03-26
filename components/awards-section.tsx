@@ -193,37 +193,24 @@ export default function AwardsSection() {
             ))}
           </div>
 
-          {/* Navigation buttons */}
+        </div>
+
+        {/* Simplified arrow-only navigation */}
+        <div className="mt-6 flex justify-center items-center gap-4">
           <button
             onClick={prevPage}
-            className="absolute left-0 top-1/2 z-10 -translate-y-1/2 -translate-x-4 rounded-full bg-white shadow-md p-2 text-teal-600 transition-all hover:bg-teal-50 hover:text-teal-700 hover:scale-110"
+            className="rounded-full p-2 border border-teal-600/20 text-teal-600 transition-all hover:bg-teal-600/10 hover:text-teal-700 hover:border-teal-600/30"
             aria-label="Previous page"
-          >
-            <ChevronLeft className="h-6 w-6" />
-          </button>
-          <button
-            onClick={nextPage}
-            className="absolute right-0 top-1/2 z-10 -translate-y-1/2 translate-x-4 rounded-full bg-white shadow-md p-2 text-teal-600 transition-all hover:bg-teal-50 hover:text-teal-700 hover:scale-110"
-            aria-label="Next page"
           >
             <ChevronRight className="h-6 w-6" />
           </button>
-        </div>
-
-        {/* Pagination indicators */}
-        <div className="flex justify-center mt-6 space-x-2">
-          {Array.from({ length: totalPages }).map((_, index) => (
-            <button
-              key={index}
-              onClick={() => setCurrentPage(index)}
-              className={`w-8 h-2 rounded-full transition-all duration-300 ${
-                index === currentPage 
-                  ? "bg-teal-600 w-12" 
-                  : "bg-gray-300 hover:bg-gray-400"
-              }`}
-              aria-label={`Go to page ${index + 1}`}
-            />
-          ))}
+          <button
+            onClick={nextPage}
+            className="rounded-full p-2 border border-teal-600/20 text-teal-600 transition-all hover:bg-teal-600/10 hover:text-teal-700 hover:border-teal-600/30"
+            aria-label="Next page"
+          >
+            <ChevronLeft className="h-6 w-6" />
+          </button>
         </div>
       </div>
     </section>
