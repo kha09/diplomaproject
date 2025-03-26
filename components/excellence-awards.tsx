@@ -191,35 +191,25 @@ export default function ExcellenceAwards() {
             ))}
           </div>
 
-          {/* Navigation buttons */}
+          {/* Navigation buttons - Removed from here */}
+        </div>
+
+        {/* Simplified arrow-only navigation */}
+        <div className="mt-6 flex justify-center items-center gap-4">
           <button
             onClick={prevPage}
-            className="absolute left-0 top-1/2 z-10 -translate-y-1/2 -translate-x-4 rounded-full bg-white shadow-md p-2 text-teal-600 transition-all hover:bg-gray-100"
+            className="rounded-lg bg-teal-600 p-2 text-white shadow-md transition-all hover:bg-teal-700"
             aria-label="Previous page"
-          >
-            <ChevronLeft className="h-6 w-6" />
-          </button>
-          <button
-            onClick={nextPage}
-            className="absolute right-0 top-1/2 z-10 -translate-y-1/2 translate-x-4 rounded-full bg-white shadow-md p-2 text-teal-600 transition-all hover:bg-gray-100"
-            aria-label="Next page"
           >
             <ChevronRight className="h-6 w-6" />
           </button>
-        </div>
-
-        {/* Pagination indicators */}
-        <div className="flex justify-center mt-6 space-x-2">
-          {Array.from({ length: totalPages }).map((_, index) => (
-            <button
-              key={index}
-              onClick={() => setCurrentPage(index)}
-              className={`w-8 h-2 rounded-full transition-all ${
-                index === currentPage ? "bg-teal-600" : "bg-gray-300"
-              }`}
-              aria-label={`Go to page ${index + 1}`}
-            />
-          ))}
+          <button
+            onClick={nextPage}
+            className="rounded-lg bg-teal-600 p-2 text-white shadow-md transition-all hover:bg-teal-700"
+            aria-label="Next page"
+          >
+            <ChevronLeft className="h-6 w-6" />
+          </button>
         </div>
       </div>
     </section>
