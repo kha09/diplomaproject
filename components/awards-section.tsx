@@ -197,6 +197,13 @@ export default function AwardsSection() {
 
         {/* Simplified arrow-only navigation */}
         <div className="mt-6 flex justify-center items-center gap-4">
+        <button
+            onClick={nextPage}
+            className="rounded-full p-2 border border-teal-600/20 text-teal-600 transition-all hover:bg-teal-600/10 hover:text-teal-700 hover:border-teal-600/30"
+            aria-label="Next page"
+          >
+            <ChevronLeft className="h-6 w-6" />
+          </button>
           <button
             onClick={prevPage}
             className="rounded-full p-2 border border-teal-600/20 text-teal-600 transition-all hover:bg-teal-600/10 hover:text-teal-700 hover:border-teal-600/30"
@@ -204,13 +211,7 @@ export default function AwardsSection() {
           >
             <ChevronRight className="h-6 w-6" />
           </button>
-          <button
-            onClick={nextPage}
-            className="rounded-full p-2 border border-teal-600/20 text-teal-600 transition-all hover:bg-teal-600/10 hover:text-teal-700 hover:border-teal-600/30"
-            aria-label="Next page"
-          >
-            <ChevronLeft className="h-6 w-6" />
-          </button>
+          
         </div>
       </div>
     </section>
