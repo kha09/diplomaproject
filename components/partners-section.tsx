@@ -7,7 +7,7 @@ export default function PartnersSection() {
         <div className="grid grid-cols-3 gap-6 items-center justify-items-center">
           <div className="p-4">
             <Image
-              src="/placeholder.svg?height=80&width=120"
+              src="/static/images/companylogo.png?height=80&width=120"
               alt="Partner logo"
               width={120}
               height={80}
@@ -16,7 +16,7 @@ export default function PartnersSection() {
           </div>
           <div className="p-4">
             <Image
-              src="/placeholder.svg?height=80&width=120"
+              src="/static/images/wmk.png?height=80&width=120"
               alt="Partner logo"
               width={120}
               height={80}
@@ -25,7 +25,7 @@ export default function PartnersSection() {
           </div>
           <div className="p-4">
             <Image
-              src="/placeholder.svg?height=80&width=120"
+              src="/static/images/uqu.png?height=80&width=120"
               alt="Partner logo"
               width={120}
               height={80}
