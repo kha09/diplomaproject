@@ -32,10 +32,10 @@ export default function Footer() {
           <div className="space-y-4">
             <h3 className="text-lg font-semibold">روابط سريعة</h3>
             <ul className="space-y-2">
-              <li><Link href="#" className="text-gray-400 hover:text-white">الرئيسية</Link></li>
-              <li><Link href="#" className="text-gray-400 hover:text-white">الجوائز</Link></li>
-              <li><Link href="#" className="text-gray-400 hover:text-white">التدريب</Link></li>
-              <li><Link href="#" className="text-gray-400 hover:text-white">الاستشارات</Link></li>
+              <li><Link href="#" className="text-white hover:text-gray-200">الرئيسية</Link></li>
+              <li><Link href="#" className="text-white hover:text-gray-200">الجوائز</Link></li>
+              <li><Link href="#" className="text-white hover:text-gray-200">التدريب</Link></li>
+              <li><Link href="#" className="text-white hover:text-gray-200">الاستشارات</Link></li>
             </ul>
           </div>
 
@@ -43,9 +43,9 @@ export default function Footer() {
           <div className="space-y-4">
             <h3 className="text-lg font-semibold">موارد</h3>
             <ul className="space-y-2">
-              <li><Link href="#" className="text-gray-400 hover:text-white">الأسئلة الشائعة</Link></li>
-              <li><Link href="#" className="text-gray-400 hover:text-white">اتصل بنا</Link></li>
-              <li><Link href="#" className="text-gray-400 hover:text-white">الفعاليات</Link></li>
+              <li><Link href="#" className="text-white hover:text-gray-200">الأسئلة الشائعة</Link></li>
+              <li><Link href="#" className="text-white hover:text-gray-200">اتصل بنا</Link></li>
+              <li><Link href="#" className="text-white hover:text-gray-200">الفعاليات</Link></li>
             </ul>
           </div>
 
@@ -55,10 +55,10 @@ export default function Footer() {
           
           
           <div className="flex space-x-6 mt-4 md:mt-0">
-            <Link href="#" className="text-gray-400 hover:text-white text-sm">الشروط والأحكام</Link>
-            <Link href="#" className="text-gray-400 hover:text-white text-sm">سياسة الخصوصية</Link>
+            <Link href="#" className="text-white hover:text-gray-200 text-sm">الشروط والأحكام</Link>
+            <Link href="#" className="text-white hover:text-gray-200 text-sm">سياسة الخصوصية</Link>
           </div>
-          <p className="text-gray-400 text-sm">
+          <p className="text-white text-sm">
             © {new Date().getFullYear()} جائزة الجودة والتميز السياحي. جميع الحقوق محفوظة
           </p>
         </div>
