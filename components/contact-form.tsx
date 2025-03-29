@@ -32,7 +32,7 @@ export default function ContactForm() {
   }
 
   return (
-    <section className="relative mb-10" style={{ marginTop: "-10rem" }}>
+    <section className="relative mb-10" style={{ marginTop: "-6rem" }}>
       <div className="container px-4 md:px-6">
         <div className="mx-auto">
           <div className="overflow-hidden rounded-lg shadow-xl" style={{ backgroundColor: "#00CECC" }}>

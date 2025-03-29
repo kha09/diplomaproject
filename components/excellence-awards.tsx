@@ -179,8 +179,8 @@ export default function ExcellenceAwards() {
                       href="#" 
                       className={`px-4 py-2 rounded-md text-sm font-medium transition-all duration-300 ${
                         hoveredAward === item.id 
-                          ? "bg-teal-600 text-white" 
-                          : "bg-blue-700 text-white"
+                          ? "bg-[#00C1BF] text-white" 
+                          : "bg-[#005A98] text-white"
                       }`}
                     >
                       {item.title}
