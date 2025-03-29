@@ -78,7 +78,7 @@ export default function LoginPage() {
           </button>
 
           <p className="text-center text-sm text-gray-600" dir="rtl">
-            <Link href="/" className="text-[#0066a1] hover:underline">
+            <Link href="/signup" className="text-[#0066a1] hover:underline">
               جديد معنا؟ سجل الآن
             </Link>
           </p>
@@ -87,4 +87,3 @@ export default function LoginPage() {
     </div>
   )
 }
-

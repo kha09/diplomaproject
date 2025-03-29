@@ -27,7 +27,7 @@ export default function Header() {
 
         {/* Left side (in RTL this appears on right) */}
         <div className="hidden md:flex items-center gap-2">
-          <Link href="/" className="flex items-center gap-2 border border-teal-600 px-3 py-1 rounded-md">
+          <Link href="/login" className="flex items-center gap-2 border border-teal-600 px-3 py-1 rounded-md">
             <span className="text-sm font-medium text-teal-600">تسجيل الدخول</span>
           </Link>
           <Link href="/" className="flex items-center gap-2">
@@ -93,7 +93,7 @@ export default function Header() {
                 اتصل بنا
               </Link>
               <div className="pt-2">
-                <Link href="/" className="flex items-center justify-center gap-2 border border-teal-600 px-3 py-1 rounded-md w-full">
+                <Link href="/login" className="flex items-center justify-center gap-2 border border-teal-600 px-3 py-1 rounded-md w-full">
                   <span className="text-sm font-medium text-teal-600">تسجيل الدخول</span>
                 </Link>
               </div>
