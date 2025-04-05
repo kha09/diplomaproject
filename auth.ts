@@ -56,23 +56,32 @@ export const authOptions: NextAuthOptions = {
     strategy: "jwt"
   },
   callbacks: {
-    async session({ session, token }) {
-      console.log('Creating session with token:', token)
-      if (token && session.user) {
+    async session({ session, token }: { session: any, token?: any }) {
+      if (token) {
         session.user.id = token.id as string
         session.user.role = token.role as string
-        console.log('Session created:', session)
       }
       return session
     },
-    async jwt({ token, user }) {
+    async jwt({ token, user }: { token: any, user?: any }) {
       if (user) {
         token.id = user.id
-        token.role = (user as any).role
+        token.role = user.role
       }
       return token
+    },
+    async redirect({ url, baseUrl, token }: { url: string, baseUrl: string, token?: any }) {
+      // Redirect admins to admin page after login
+      if (url === baseUrl && token?.role === 'ADMIN') {
+        return `${baseUrl}/admin`
+      }
+      // Allows relative callback URLs
+      if (url.startsWith("/")) return `${baseUrl}${url}`
+      // Allows callback URLs on the same origin
+      else if (new URL(url).origin === baseUrl) return url
+      return baseUrl
     }
-  }
+  },
 }
 
 export const auth = () => getServerSession(authOptions)

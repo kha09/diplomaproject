@@ -27,8 +27,13 @@ export default function LoginPage() {
         if (result?.error) {
           setError(result.error)
         } else if (result?.ok) {
-          // Force a hard refresh to ensure session is loaded
-          window.location.href = "/"
+          // Check if user is admin and redirect accordingly
+          const session = await fetch('/api/auth/session').then(res => res.json())
+          if (session?.user?.role === 'ADMIN') {
+            window.location.href = "/admin"
+          } else {
+            window.location.href = "/"
+          }
         }
       } catch (err) {
         setError("An error occurred during login")
