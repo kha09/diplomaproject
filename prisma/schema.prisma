@@ -1,0 +1,79 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id           Int       @id @default(autoincrement())
+  fullName     String
+  email        String    @unique
+  password     String
+  phoneNumber  String?
+  degree       String?
+  country      String?
+  city         String?
+  dateOfBirth  DateTime?
+  diplomaId    Int?
+  diploma      Diploma?  @relation(fields: [diplomaId], references: [id])
+  courses      Course[]  
+  role         String    @default("USER")
+  imagePath    String?
+}
+
+model Instructor {
+  id          Int      @id @default(autoincrement())
+  name        String
+  specialty   String
+  imagePath   String?
+  courses     Course[]
+}
+
+model Diploma {
+  id          Int      @id @default(autoincrement())
+  name        String
+  description String?
+  startDate   DateTime
+  finishDate  DateTime
+  price       Float
+  room        String?
+  courses     Course[]
+  users       User[]
+}
+
+model Course {
+  id          Int       @id @default(autoincrement())
+  name        String
+  description String?
+  startDate   DateTime
+  finishDate  DateTime
+  price       Float
+  room        String?
+  instructor  Instructor @relation(fields: [instructorId], references: [id])
+  instructorId Int
+  diploma     Diploma?  @relation(fields: [diplomaId], references: [id])
+  diplomaId   Int?
+  users       User[]
+}
+
+model Event {
+  id          Int      @id @default(autoincrement())
+  name        String
+  description String?
+  imagePath   String?
+  place       String?
+  startDate   DateTime
+  finishDate  DateTime
+  link        String?
+}
+
+model ContactUs {
+  id          Int      @id @default(autoincrement())
+  name        String
+  date        DateTime @default(now())
+  phone       String
+  email       String
+}
