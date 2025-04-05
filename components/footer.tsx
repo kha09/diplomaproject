@@ -6,7 +6,7 @@ import { Facebook, Instagram, Linkedin, Twitter, PhoneIcon as WhatsApp } from "l
 
 export default function Footer() {
   return (
-    <footer className="bg-[#0056a4] text-white py-8 px-4 md:px-8 lg:px-12 rtl">
+    <footer className="bg-[#005A98] text-white py-8 px-4 md:px-8 lg:px-12 rtl">
       <div className="container mx-auto">
         <div className="grid grid-cols-1 md:grid-cols-12 gap-8">
           {/* Left Logo and Copyright */}
