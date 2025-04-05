@@ -6,6 +6,11 @@ export async function middleware(request: NextRequest) {
   const token = await getToken({ req: request })
   const { pathname } = request.nextUrl
 
+  // Handle post-login redirect for admins
+  if (pathname === '/' && token?.role === 'ADMIN') {
+    return NextResponse.redirect(new URL('/admin', request.url))
+  }
+
   // Protect admin routes
   if (pathname.startsWith('/admin')) {
     if (!token) {

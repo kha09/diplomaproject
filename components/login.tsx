@@ -17,23 +17,22 @@ export default function LoginPage() {
     e.preventDefault()
     setError("")
     
-    const result = await signIn("credentials", {
-      redirect: false,
-      email,
-      password
-    })
+      try {
+        const result = await signIn("credentials", {
+          redirect: false,
+          email,
+          password
+        })
 
-    if (result?.error) {
-      setError("Invalid email or password")
-    } else if (result?.ok) {
-      // Check if user is admin and redirect accordingly
-      const session = await fetch("/api/auth/session").then(res => res.json())
-      if (session?.user?.role === "ADMIN") {
-        router.push("/admin")
-      } else {
-        router.push("/")
+        if (result?.error) {
+          setError(result.error)
+        } else if (result?.ok) {
+          // Force a hard refresh to ensure session is loaded
+          window.location.href = "/"
+        }
+      } catch (err) {
+        setError("An error occurred during login")
       }
-    }
   }
   return (
     <div className="flex min-h-screen items-center justify-center bg-[#003553] p-4">
