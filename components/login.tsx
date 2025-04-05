@@ -1,8 +1,40 @@
+'use client'
+
 import Image from "next/image"
 import Link from "next/link"
 import { EyeIcon } from "lucide-react"
+import { signIn } from "next-auth/react"
+import { useRouter } from "next/navigation"
+import { useState } from "react"
 
 export default function LoginPage() {
+  const [email, setEmail] = useState("")
+  const [password, setPassword] = useState("")
+  const [error, setError] = useState("")
+  const router = useRouter()
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault()
+    setError("")
+    
+    const result = await signIn("credentials", {
+      redirect: false,
+      email,
+      password
+    })
+
+    if (result?.error) {
+      setError("Invalid email or password")
+    } else if (result?.ok) {
+      // Check if user is admin and redirect accordingly
+      const session = await fetch("/api/auth/session").then(res => res.json())
+      if (session?.user?.role === "ADMIN") {
+        router.push("/admin")
+      } else {
+        router.push("/")
+      }
+    }
+  }
   return (
     <div className="flex min-h-screen items-center justify-center bg-[#003553] p-4">
       <div className="w-full max-w-md rounded-lg bg-white p-8 shadow-lg">
@@ -15,7 +47,7 @@ export default function LoginPage() {
           </p>
         </div>
 
-        <form className="space-y-6" dir="rtl">
+        <form className="space-y-6" dir="rtl" onSubmit={handleSubmit}>
           <div className="space-y-2">
             <label htmlFor="email" className="block text-right text-gray-700">
               البريد الالكتروني<span className="text-red-500">*</span>
@@ -26,6 +58,8 @@ export default function LoginPage() {
               placeholder="name@email.com"
               className="w-full rounded-md border border-gray-300 p-3 text-right"
               required
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
             />
           </div>
 
@@ -38,8 +72,10 @@ export default function LoginPage() {
                 id="password"
                 type="password"
                 placeholder="أدخل كلمة المرور"
-                className="w-full rounded-md border border-gray-300 p-3 text-right"
-                required
+              className="w-full rounded-md border border-gray-300 p-3 text-right"
+              required
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
               />
               <button
                 type="button"
@@ -56,9 +92,13 @@ export default function LoginPage() {
             </div>
           </div>
 
+          {error && (
+            <p className="text-center text-red-500">{error}</p>
+          )}
           <button
             type="submit"
             className="w-full rounded-md bg-[#0066a1] py-3 text-white transition-colors hover:bg-[#00558a]"
+            disabled={!email || !password}
           >
             تسجيل الدخول
           </button>
