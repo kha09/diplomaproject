@@ -8,29 +8,29 @@ datasource db {
 }
 
 model User {
-  id           Int       @id @default(autoincrement())
-  fullName     String
-  email        String    @unique
-  password     String
-  phoneNumber  String?
-  degree       String?
-  country      String?
-  city         String?
-  dateOfBirth  DateTime?
-  diplomaId    Int?
-  diploma      Diploma?  @relation(fields: [diplomaId], references: [id])
-  courses      Course[]  
-  role         String    @default("USER")
-  imagePath    String?
-  sessions     Session[]
+  id          Int       @id @default(autoincrement())
+  fullName    String
+  email       String    @unique
+  password    String
+  phoneNumber String?
+  degree      String?
+  country     String?
+  city        String?
+  dateOfBirth DateTime?
+  diplomaId   Int?
+  role        String    @default("USER")
+  imagePath   String?
+  sessions    Session[]
+  diploma     Diploma?  @relation(fields: [diplomaId], references: [id])
+  courses     Course[]  @relation("CourseToUser")
 }
 
 model Instructor {
-  id          Int      @id @default(autoincrement())
-  name        String
-  specialty   String
-  imagePath   String?
-  courses     Course[]
+  id        Int      @id @default(autoincrement())
+  name      String
+  specialty String
+  imagePath String?
+  courses   Course[]
 }
 
 model Diploma {
@@ -46,18 +46,18 @@ model Diploma {
 }
 
 model Course {
-  id          Int       @id @default(autoincrement())
-  name        String
-  description String?
-  startDate   DateTime
-  finishDate  DateTime
-  price       Float
-  room        String?
-  instructor  Instructor @relation(fields: [instructorId], references: [id])
+  id           Int        @id @default(autoincrement())
+  name         String
+  description  String?
+  startDate    DateTime
+  finishDate   DateTime
+  price        Float
+  room         String?
   instructorId Int
-  diploma     Diploma?  @relation(fields: [diplomaId], references: [id])
-  diplomaId   Int?
-  users       User[]
+  diplomaId    Int?
+  diploma      Diploma?   @relation(fields: [diplomaId], references: [id])
+  instructor   Instructor @relation(fields: [instructorId], references: [id])
+  users        User[]     @relation("CourseToUser")
 }
 
 model Event {
@@ -72,11 +72,11 @@ model Event {
 }
 
 model ContactUs {
-  id          Int      @id @default(autoincrement())
-  name        String
-  date        DateTime @default(now())
-  phone       String
-  email       String
+  id    Int      @id @default(autoincrement())
+  name  String
+  date  DateTime @default(now())
+  phone String
+  email String
 }
 
 model Session {
@@ -85,5 +85,6 @@ model Session {
   userId       Int
   expires      DateTime
   user         User     @relation(fields: [userId], references: [id])
+
   @@index([userId])
 }
