@@ -2,6 +2,7 @@
 
 import { DataTable } from "@/components/ui/data-table"
 import { Event } from "@prisma/client"
+import { Button } from "@/components/ui/button"; // Moved import here
 import { useEffect, useState } from "react"
 import { AddEvent } from "./add-event"
 
@@ -50,16 +51,62 @@ export default function EventsPage() {
           <p>Loading events...</p>
         </div>
       ) : (
-        <DataTable 
+        <DataTable
           columns={[
-            { header: "Name", accessorKey: "name" },
-            { header: "Date", accessorKey: "date" },
-            { header: "Location", accessorKey: "location" },
-            { header: "Description", accessorKey: "description" }
-          ]} 
-          data={events} 
+            {
+              header: "Name",
+              accessorKey: "name",
+            },
+            {
+              header: "Description",
+              accessorKey: "description",
+              cell: ({ row }) => row.original.description || 'N/A',
+            },
+             {
+              header: "Image",
+              accessorKey: "imagePath",
+              cell: ({ row }) => {
+                 const path = row.original.imagePath;
+                 return path ? <img src={path} alt={row.original.name} className="h-10 w-10 object-cover rounded" /> : 'N/A';
+              },
+            },
+            {
+              header: "Place",
+              accessorKey: "place",
+              cell: ({ row }) => row.original.place || 'N/A',
+            },
+            {
+              header: "Start Date",
+              accessorKey: "startDate",
+              cell: ({ row }) => new Date(row.original.startDate).toLocaleDateString(),
+            },
+            {
+              header: "Finish Date",
+              accessorKey: "finishDate",
+              cell: ({ row }) => new Date(row.original.finishDate).toLocaleDateString(),
+            },
+            {
+              header: "Link",
+              accessorKey: "link",
+              cell: ({ row }) => {
+                const link = row.original.link;
+                return link ? <a href={link} target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:underline">View Link</a> : 'N/A';
+              },
+            },
+            {
+              id: "actions",
+              header: "Actions",
+              cell: ({ row }) => (
+                <Button variant="destructive" size="sm" onClick={() => handleDelete(row.original.id)}>
+                  Delete
+                </Button>
+              ),
+            },
+          ]}
+          data={events}
         />
       )}
+      {/* Removed extra closing brace here */}
     </div>
   )
 }

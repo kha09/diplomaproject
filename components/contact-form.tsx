@@ -18,12 +18,34 @@ export default function ContactForm() {
     setFormData((prev) => ({ ...prev, [name]: value }))
   }
 
-  const handleSubmit = (e: React.FormEvent) => {
+  // Mark the function as async
+  const handleSubmit = async (e: React.FormEvent) => { 
     e.preventDefault()
     // Handle form submission
-    console.log("Form submitted:", formData)
-    // Reset form
-    setFormData({ name: "", phone: "", email: "" })
+    // Handle form submission
+    // console.log("Form submitted:", formData)
+    try {
+      const response = await fetch('/api/contact-messages', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
+      });
+
+      if (response.ok) {
+        console.log("Contact message sent successfully!");
+        // Optionally show a success message to the user
+        // Reset form
+        setFormData({ name: "", phone: "", email: "" });
+      } else {
+        console.error("Failed to send contact message:", await response.text());
+        // Optionally show an error message to the user
+      }
+    } catch (error) {
+      console.error("Error submitting contact form:", error);
+       // Optionally show an error message to the user
+    }
   }
 
   const handleReset = () => {

@@ -24,6 +24,40 @@ export const getColumns = (handleDelete: (id: number) => void): ColumnDef<User>[
     header: 'Role',
   },
   {
+    accessorKey: 'phoneNumber',
+    header: 'Phone',
+    cell: ({ row }) => row.original.phoneNumber || 'N/A', // Display N/A if null
+  },
+  {
+    accessorKey: 'degree',
+    header: 'Degree',
+     cell: ({ row }) => row.original.degree || 'N/A',
+  },
+  {
+    accessorKey: 'country',
+    header: 'Country',
+     cell: ({ row }) => row.original.country || 'N/A',
+  },
+  {
+    accessorKey: 'city',
+    header: 'City',
+     cell: ({ row }) => row.original.city || 'N/A',
+  },
+  {
+    accessorKey: 'dateOfBirth',
+    header: 'Date of Birth',
+    cell: ({ row }) => {
+      const date = row.original.dateOfBirth;
+      return date ? new Date(date).toLocaleDateString() : 'N/A'; // Format date or show N/A
+    },
+  },
+  // Optional: Display imagePath or render an image if needed
+  // {
+  //   accessorKey: 'imagePath',
+  //   header: 'Image',
+  //   cell: ({ row }) => row.original.imagePath ? <img src={row.original.imagePath} alt="User" width="40" /> : 'N/A',
+  // },
+  {
     id: 'actions',
     cell: ({ row }) => {
       const user = row.original
@@ -39,10 +73,16 @@ export const getColumns = (handleDelete: (id: number) => void): ColumnDef<User>[
             <DropdownMenuItem
               onClick={() => navigator.clipboard.writeText(user.id.toString())}
             >
-              Copy ID
+              Copy User ID
             </DropdownMenuItem>
-            <DropdownMenuItem>Edit</DropdownMenuItem>
-            <DropdownMenuItem>Delete</DropdownMenuItem>
+            {/* Add Edit functionality later if needed */}
+            {/* <DropdownMenuItem>Edit</DropdownMenuItem> */}
+            <DropdownMenuItem
+              onClick={() => handleDelete(user.id)} // Call handleDelete passed as prop
+              className="text-red-600"
+            >
+              Delete User
+            </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
       )

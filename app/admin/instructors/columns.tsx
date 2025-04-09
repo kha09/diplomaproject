@@ -23,6 +23,15 @@ export const columns = (handleDelete: (id: number) => void): ColumnDef<Instructo
     header: "Specialty",
   },
   {
+    accessorKey: "imagePath",
+    header: "Image",
+    cell: ({ row }) => {
+      const path = row.original.imagePath;
+      // Basic image rendering, assuming path is a valid URL or relative path
+      return path ? <img src={path} alt={row.original.name} className="h-10 w-10 object-cover rounded" /> : 'N/A';
+    },
+  },
+  {
     id: "actions",
     cell: ({ row }) => {
       const instructor = row.original

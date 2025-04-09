@@ -50,13 +50,50 @@ export default function DiplomasPage() {
           <p>Loading diplomas...</p>
         </div>
       ) : (
-        <DataTable 
+        <DataTable
+          // Define columns according to TanStack Table v8+ ColumnDef
           columns={[
-            { header: "Name", accessorKey: "name" },
-            { header: "Duration", accessorKey: "duration" },
-            { header: "Description", accessorKey: "description" }
-          ]} 
-          data={diplomas} 
+            {
+              header: "Name",
+              accessorKey: "name", // Matches the key in your Diploma data object
+            },
+            {
+              header: "Description",
+              accessorKey: "description",
+              cell: ({ row }) => row.original.description || 'N/A',
+            },
+            {
+              header: "Start Date",
+              accessorKey: "startDate",
+              cell: ({ row }) => new Date(row.original.startDate).toLocaleDateString(),
+            },
+            {
+              header: "Finish Date",
+              accessorKey: "finishDate",
+              cell: ({ row }) => new Date(row.original.finishDate).toLocaleDateString(),
+            },
+            {
+              header: "Price",
+              accessorKey: "price",
+              cell: ({ row }) => row.original.price.toLocaleString('en-US', { style: 'currency', currency: 'SAR' }), // Format as currency (e.g., SAR)
+            },
+            {
+              header: "Room",
+              accessorKey: "room",
+              cell: ({ row }) => row.original.room || 'N/A',
+            },
+            // Add Actions column if needed, similar to other tables
+            // {
+            //   id: "actions",
+            //   header: "Actions",
+            //   cell: ({ row }) => (
+            //     <Button variant="destructive" size="sm" onClick={() => handleDelete(row.original.id)}>
+            //       Delete
+            //     </Button>
+            //   ),
+            // },
+          ]}
+          data={diplomas}
         />
       )}
     </div>
