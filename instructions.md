@@ -5,7 +5,7 @@ http://localhost:3000/admin
 
 ## Default Admin Credentials
 - **Username:** admin@example.com
-- **Password:** Admin@1234
+- **Password:** admin123
 
 ## First Steps
 1. Log in using the credentials above
