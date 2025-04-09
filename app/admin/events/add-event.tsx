@@ -19,8 +19,10 @@ export function AddEvent({ onSuccess }: AddEventProps) {
   const [open, setOpen] = useState(false)
   const [name, setName] = useState("")
   const [description, setDescription] = useState("")
-  const [date, setDate] = useState("")
-  const [location, setLocation] = useState("")
+  const [startDate, setStartDate] = useState("")
+  const [finishDate, setFinishDate] = useState("")
+  const [place, setPlace] = useState("")
+  const [link, setLink] = useState("")
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
@@ -33,8 +35,10 @@ export function AddEvent({ onSuccess }: AddEventProps) {
         body: JSON.stringify({
           name,
           description,
-          date,
-          location
+          startDate,
+          finishDate,
+          place,
+          link
         }),
       })
       if (response.ok) {
@@ -42,8 +46,10 @@ export function AddEvent({ onSuccess }: AddEventProps) {
         onSuccess()
         setName("")
         setDescription("")
-        setDate("")
-        setLocation("")
+        setStartDate("")
+        setFinishDate("")
+        setPlace("")
+        setLink("")
       }
     } catch (error) {
       console.error('Error adding event:', error)
@@ -79,21 +85,38 @@ export function AddEvent({ onSuccess }: AddEventProps) {
             />
           </div>
           <div className="space-y-2">
-            <p className="text-sm font-medium">Date</p>
+            <p className="text-sm font-medium">Start Date</p>
             <Input
               type="datetime-local"
-              value={date}
-              onChange={(e) => setDate(e.target.value)}
+              value={startDate}
+              onChange={(e) => setStartDate(e.target.value)}
               required
             />
           </div>
           <div className="space-y-2">
-            <p className="text-sm font-medium">Location</p>
+            <p className="text-sm font-medium">End Date</p>
             <Input
-              value={location}
-              onChange={(e) => setLocation(e.target.value)}
-              placeholder="Location"
+              type="datetime-local"
+              value={finishDate}
+              onChange={(e) => setFinishDate(e.target.value)}
               required
+            />
+          </div>
+          <div className="space-y-2">
+            <p className="text-sm font-medium">Place</p>
+            <Input
+              value={place}
+              onChange={(e) => setPlace(e.target.value)}
+              placeholder="Event location"
+              required
+            />
+          </div>
+          <div className="space-y-2">
+            <p className="text-sm font-medium">Link</p>
+            <Input
+              value={link}
+              onChange={(e) => setLink(e.target.value)}
+              placeholder="Event link/URL"
             />
           </div>
           <Button type="submit">Save Event</Button>
