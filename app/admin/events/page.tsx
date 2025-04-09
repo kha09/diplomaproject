@@ -1,22 +1,65 @@
-import { Card } from "@/components/ui/card"
+"use client"
+
+import { DataTable } from "@/components/ui/data-table"
+import { Event } from "@prisma/client"
+import { useEffect, useState } from "react"
+import { AddEvent } from "./add-event"
 
 export default function EventsPage() {
+  const [events, setEvents] = useState<Event[]>([])
+  const [loading, setLoading] = useState(true)
+
+  const fetchEvents = async () => {
+    try {
+      const response = await fetch('/api/events')
+      const data = await response.json()
+      setEvents(data)
+    } catch (error) {
+      console.error('Error fetching events:', error)
+    } finally {
+      setLoading(false)
+    }
+  }
+
+  useEffect(() => {
+    fetchEvents()
+  }, [])
+
+  const handleDelete = async (id: number) => {
+    try {
+      await fetch(`/api/events/${id}`, {
+        method: 'DELETE'
+      })
+      setEvents(events.filter(e => e.id !== id))
+    } catch (error) {
+      console.error('Error deleting event:', error)
+    }
+  }
+
   return (
     <div className="space-y-6">
       <h1 className="text-3xl font-bold">Events Management</h1>
       
-      <Card className="p-6">
-        <div className="flex justify-between items-center mb-4">
-          <h2 className="text-xl font-semibold">Upcoming Events</h2>
-          <button className="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700">
-            Create Event
-          </button>
+      <div className="flex justify-between items-center">
+        <h2 className="text-xl font-semibold">Upcoming Events</h2>
+        <AddEvent onSuccess={fetchEvents} />
+      </div>
+      
+      {loading ? (
+        <div className="h-64 flex items-center justify-center">
+          <p>Loading events...</p>
         </div>
-        
-        <div className="h-64 bg-gray-100 rounded flex items-center justify-center">
-          <p className="text-gray-500">Events calendar will appear here</p>
-        </div>
-      </Card>
+      ) : (
+        <DataTable 
+          columns={[
+            { header: "Name", accessorKey: "name" },
+            { header: "Date", accessorKey: "date" },
+            { header: "Location", accessorKey: "location" },
+            { header: "Description", accessorKey: "description" }
+          ]} 
+          data={events} 
+        />
+      )}
     </div>
   )
 }
