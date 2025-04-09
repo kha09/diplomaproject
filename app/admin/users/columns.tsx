@@ -10,7 +10,7 @@ import {
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu'
 
-export const columns: ColumnDef<User>[] = [
+export const getColumns = (handleDelete: (id: number) => void): ColumnDef<User>[] => [
   {
     accessorKey: 'fullName',
     header: 'Name',

@@ -1,28 +1,61 @@
-import { DataTable } from './data-table'
-import { columns } from './columns'
-import prisma from '@/prisma/client'
-import Link from 'next/link'
+"use client"
 
-export default async function UsersPage() {
-  const users = await prisma.user.findMany({
-    include: {
-      diploma: true,
-      courses: true
+import { DataTable } from './data-table'
+import { getColumns } from './columns'
+import { User } from '@prisma/client'
+import { useEffect, useState } from 'react'
+import { AddUser } from './add-user'
+
+export default function UsersPage() {
+  const [users, setUsers] = useState<User[]>([])
+  const [loading, setLoading] = useState(true)
+
+  const fetchUsers = async () => {
+    try {
+      const response = await fetch('/api/admin/users')
+      const data = await response.json()
+      setUsers(data)
+    } catch (error) {
+      console.error('Error fetching users:', error)
+    } finally {
+      setLoading(false)
     }
-  })
+  }
+
+  useEffect(() => {
+    fetchUsers()
+  }, [])
+
+  const handleDelete = async (id: number) => {
+    try {
+      await fetch(`/api/admin/users/${id}`, {
+        method: 'DELETE'
+      })
+      setUsers(users.filter(u => u.id !== id))
+    } catch (error) {
+      console.error('Error deleting user:', error)
+    }
+  }
 
   return (
     <div className="space-y-6">
+      <h1 className="text-3xl font-bold">Users Management</h1>
+      
       <div className="flex justify-between items-center">
-        <h2 className="text-2xl font-bold">Users</h2>
-        <Link 
-          href="/admin/users/new"
-          className="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-colors"
-        >
-          Add User
-        </Link>
+        <h2 className="text-xl font-semibold">Users List</h2>
+        <AddUser onSuccess={fetchUsers} />
       </div>
-      <DataTable columns={columns} data={users} />
+      
+      {loading ? (
+        <div className="h-64 flex items-center justify-center">
+          <p>Loading users...</p>
+        </div>
+      ) : (
+        <DataTable 
+          columns={getColumns(handleDelete)} 
+          data={users} 
+        />
+      )}
     </div>
   )
 }
