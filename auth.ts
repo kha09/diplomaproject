@@ -1,8 +1,9 @@
-import { PrismaAdapter } from "@next-auth/prisma-adapter"
-import prisma from "./prisma/client"
-import type { NextAuthOptions } from "next-auth"
-import CredentialsProvider from "next-auth/providers/credentials"
-import { getServerSession } from "next-auth"
+import { PrismaAdapter } from "@next-auth/prisma-adapter";
+import prisma from "./prisma/client";
+import type { NextAuthOptions } from "next-auth";
+import CredentialsProvider from "next-auth/providers/credentials";
+import { getServerSession } from "next-auth";
+import bcrypt from "bcryptjs"; // Import bcrypt
 
 export const authOptions: NextAuthOptions = {
   adapter: PrismaAdapter(prisma),
@@ -30,11 +31,15 @@ export const authOptions: NextAuthOptions = {
           throw new Error("User not found")
         }
 
-        // In a real app, you should use proper password hashing like bcrypt
-        // This is simplified for demonstration
-        if (user.password !== credentials.password) {
-          console.log('Password mismatch')
-          throw new Error("Invalid password")
+        // Compare the provided password with the stored hash
+        const isPasswordValid = await bcrypt.compare(
+          credentials.password, 
+          user.password
+        );
+
+        if (!isPasswordValid) {
+          console.log('Password mismatch');
+          throw new Error("Invalid password");
         }
 
         console.log('Authorization successful, returning user:', {
