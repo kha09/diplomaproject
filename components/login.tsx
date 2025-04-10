@@ -18,24 +18,42 @@ export default function LoginPage() {
     setError("")
     
       try {
-        const result = await signIn("credentials", {
-          redirect: false,
+        // Add redirect: false back to handle redirect manually
+        const result = await signIn("credentials", { 
+          redirect: false, // ADDED BACK
           email,
           password
-        })
+        });
 
         if (result?.error) {
-          setError(result.error)
+          console.log("SignIn Error:", result.error);
+          setError(result.error === "CredentialsSignin" ? "Invalid email or password." : "Login failed. Please try again.");
         } else if (result?.ok) {
-          // Check if user is admin and redirect accordingly
-          const session = await fetch('/api/auth/session').then(res => res.json())
-          if (session?.user?.role === 'ADMIN') {
-            window.location.href = "/admin"
+          // Login successful! Now we manually redirect based on role.
+          // We need to fetch the session *after* signIn is confirmed ok.
+          // Note: Using getSession() client-side might be slightly delayed.
+          // A page refresh might be simpler if middleware handles everything.
+          // Let's try router.push first based on a quick session check.
+          
+          // Fetch session data to check role (alternative: could decode JWT if available client-side)
+          const sessionRes = await fetch('/api/auth/session'); // Built-in NextAuth endpoint
+          const sessionData = await sessionRes.json();
+
+          if (sessionData?.user?.role === 'ADMIN') {
+             console.log("Redirecting ADMIN to /admin");
+             router.push('/admin');
           } else {
-            window.location.href = "/"
+             console.log("Redirecting USER to /profile");
+             router.push('/profile'); // Redirect USER to profile
           }
+          // Optionally refresh to ensure all state is updated if push doesn't work reliably
+          // router.refresh(); 
+        } else {
+           // Handle unexpected cases where result is not ok and has no error
+           setError("Login failed. Please try again.");
         }
-      } catch (err) {
+
+      } catch (err) { 
         setError("An error occurred during login")
       }
   }

@@ -7,6 +7,14 @@ import bcrypt from "bcryptjs"; // Import bcrypt
 
 export const authOptions: NextAuthOptions = {
   adapter: PrismaAdapter(prisma),
+  // Explicitly define the sign-in page
+  pages: {
+    signIn: '/login', 
+    // signOut: '/auth/signout', // Optional: Define other pages if needed
+    // error: '/auth/error', // Optional: Error code passed in query string as ?error=
+    // verifyRequest: '/auth/verify-request', // Optional: (e.g. for email verification)
+    // newUser: '/auth/new-user' // Optional: New users will be directed here on first sign in (leave the property out to disable)
+  },
   providers: [
     CredentialsProvider({
       name: "Credentials",
@@ -73,18 +81,40 @@ export const authOptions: NextAuthOptions = {
         token.id = user.id
         token.role = user.role
       }
-      return token
+      return token;
     },
+    // Simplified redirect callback
     async redirect({ url, baseUrl, token }: { url: string, baseUrl: string, token?: any }) {
-      // Redirect admins to admin page after login
-      if (url === baseUrl && token?.role === 'ADMIN') {
-        return `${baseUrl}/admin`
+       console.log("--- Redirect Callback ---");
+       console.log("Received URL:", url);
+       console.log("Base URL:", baseUrl);
+       console.log("Token Role:", token?.role);
+
+      // If signing in or callback url is the base path
+      if (token) {
+        // Determine target based on role
+        let targetPath = '/'; // Default to homepage
+        if (token.role === 'ADMIN') {
+          targetPath = '/admin';
+        } else if (token.role === 'USER') {
+          targetPath = '/profile';
+        }
+        
+        // If the original URL was the base URL or the login page, redirect to the role-based target
+        if (url === baseUrl || url.startsWith(`${baseUrl}/login`)) {
+           const finalUrl = `${baseUrl}${targetPath}`;
+           console.log("Redirecting logged-in user to role-based target:", finalUrl);
+           return finalUrl;
+        }
+        
+        // If the original URL was something else (e.g., protected page), allow it
+        console.log("Allowing redirect to original URL:", url);
+        return url; 
       }
-      // Allows relative callback URLs
-      if (url.startsWith("/")) return `${baseUrl}${url}`
-      // Allows callback URLs on the same origin
-      else if (new URL(url).origin === baseUrl) return url
-      return baseUrl
+      
+      // If not logged in, handle normally (usually redirect to login or allow public pages)
+      console.log("No token, returning original/base URL:", url.startsWith(baseUrl) ? url : baseUrl);
+      return url.startsWith(baseUrl) ? url : baseUrl;
     }
   },
 }
