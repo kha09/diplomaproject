@@ -1,52 +1,55 @@
-import { NextResponse } from "next/server"
-import prisma from "@/prisma/client"
+import { NextResponse } from "next/server";
+import prisma from "@/prisma/client";
+import bcrypt from "bcryptjs"; // Import bcrypt
 
 export async function POST(request: Request) {
   try {
-    const { name, email, password } = await request.json()
+    const { fullName, email, password } = await request.json(); // Use fullName to match component state
 
     // Validate input
-    if (!name || !email || !password) {
+    if (!fullName || !email || !password) { // Check fullName
       return NextResponse.json(
-        { error: "Name, email and password are required" },
+        { error: "Full name, email and password are required" }, // Update error message
         { status: 400 }
-      )
+      );
     }
 
     // Check if user already exists
     const existingUser = await prisma.user.findUnique({
       where: { email }
-    })
+    });
 
     if (existingUser) {
       return NextResponse.json(
-        { error: "User already exists" },
+        { error: "User with this email already exists" }, // More specific error
         { status: 400 }
-      )
+      );
     }
 
-    // Create new user
+    // Hash the password
+    const hashedPassword = await bcrypt.hash(password, 10); // Hash with salt rounds 10
+
+    // Create new user with hashed password
     const user = await prisma.user.create({
       data: {
-        fullName: name,
+        fullName: fullName, // Use fullName from request body
         email,
-        password, // Note: In production, hash the password first
+        password: hashedPassword, // Store the hashed password
         role: "USER" // Default role
       }
-    })
+    });
 
-    return NextResponse.json({ 
-      id: user.id,
-      name: user.fullName,
-      email: user.email,
-      role: user.role
-    }, { status: 201 })
+    // Don't return the password in the response
+    const { password: _, ...userWithoutPassword } = user;
+
+    return NextResponse.json(userWithoutPassword, { status: 201 }); // Return user data without password
 
   } catch (error) {
-    console.error('Registration error:', error)
+    console.error('Registration error:', error);
+    // Provide a more generic error message for security
     return NextResponse.json(
-      { error: "Internal server error" },
+      { error: "An error occurred during registration." },
       { status: 500 }
-    )
+    );
   }
 }
