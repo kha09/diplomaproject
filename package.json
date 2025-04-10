@@ -6,7 +6,9 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "update-admin": "tsc scripts/updateAdminPassword.ts --outDir dist/scripts && node dist/scripts/updateAdminPassword.js",
+    "create-admin": "ts-node-dev --respawn --transpile-only scripts/createAdminUser.ts" 
   },
   "dependencies": {
     "@next-auth/prisma-adapter": "^1.0.7",
@@ -35,6 +37,7 @@
     "postcss": "^8",
     "prisma": "^6.5.0",
     "tailwindcss": "^3.4.17",
+    "ts-node-dev": "^2.0.0",
     "typescript": "^5"
   }
 }
