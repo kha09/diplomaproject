@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "next build",
+    "build": "prisma generate && next build",
     "start": "next start",
     "lint": "next lint",
     "update-admin": "tsc scripts/updateAdminPassword.ts --outDir dist/scripts && node dist/scripts/updateAdminPassword.js",
