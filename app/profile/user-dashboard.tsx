@@ -193,31 +193,43 @@ export default function Dashboard() {
 
       const updatedUserData: UpdatedUserData = await profileResponse.json();
 
-      // 3. Update the session client-side
-      const updatedSessionUser: Session['user'] = {
-          id: updatedUserData.id.toString(),
+      // 3. Update the session client-side with ALL relevant fields from the API response
+      // We need to cast to 'any' or extend the Session['user'] type if necessary
+      // to include custom fields like role, phoneNumber, etc.
+      const updatedSessionUser = {
+          // Standard fields
+          id: updatedUserData.id.toString(), // Ensure ID is string for session
           name: updatedUserData.fullName ?? null,
           email: updatedUserData.email ?? null,
-          // Use the image path that was actually saved (which is formData.imagePath since upload is disabled)
-          image: profileDataToSave.imagePath,
+          image: updatedUserData.imagePath ?? null, // Use imagePath from API response
+          // Custom fields returned by API
           role: updatedUserData.role,
+          phoneNumber: updatedUserData.phoneNumber,
+          degree: updatedUserData.degree,
+          country: updatedUserData.country,
+          city: updatedUserData.city,
+          dateOfBirth: updatedUserData.dateOfBirth, // Keep as Date object or ISO string as returned
+          imagePath: updatedUserData.imagePath, // Explicitly include imagePath
       };
 
       await update({
          ...session,
-         user: updatedSessionUser,
+         user: updatedSessionUser as any, // Use 'as any' for simplicity or update Session type
        });
 
-      // Update local state
-      setFormData(prev => ({
-          ...prev,
-          ...profileDataToSave,
-          dateOfBirth: profileDataToSave.dateOfBirth ? formatDateForInput(profileDataToSave.dateOfBirth) : null,
-          // Ensure local imagePath reflects the saved state
-          imagePath: profileDataToSave.imagePath
-      }));
-      // Update preview to reflect saved state
-      setImagePreview(profileDataToSave.imagePath || "/static/images/default-avatar.png");
+      // Update local state based on the data RETURNED from the API
+      setFormData({
+          fullName: updatedUserData.fullName || "",
+          email: updatedUserData.email || "",
+          phoneNumber: updatedUserData.phoneNumber || null,
+          degree: updatedUserData.degree || null,
+          country: updatedUserData.country || null,
+          city: updatedUserData.city || null,
+          dateOfBirth: updatedUserData.dateOfBirth ? formatDateForInput(updatedUserData.dateOfBirth) : null,
+          imagePath: updatedUserData.imagePath || null,
+      });
+      // Update preview to reflect saved state from API response
+      setImagePreview(updatedUserData.imagePath || "/static/images/default-avatar.png");
 
       setSuccessMessage("تم تحديث الملف الشخصي بنجاح!");
       setIsEditing(false);
