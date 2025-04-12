@@ -1,19 +1,22 @@
 import Image from "next/image"
 import { ChevronDown } from "lucide-react"
 import { Button } from "@/components/ui/button"
+import Header from "@/components/header" // Import Header
+import Footer from "@/components/footer" // Import Footer
 
 // Import the CSS file
-import './diploma.css'; 
+import './diploma.css';
 
 export default function Home() {
   return (
     <main className="min-h-screen">
+      <Header /> {/* Add Header component */}
       {/* Hero Section with Wave */}
       <div className="relative">
         {/* Background Image instead of yellow area */}
-        <div className="relative h-[350px] w-full overflow-hidden">
+        <div className="relative h-[450px] w-full overflow-hidden"> {/* Removed border again */}
           <Image
-            src="/placeholder.svg?height=350&width=1200"
+            src="/static/images/Mask Group 30.png?height=350&width=1200"
             alt="Hero background"
             fill
             className="object-cover"
@@ -30,8 +33,8 @@ export default function Home() {
           </div>
 
           {/* Wave Shape */}
-          <div className="absolute bottom-0 left-0 right-0">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 120" className="w-full">
+          <div className="absolute bottom-[-1px] left-0 right-0"> {/* Move container down 1px */}
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 120" className="w-full block"> {/* Add block to SVG */}
               <path
                 fill="#ffffff"
                 fillOpacity="1"
@@ -114,6 +117,7 @@ export default function Home() {
           </div>
         </div>
       </div>
+      <Footer /> {/* Add Footer component */}
     </main>
   )
 }
