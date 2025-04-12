@@ -13,7 +13,7 @@ export default function TrainingSection() {
           {/* Right column - Training courses */}
           <div className="space-y-8">
             {/* Course 1 */}
-            <div className="flex flex-col md:flex-row gap-4 items-start">
+            {/* <div className="flex flex-col md:flex-row gap-4 items-start">
               <div className="w-full md:w-2/3 text-right">
                 <h3 className="text-xl font-bold text-teal-700 mb-2">اسم الدورة التدريبية</h3>
                 <p className="text-sm text-gray-600 mb-2">
@@ -32,7 +32,8 @@ export default function TrainingSection() {
                   className="rounded-md object-cover w-full h-auto"
                 />
               </div>
-            </div>
+            </div> 
+            *\ }
 
             {/* Course 2 */}
             <div className="flex flex-col md:flex-row gap-4 items-start">
