@@ -41,12 +41,8 @@ const excellenceItems = [
 ]
 
 export default function ExcellenceAwards() {
-  // State to track the current page of the carousel
+  // State to track the current index of the carousel
   const [currentPage, setCurrentPage] = useState(0)
-  // Number of items to show per page
-  const itemsPerPage = 4
-  // Calculate total number of pages
-  const totalPages = Math.ceil(excellenceItems.length / itemsPerPage)
   // State to track which award is being hovered
   const [hoveredAward, setHoveredAward] = useState<number | null>(null)
   // State to track if the section is visible
@@ -56,14 +52,16 @@ export default function ExcellenceAwards() {
   // Ref for the section element
   const sectionRef = useRef<HTMLElement>(null)
 
-  // Function to go to the next page
+  const totalItems = excellenceItems.length;
+
+  // Function to go to the next item
   const nextPage = () => {
-    setCurrentPage((prev) => (prev === totalPages - 1 ? 0 : prev + 1))
+    setCurrentPage((prev) => (prev + 1) % totalItems);
   }
 
-  // Function to go to the previous page
+  // Function to go to the previous item
   const prevPage = () => {
-    setCurrentPage((prev) => (prev === 0 ? totalPages - 1 : prev - 1))
+    setCurrentPage((prev) => (prev - 1 + totalItems) % totalItems);
   }
 
   // Check if section is visible on scroll
@@ -94,16 +92,24 @@ export default function ExcellenceAwards() {
       nextPage()
     }, 6000)
     return () => clearInterval(interval)
-  }, [isPaused, totalPages])
+  }, [isPaused, totalItems]) // Depend on totalItems
 
-  // Get current items to display
+  // Get the 4 items to display for the current page (sliding window)
   const getCurrentItems = () => {
-    const startIndex = currentPage * itemsPerPage
-    return excellenceItems.slice(startIndex, startIndex + itemsPerPage)
-  }
+    const itemsToShow = [];
+    for (let i = 0; i < 4; i++) {
+      const itemIndex = (currentPage + i) % totalItems;
+      itemsToShow.push(excellenceItems[itemIndex]);
+    }
+    // Ensure unique keys if items wrap around and might repeat in edge cases (though unlikely with unique IDs)
+    // Add a temporary unique key based on position if needed, but item.id should suffice
+    return itemsToShow;
+  };
+
+  const currentItems = getCurrentItems();
 
   return (
-    <section 
+    <section
       ref={sectionRef}
       className="py-10 bg-gray-50"
       onMouseEnter={() => setIsPaused(true)}
@@ -120,23 +126,22 @@ export default function ExcellenceAwards() {
         </div>
 
         <div className="relative">
-          <div 
-            className={`grid gap-6 md:grid-cols-2 lg:grid-cols-4 transition-all duration-500 ${
+          {/* Container for the grid of 4 items */}
+          <div
+            className={`grid gap-6 md:grid-cols-2 lg:grid-cols-4 transition-all duration-500 ${ // Back to grid
               isPaused ? "scale-[0.98]" : "scale-100"
-            }`} 
+            }`}
             dir="rtl"
           >
-            {getCurrentItems().map((item, index) => (
-              <div 
-                key={item.id} 
-                className={`bg-white rounded-lg shadow-md overflow-hidden transition-all duration-500 transform ${
-                  isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-20"
-                } ${
-                  hoveredAward === item.id 
-                    ? "shadow-xl scale-[1.03] bg-white" 
-                    : ""
-                }`}
-                style={{ transitionDelay: `${index * 100}ms` }}
+            {/* Render the 4 current items */}
+            {currentItems.map((item, index) => ( // Use index for potential transition delay
+              <div
+                key={`${item.id}-${currentPage}-${index}`} // More robust key for sliding window
+                className={`bg-white rounded-lg shadow-md overflow-hidden transition-all duration-500 transform 
+                  ${ isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-20" } 
+                  ${ hoveredAward === item.id ? "shadow-xl scale-[1.03] bg-white" : "" }
+                `}
+                 style={{ transitionDelay: `${index * 100}ms` }} // Re-add transition delay based on grid position
                 onMouseEnter={() => setHoveredAward(item.id)}
                 onMouseLeave={() => setHoveredAward(null)}
               >
@@ -158,11 +163,11 @@ export default function ExcellenceAwards() {
                     {item.description}
                   </p>
                   <div className="flex justify-center mt-4">
-                    <Link 
-                      href="#" 
+                    <Link
+                      href="#"
                       className={`px-4 py-2 rounded-md text-sm font-medium transition-all duration-300 ${
-                        hoveredAward === item.id 
-                          ? "bg-[#00C1BF] text-white" 
+                        hoveredAward === item.id
+                          ? "bg-[#00C1BF] text-white"
                           : "bg-[#005A98] text-white"
                       }`}
                     >
@@ -173,8 +178,6 @@ export default function ExcellenceAwards() {
               </div>
             ))}
           </div>
-
-          {/* Navigation buttons - Removed from here */}
         </div>
 
         {/* Simplified arrow-only navigation */}
