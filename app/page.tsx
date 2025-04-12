@@ -24,6 +24,22 @@ export default function Home() {
       <TrainingSection />
       <PartnersSection />
       <Footer />
+
+      {/* JSON-LD Structured Data */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "Organization",
+            "name": "QEA Tourism",
+            "url": "https://www.qeatourism.com/", // Replace with your actual domain
+            "logo": "https://www.qeatourism.com/static/images/logoprizenew.png", // Absolute URL needed
+            "description": "دبلوم أخصائي الجودة والتميز السياحي والمزيد",
+            // Add "sameAs": ["URL1", "URL2"] if you have social media profile URLs
+          }),
+        }}
+      />
     </main>
   )
 }
