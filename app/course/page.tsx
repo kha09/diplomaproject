@@ -19,8 +19,9 @@ export default async function TrainingPrograms() {
   let courses: CourseWithRelations[] = [];
   let fetchError: string | null = null;
   try {
-    // Use relative path for internal API calls
-    const response = await fetch(`/api/courses`, { 
+    // Construct absolute URL for server-side fetch
+    const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000'; // Use env var or fallback
+    const response = await fetch(`${baseUrl}/api/courses`, { 
         cache: 'no-store' // Keep no-store as data should be fresh
     }); 
     if (!response.ok) {
