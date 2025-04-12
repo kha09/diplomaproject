@@ -68,6 +68,22 @@ export const authOptions: NextAuthOptions = {
   session: {
     strategy: "jwt"
   },
+  // Explicitly configure cookies for production/Vercel
+  useSecureCookies: process.env.NEXTAUTH_URL?.startsWith("https://"),
+  cookies: {
+    sessionToken: {
+      name: `__Secure-next-auth.session-token`, // Use secure prefix if using HTTPS
+      options: {
+        httpOnly: true,
+        sameSite: 'lax',
+        path: '/',
+        secure: process.env.NEXTAUTH_URL?.startsWith("https://"),
+        // Consider adding domain if needed, but often not required on Vercel
+        // domain: process.env.NEXTAUTH_URL ? new URL(process.env.NEXTAUTH_URL).hostname : undefined, 
+      },
+    },
+    // Configure other cookies (callback, csrf) similarly if needed
+  },
   callbacks: {
     async session({ session, token }: { session: any, token?: any }) {
       if (token) {
