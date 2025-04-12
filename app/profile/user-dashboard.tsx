@@ -49,6 +49,7 @@ export default function Dashboard() {
     dateOfBirth: null,
     imagePath: null,
   });
+  // Keep image state even if upload is disabled for now
   const [selectedImageFile, setSelectedImageFile] = useState<File | null>(null);
   const [imagePreview, setImagePreview] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(false);
@@ -74,14 +75,12 @@ export default function Dashboard() {
   useEffect(() => {
     let initialImagePath = "/static/images/default-avatar.png";
     if (session?.user) {
-      // Cast session.user to 'any' or a more specific extended type if necessary
-      // to access fields not in the base Session['user'] type during initialization.
       const user = session.user as any;
       const dob = user.dateOfBirth ? formatDateForInput(user.dateOfBirth) : null;
       initialImagePath = user.imagePath || initialImagePath;
 
       setFormData({
-        fullName: user.name || "", // Initialize from session.user.name
+        fullName: user.name || "",
         email: user.email || "",
         phoneNumber: user.phoneNumber || null,
         degree: user.degree || null,
@@ -100,6 +99,7 @@ export default function Dashboard() {
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
+   // Keep image change handler even if UI is commented out
    const handleImageChange = (e: ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files[0]) {
       const file = e.target.files[0];
@@ -151,9 +151,12 @@ export default function Dashboard() {
     setIsLoading(true);
     setError(null);
     setSuccessMessage(null);
-    let uploadedImagePath: string | null = formData.imagePath;
+    // Fix: Ensure uploadedImagePath is initialized correctly from formData
+    let uploadedImagePath: string | null = formData.imagePath ?? null;
 
     try {
+      // --- Temporarily Disable Image Upload Logic ---
+      /*
       // 1. Upload image
       if (selectedImageFile) {
         const imageFormData = new FormData();
@@ -166,11 +169,14 @@ export default function Dashboard() {
         const uploadResult = await uploadResponse.json();
         uploadedImagePath = uploadResult.filePath;
       }
+      */
+      // --- End Temporarily Disable ---
 
-      // 2. Update profile data
+      // 2. Update profile data (imagePath will remain unchanged or null)
       const profileDataToSave = {
         ...formData,
-        imagePath: uploadedImagePath,
+        // Keep existing imagePath since upload is disabled
+        imagePath: formData.imagePath ?? null, // Use existing path from form data
         dateOfBirth: formData.dateOfBirth ? new Date(formData.dateOfBirth).toISOString() : null,
       };
 
@@ -185,25 +191,21 @@ export default function Dashboard() {
         throw new Error(errorData.message || "Failed to update profile.");
       }
 
-      // Explicitly type the response data based on API's select statement
       const updatedUserData: UpdatedUserData = await profileResponse.json();
 
       // 3. Update the session client-side
-      // Construct the user object strictly according to the Session['user'] type
-      // Ensure all assigned values match the target type (string | null or string)
       const updatedSessionUser: Session['user'] = {
           id: updatedUserData.id.toString(),
-          name: updatedUserData.fullName ?? null, // Add null check for safety
-          email: updatedUserData.email ?? null, // Add null check for safety
-          // Be extremely explicit with the null check for the image property
-          image: (updatedUserData.imagePath === undefined || updatedUserData.imagePath === null) ? null : updatedUserData.imagePath,
+          name: updatedUserData.fullName ?? null,
+          email: updatedUserData.email ?? null,
+          // Use the image path that was actually saved (which is formData.imagePath since upload is disabled)
+          image: profileDataToSave.imagePath,
           role: updatedUserData.role,
       };
 
-      // Perform the update
       await update({
-         ...session, // Spread the existing session
-         user: updatedSessionUser, // Provide the correctly typed user object
+         ...session,
+         user: updatedSessionUser,
        });
 
       // Update local state
@@ -211,13 +213,15 @@ export default function Dashboard() {
           ...prev,
           ...profileDataToSave,
           dateOfBirth: profileDataToSave.dateOfBirth ? formatDateForInput(profileDataToSave.dateOfBirth) : null,
-          imagePath: uploadedImagePath
+          // Ensure local imagePath reflects the saved state
+          imagePath: profileDataToSave.imagePath
       }));
-      setImagePreview(uploadedImagePath || "/static/images/default-avatar.png");
+      // Update preview to reflect saved state
+      setImagePreview(profileDataToSave.imagePath || "/static/images/default-avatar.png");
 
       setSuccessMessage("تم تحديث الملف الشخصي بنجاح!");
       setIsEditing(false);
-      setSelectedImageFile(null);
+      setSelectedImageFile(null); // Clear selection even if upload was disabled
     } catch (err: any) {
       setError(err.message || "حدث خطأ غير متوقع.");
     } finally {
@@ -300,6 +304,9 @@ export default function Dashboard() {
           </div>
           {error && <p className="text-red-500 text-sm mb-4 bg-red-100 p-3 rounded-md">{error}</p>}
           {successMessage && <p className="text-green-600 text-sm mb-4 bg-green-100 p-3 rounded-md">{successMessage}</p>}
+
+          {/* --- Temporarily Disable Image Upload UI --- */}
+          {/*
           {isEditing && (
             <div className="flex flex-col items-center sm:flex-row sm:items-start mb-6">
               <label className="w-full sm:w-32 font-medium text-gray-600 mb-2 sm:mb-0 shrink-0 pt-2">الصورة الشخصية:</label>
@@ -319,6 +326,9 @@ export default function Dashboard() {
               </div>
             </div>
            )}
+           */}
+           {/* --- End Temporarily Disable --- */}
+
           <div className="space-y-4">
             {/* Fields: Full Name, Email, Phone, Degree, Country, City, DOB */}
             <div className="flex flex-col sm:flex-row sm:items-center">
