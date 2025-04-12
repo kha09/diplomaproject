@@ -54,18 +54,19 @@ export default function HeroSection() {
             />
             {/* Subtle dark overlay for text readability */}
             <div className="absolute inset-0 bg-black/30" />
-
-            <div className="absolute inset-0 flex flex-col items-end justify-center px-12 text-right text-white">
-              <div className="mb-8 max-w-2xl">
-                <h1 className="mb-4 text-5xl font-bold leading-tight text-white" dir="rtl">
-                  {slide.titleAr}
-                </h1>
-                <h2 className="text-3xl font-semibold text-white">{slide.titleEn}</h2>
-              </div>
-            </div>
           </div>
         </div>
       ))}
+
+      {/* Static Title Overlay */}
+      <div className="absolute inset-0 flex flex-col items-end justify-center px-12 text-right text-white z-10 pointer-events-none">
+        <div className="mb-8 max-w-2xl">
+          <h1 className="mb-4 text-5xl font-bold leading-tight text-white" dir="rtl">
+            جائزة الجودة والتميز السياحي {/* Static H1 */}
+          </h1>
+          <p className="text-3xl font-semibold text-white">Tourism Quality and Excellence Award</p> {/* Changed from H2 */}
+        </div>
+      </div>
 
       {/* Wave shape curve at the bottom */}
       <div className="absolute bottom-0 left-0 w-full overflow-hidden">
