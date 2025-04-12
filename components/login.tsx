@@ -155,6 +155,8 @@ export default function LoginPage() {
             <div className="flex-grow border-t border-gray-300"></div>
           </div>
 
+          {/* Temporarily comment out Google Sign-in button */}
+          {/*
           <button
             type="button"
             className="flex w-full items-center justify-center gap-2 rounded-md border border-gray-300 bg-white py-3 text-gray-700 transition-colors hover:bg-gray-50"
@@ -162,6 +164,7 @@ export default function LoginPage() {
             <Image src="/google-logo.svg" alt="Google" width={20} height={20} />
             <span>تسجيل دخول مباشر</span>
           </button>
+          */}
 
           <p className="text-center text-sm text-gray-600" dir="rtl">
             <Link href="/signup" className="text-[#0066a1] hover:underline">
