@@ -83,31 +83,34 @@ export const authOptions: NextAuthOptions = {
       }
       return token;
     },
-    // Simplified redirect callback - rely more on defaults and middleware
+    // Reverted: Always redirect logged-in users based on role from callback
     async redirect({ url, baseUrl, token }: { url: string, baseUrl: string, token?: any }) {
        console.log("--- Redirect Callback ---");
        console.log("Received URL:", url);
        console.log("Base URL:", baseUrl);
        console.log("Token Role:", token?.role);
 
-       // If the user is logging in (token just became available)
-       // and the requested URL is the login page itself,
-       // determine the role-based redirect.
-       // Check if the relative path is /login
-       const relativeUrl = url.startsWith(baseUrl) ? url.substring(baseUrl.length) : url;
-       const isLoggingInOnLoginPage = token && relativeUrl.startsWith('/login');
+      // If the user is logged in (token exists), determine redirect target
+      if (token) {
+        let targetPath = '/profile'; // Default target for logged-in USER
+        if (token.role === 'ADMIN') {
+          targetPath = '/admin'; // Target for ADMIN
+        }
+        const roleBasedUrl = `${baseUrl}${targetPath}`;
+        console.log("Token exists. Determined Role-based Target:", roleBasedUrl);
 
-       if (isLoggingInOnLoginPage) {
-           const destination = token.role === 'ADMIN' ? `${baseUrl}/admin` : `${baseUrl}/profile`;
-           console.log("Detected login on login page, redirecting to:", destination);
-           return destination;
-       }
+        // If the original URL was the login page, redirect to the role-based URL.
+        // Otherwise (e.g., accessing a protected page directly), let middleware handle it later?
+        // Let's try always returning the role-based URL if the token exists.
+        // This should handle the immediate post-login redirect.
+        console.log("Returning role-based URL:", roleBasedUrl);
+        return roleBasedUrl;
+      }
 
-       // If the user is already logged in and trying to access a specific page (e.g., from a bookmark or callbackUrl)
-       // Let the middleware handle protection/redirection based on the requested 'url'.
-       // If the user is not logged in, also return the original 'url'.
-       console.log("Not a direct login redirect case, returning original/requested URL for middleware:", url);
-       return url; // Return the original URL requested or the baseUrl if login failed
+      // If not logged in (no token), allow the original URL
+      // (middleware should handle redirecting to login if needed for protected routes)
+      console.log("No token, allowing original URL:", url);
+      return url;
     }
   },
 }
