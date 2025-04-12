@@ -13,17 +13,30 @@ export async function PUT(request: Request) {
 
   try {
     const body = await request.json();
-    // Correctly destructure fullName based on the schema
-    const { fullName, email } = body; // Add other fields if needed (e.g., phone)
+    // Destructure all fields from the body based on UserData interface and Prisma schema
+    const {
+      fullName,
+      email,
+      phoneNumber,
+      degree,
+      country,
+      city,
+      dateOfBirth, // This will be an ISO string or null from the frontend
+      imagePath,   // This will be the new or existing image path
+    } = body;
 
-    // 2. Validate incoming data (basic validation) using fullName
+    // 2. Validate incoming data (add more specific validation as needed)
     if (!fullName || typeof fullName !== 'string' || fullName.trim() === '') {
-      return NextResponse.json({ message: 'Full name is required' }, { status: 400 }); // Use fullName in validation
+      return NextResponse.json({ message: 'Full name is required' }, { status: 400 });
     }
     if (!email || typeof email !== 'string' || !/\S+@\S+\.\S+/.test(email)) {
       return NextResponse.json({ message: 'Valid email is required' }, { status: 400 });
     }
-    // Add validation for other fields if necessary
+    // Optional: Add validation for phone number format, country/city existence, etc.
+    if (dateOfBirth && isNaN(new Date(dateOfBirth).getTime())) {
+        return NextResponse.json({ message: 'Invalid date of birth format.' }, { status: 400 });
+    }
+
 
     // Convert session user ID string to integer for Prisma
     const userIdInt = parseInt(session.user.id, 10);
@@ -33,26 +46,36 @@ export async function PUT(request: Request) {
 
     // 3. Update user data in the database
     const updatedUser = await prisma.user.update({
-      where: { id: userIdInt }, // Use the integer ID
+      where: { id: userIdInt },
       data: {
-        fullName: fullName.trim(), // Use fullName
-        email: email.trim().toLowerCase(), // Store email consistently
-        // Add other fields to update from your schema if needed:
-        // phoneNumber: body.phoneNumber || null,
-        // degree: body.degree || null,
-        // country: body.country || null,
-        // city: body.city || null,
-        // dateOfBirth: body.dateOfBirth ? new Date(body.dateOfBirth) : null, // Ensure date is handled correctly
-        // imagePath: body.imagePath || null,
+        fullName: fullName.trim(),
+        email: email.trim().toLowerCase(),
+        // Use nullish coalescing to handle potentially undefined optional fields
+        phoneNumber: phoneNumber ?? null,
+        degree: degree ?? null,
+        country: country ?? null,
+        city: city ?? null,
+        // Convert valid ISO string dateOfBirth back to Date object for Prisma, or null
+        dateOfBirth: dateOfBirth ? new Date(dateOfBirth) : null,
+        imagePath: imagePath ?? null, // Save the image path
       },
-      // Optionally select only needed fields to return
-      // select: { id: true, name: true, email: true, role: true }
+      // Select all fields needed for the session update and potential display
+      select: {
+          id: true,
+          fullName: true,
+          email: true,
+          phoneNumber: true,
+          degree: true,
+          country: true,
+          city: true,
+          dateOfBirth: true,
+          imagePath: true,
+          role: true,
+      }
     });
 
-    // 4. Return success response
-    // Avoid sending back sensitive data like password hashes
-    const { password, ...userWithoutPassword } = updatedUser;
-    return NextResponse.json(userWithoutPassword, { status: 200 });
+    // 4. Return success response with the updated user data (password already excluded by select)
+    return NextResponse.json(updatedUser, { status: 200 });
 
   } catch (error) {
     console.error('Error updating user profile:', error);
