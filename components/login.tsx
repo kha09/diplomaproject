@@ -18,39 +18,20 @@ export default function LoginPage() {
     setError("")
     
       try {
-        // Add redirect: false back to handle redirect manually
+        // Let signIn handle the redirect by default (no redirect: false)
         const result = await signIn("credentials", { 
-          redirect: false, // ADDED BACK
+          // redirect: false, // REMOVED
           email,
           password
         });
 
+        // If signIn fails (e.g., wrong credentials), it stays on the page 
+        // and result.error will be set. Successful sign-in redirects away.
         if (result?.error) {
           console.log("SignIn Error:", result.error);
           setError(result.error === "CredentialsSignin" ? "Invalid email or password." : "Login failed. Please try again.");
-        } else if (result?.ok) {
-          // Login successful! Now we manually redirect based on role.
-          // We need to fetch the session *after* signIn is confirmed ok.
-          // Note: Using getSession() client-side might be slightly delayed.
-          // A page refresh might be simpler if middleware handles everything.
-          // Let's try router.push first based on getSession.
-          console.log("SignIn successful (result.ok). Fetching session client-side...");
-          const session = await getSession(); // Use getSession client-side hook
-          console.log("Client-side session:", session);
-
-          if (session?.user?.role === 'ADMIN') {
-             console.log("Redirecting ADMIN to /admin");
-             router.push('/admin');
-             router.refresh(); // Force refresh for Vercel state update
-          } else {
-             console.log("Redirecting USER to /profile");
-             router.push('/profile'); // Redirect USER to profile
-             router.refresh(); // Force refresh for Vercel state update
-          }
-        } else {
-           // Handle unexpected cases where result is not ok and has no error
-           setError("Login failed. Please try again.");
-        }
+        } 
+        // No need for result.ok check as success redirects
 
       } catch (err) { 
         setError("An error occurred during login")
