@@ -86,21 +86,96 @@ export const authOptions: NextAuthOptions = {
     // Configure other cookies (callback, csrf) similarly if needed
   },
   callbacks: {
-    async session({ session, token }: { session: any, token?: any }) {
-      if (token) {
-        session.user.id = token.id as string
-        session.user.role = token.role as string
-      }
-      return session
-    },
-    async jwt({ token, user }: { token: any, user?: any }) {
+    async jwt({ token, user, trigger, session }: { token: any, user?: any, trigger?: "signIn" | "signUp" | "update", session?: any }) {
+      // 1. Initial sign in: Add basic info from authorize() result
       if (user) {
-        token.id = user.id
-        token.role = user.role
+        token.id = user.id;
+        token.role = user.role;
+        // We might not have all fields here yet, depending on authorize() return
       }
+
+      // 2. Update trigger: If session was updated (e.g., profile save), refresh token data
+      if (trigger === "update" && session?.user) {
+        console.log("JWT Callback: Update trigger detected, refreshing token data from session:", session.user);
+        // Overwrite token fields with the updated session data
+        token.id = session.user.id;
+        token.name = session.user.name; // fullName is usually mapped to name
+        token.email = session.user.email;
+        token.picture = session.user.image; // imagePath is usually mapped to picture/image
+        token.role = session.user.role;
+        token.phoneNumber = session.user.phoneNumber;
+        token.degree = session.user.degree;
+        token.country = session.user.country;
+        token.city = session.user.city;
+        token.dateOfBirth = session.user.dateOfBirth;
+        token.imagePath = session.user.imagePath;
+        return token; // Return updated token immediately
+      }
+
+      // 3. On subsequent JWT reads (or initial if needed): Fetch full user data
+      // Ensure we have an ID to fetch the user
+      if (token.id) {
+        try {
+          const dbUser = await prisma.user.findUnique({
+            where: { id: parseInt(token.id as string, 10) },
+            select: {
+              id: true,
+              fullName: true,
+              email: true,
+              role: true,
+              phoneNumber: true,
+              degree: true,
+              country: true,
+              city: true,
+              dateOfBirth: true,
+              imagePath: true,
+            }
+          });
+
+          if (dbUser) {
+            // Update token with fresh data from DB
+            token.id = dbUser.id.toString(); // Keep ID as string in token
+            token.name = dbUser.fullName;
+            token.email = dbUser.email;
+            token.role = dbUser.role;
+            token.phoneNumber = dbUser.phoneNumber;
+            token.degree = dbUser.degree;
+            token.country = dbUser.country;
+            token.city = dbUser.city;
+            token.dateOfBirth = dbUser.dateOfBirth; // Keep as Date object or null
+            token.imagePath = dbUser.imagePath;
+            token.picture = dbUser.imagePath; // Map imagePath to standard 'picture' claim
+          } else {
+             console.error("JWT Callback: User not found in DB for token ID:", token.id);
+             // Potentially invalidate token or handle error
+             return null; // Returning null might sign the user out
+          }
+        } catch (error) {
+          console.error("JWT Callback: Error fetching user from DB:", error);
+          // Keep existing token data but log error
+        }
+      }
+
       return token;
     },
-    // Reverted: Always redirect logged-in users based on role from callback
+    async session({ session, token }: { session: any, token?: any }) {
+      // Copy all enriched data from the token to the session.user object
+      if (token) {
+        session.user.id = token.id;
+        session.user.name = token.name;
+        session.user.email = token.email;
+        session.user.image = token.picture; // Use 'picture' which we mapped from imagePath
+        session.user.role = token.role;
+        session.user.phoneNumber = token.phoneNumber;
+        session.user.degree = token.degree;
+        session.user.country = token.country;
+        session.user.city = token.city;
+        session.user.dateOfBirth = token.dateOfBirth;
+        session.user.imagePath = token.imagePath; // Also keep original imagePath if needed
+      }
+      return session;
+    },
+    // Redirect callback remains the same
     async redirect({ url, baseUrl, token }: { url: string, baseUrl: string, token?: any }) {
        console.log("--- Redirect Callback ---");
        console.log("Received URL:", url);

@@ -269,6 +269,8 @@ export default function Dashboard() {
               <h2 className="font-semibold">{displayUserName}</h2>
               <p className="text-xs text-blue-200">{userRole}</p>
             </div>
+            {/* Temporarily comment out sidebar profile image */}
+            {/*
             <div className="relative h-12 w-12 rounded-full overflow-hidden border-2 border-blue-300">
               <Image
                 key={displayUserImage}
@@ -281,6 +283,7 @@ export default function Dashboard() {
                 onError={(e) => { e.currentTarget.src = '/static/images/default-avatar.png'; }}
               />
             </div>
+            */}
           </div>
         </div>
         <nav className="flex-1 p-4 overflow-y-auto">
