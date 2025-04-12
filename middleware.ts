@@ -81,8 +81,9 @@ export const config = {
      * - manifest.json (manifest file) // Added manifest.json
      * - robots.txt (robots file) // Added robots.txt
      * - sitemap.xml (sitemap file) // Added sitemap.xml
-     * - images/ (public images folder) // Example: exclude public assets
+     * - static/ (static files in public/static)
+     * - images/ (public images folder - might be redundant if using static/)
      */
-    '/((?!api|_next/static|_next/image|favicon.ico|manifest.json|robots.txt|sitemap.xml|images).*)',
+    '/((?!api|_next/static|_next/image|favicon.ico|manifest.json|robots.txt|sitemap.xml|static).*)',
   ],
 }
