@@ -19,8 +19,20 @@ export default async function TrainingPrograms() {
   let courses: CourseWithRelations[] = [];
   let fetchError: string | null = null;
   try {
-    // Fetch using a relative path for server-side calls within the same app
-    const response = await fetch(`/api/courses`, { 
+    // Determine the base URL for API calls
+    let absoluteBaseUrl;
+    if (process.env.VERCEL_URL) {
+      // Use Vercel's provided URL, ensuring HTTPS
+      absoluteBaseUrl = `https://${process.env.VERCEL_URL}`;
+    } else if (process.env.NEXT_PUBLIC_SITE_URL) {
+      // Use the custom site URL if Vercel URL isn't available (useful for custom domains)
+      absoluteBaseUrl = process.env.NEXT_PUBLIC_SITE_URL;
+    } else {
+      // Fallback for local development
+      absoluteBaseUrl = 'http://localhost:3000';
+    }
+
+    const response = await fetch(`${absoluteBaseUrl}/api/courses`, {
         cache: 'no-store' // Keep no-store as data should be fresh
     });
     if (!response.ok) {
