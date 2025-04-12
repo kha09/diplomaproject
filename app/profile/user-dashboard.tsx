@@ -3,6 +3,7 @@
 import { useState } from "react"
 import Image from "next/image"
 import { Bell, Book, Calendar, CreditCard, LogOut, Menu, Package, Settings } from "lucide-react"
+import { signOut } from "next-auth/react" // Import signOut
 
 export default function Dashboard() {
   const [sidebarOpen, setSidebarOpen] = useState(true)
@@ -97,11 +98,15 @@ export default function Dashboard() {
                   <span>الإعدادات</span>
                 </a>
               </li>
+              {/* Logout Button */}
               <li>
-                <a href="#" className="flex items-center gap-3 p-3 rounded-md hover:bg-blue-700 transition-colors">
+                <button 
+                  onClick={() => signOut({ callbackUrl: '/login' })} 
+                  className="w-full flex items-center gap-3 p-3 rounded-md hover:bg-blue-700 transition-colors text-left" // Use button and ensure styling matches
+                >
                   <LogOut className="h-5 w-5" />
                   <span>تسجيل الخروج</span>
-                </a>
+                </button>
               </li>
             </ul>
           </nav>

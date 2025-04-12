@@ -66,7 +66,8 @@ export const authOptions: NextAuthOptions = {
     })
   ],
   session: {
-    strategy: "jwt"
+    strategy: "jwt",
+    maxAge: 30 * 60, // 30 minutes in seconds
   },
   // Explicitly configure cookies for production/Vercel
   useSecureCookies: process.env.NEXTAUTH_URL?.startsWith("https://"),
