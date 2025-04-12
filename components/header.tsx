@@ -31,7 +31,7 @@ export default function Header() {
             <span className="text-sm font-medium text-teal-600">تسجيل الدخول</span>
           </Link>
           <Link href="/" className="flex items-center gap-2">
-            <Image src="/static/images/logo02.png?height=80&width=80" alt="Logo" width={80} height={80} className="h-12 w-12" />
+            <Image src="/static/images/aljawda.png" alt="Logo" width={160} height={160} className="-12" />
           </Link>
         </div>
 
@@ -63,9 +63,9 @@ export default function Header() {
             <Image
               src="/static/images/logo01.png?height=60&width=120"
               alt="Tourism Quality and Excellence Award"
-              width={120}
-              height={40}
-              className="h-14 w-auto"
+              width={200}
+              height={100}
+              className=""
             />
           </Link>
         </div>
