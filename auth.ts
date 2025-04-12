@@ -83,38 +83,43 @@ export const authOptions: NextAuthOptions = {
       }
       return token;
     },
-    // Simplified redirect callback
+    // Further simplified redirect callback for Vercel debugging
     async redirect({ url, baseUrl, token }: { url: string, baseUrl: string, token?: any }) {
        console.log("--- Redirect Callback ---");
        console.log("Received URL:", url);
        console.log("Base URL:", baseUrl);
        console.log("Token Role:", token?.role);
 
-      // If signing in or callback url is the base path
+      // If user is logged in (token exists)
       if (token) {
-        // Determine target based on role
-        let targetPath = '/'; // Default to homepage
+        let targetPath = '/profile'; // Default target for logged-in USER
         if (token.role === 'ADMIN') {
-          targetPath = '/admin';
-        } else if (token.role === 'USER') {
-          targetPath = '/profile';
+          targetPath = '/admin'; // Target for ADMIN
         }
         
-        // If the original URL was the base URL or the login page, redirect to the role-based target
-        if (url === baseUrl || url.startsWith(`${baseUrl}/login`)) {
-           const finalUrl = `${baseUrl}${targetPath}`;
-           console.log("Redirecting logged-in user to role-based target:", finalUrl);
-           return finalUrl;
-        }
+        const targetUrl = `${baseUrl}${targetPath}`;
         
-        // If the original URL was something else (e.g., protected page), allow it
+        // If the original URL was the login page, always redirect to the role-based target
+        if (url.startsWith(`${baseUrl}/login`)) {
+           console.log("Login detected, redirecting to role-based target:", targetUrl);
+           return targetUrl;
+        }
+
+        // If the original URL was the base URL, also redirect to role-based target
+        // (This handles the case after successful sign-in where NextAuth might default to baseUrl)
+        if (url === baseUrl) {
+           console.log("Base URL detected, redirecting to role-based target:", targetUrl);
+           return targetUrl;
+        }
+
+        // Otherwise (e.g., accessing a protected page directly), allow the original URL
         console.log("Allowing redirect to original URL:", url);
         return url; 
       }
       
-      // If not logged in, handle normally (usually redirect to login or allow public pages)
-      console.log("No token, returning original/base URL:", url.startsWith(baseUrl) ? url : baseUrl);
-      return url.startsWith(baseUrl) ? url : baseUrl;
+      // If not logged in, allow the original URL (middleware should handle protection)
+      console.log("No token, allowing original URL:", url);
+      return url;
     }
   },
 }

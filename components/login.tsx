@@ -3,7 +3,7 @@
 import Image from "next/image"
 import Link from "next/link"
 import { EyeIcon } from "lucide-react"
-import { signIn } from "next-auth/react"
+import { signIn, getSession } from "next-auth/react" // Import getSession
 import { useRouter } from "next/navigation"
 import { useState } from "react"
 
@@ -33,21 +33,20 @@ export default function LoginPage() {
           // We need to fetch the session *after* signIn is confirmed ok.
           // Note: Using getSession() client-side might be slightly delayed.
           // A page refresh might be simpler if middleware handles everything.
-          // Let's try router.push first based on a quick session check.
-          
-          // Fetch session data to check role (alternative: could decode JWT if available client-side)
-          const sessionRes = await fetch('/api/auth/session'); // Built-in NextAuth endpoint
-          const sessionData = await sessionRes.json();
+          // Let's try router.push first based on getSession.
+          console.log("SignIn successful (result.ok). Fetching session client-side...");
+          const session = await getSession(); // Use getSession client-side hook
+          console.log("Client-side session:", session);
 
-          if (sessionData?.user?.role === 'ADMIN') {
+          if (session?.user?.role === 'ADMIN') {
              console.log("Redirecting ADMIN to /admin");
              router.push('/admin');
+             router.refresh(); // Force refresh for Vercel state update
           } else {
              console.log("Redirecting USER to /profile");
              router.push('/profile'); // Redirect USER to profile
+             router.refresh(); // Force refresh for Vercel state update
           }
-          // Optionally refresh to ensure all state is updated if push doesn't work reliably
-          // router.refresh(); 
         } else {
            // Handle unexpected cases where result is not ok and has no error
            setError("Login failed. Please try again.");
