@@ -2,7 +2,7 @@
 
 import Image from "next/image"
 import Link from "next/link"
-import { EyeIcon } from "lucide-react";
+import { EyeIcon, EyeOffIcon } from "lucide-react"; // Import EyeOffIcon
 import { signIn, useSession } from "next-auth/react"; // Import useSession
 import { useRouter } from "next/navigation";
 import { useState, useEffect } from "react"; // Import useEffect
@@ -10,6 +10,7 @@ import { useState, useEffect } from "react"; // Import useEffect
 export default function LoginPage() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [showPassword, setShowPassword] = useState(false); // State for password visibility
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false); // Add loading state
   const router = useRouter();
@@ -116,7 +117,7 @@ export default function LoginPage() {
             <div className="relative">
               <input
                 id="password"
-                type="password"
+                type={showPassword ? "text" : "password"} // Toggle input type
                 placeholder="أدخل كلمة المرور"
               className="w-full rounded-md border border-gray-300 p-3 text-right"
               required
@@ -126,9 +127,10 @@ export default function LoginPage() {
               <button
                 type="button"
                 className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-500"
-                aria-label="Show password"
+                onClick={() => setShowPassword(!showPassword)} // Toggle state on click
+                aria-label={showPassword ? "Hide password" : "Show password"}
               >
-                <EyeIcon className="h-5 w-5" />
+                {showPassword ? <EyeOffIcon className="h-5 w-5" /> : <EyeIcon className="h-5 w-5" />} {/* Toggle icon */}
               </button>
             </div>
             <div className="text-left">

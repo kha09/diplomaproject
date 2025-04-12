@@ -34,25 +34,25 @@ const awardItems = [
   {
     id: 5,
     title: "الخدمات السياحية",
-    image: "/static/images/Mask Group 5.png",
+    image: "/static/images/Mask Group 3.png",
     description: "هذا النص يمثل نصاً بديلاً لنص سيتم استبداله فيما بعد بنص آخر. هذا النص هو مثال لنص يمكن أن يستبدل في نفس المساحة."
   },
   {
     id: 6,
-    title: "الاستدامة البيئية",
-    image: "/static/images/Mask Group 5.png",
+    title: "أنظمة وقوانين",
+    image: "/static/images/Mask Group 4.png",
     description: "هذا النص يمثل نصاً بديلاً لنص سيتم استبداله فيما بعد بنص آخر. هذا النص هو مثال لنص يمكن أن يستبدل في نفس المساحة."
   },
   {
     id: 7,
-    title: "التسويق والترويج",
-    image: "/static/images/Mask Group 5.png",
+    title: "برنامج الارشاد",
+    image: "/static/images/Mask Group 9.png",
     description: "هذا النص يمثل نصاً بديلاً لنص سيتم استبداله فيما بعد بنص آخر. هذا النص هو مثال لنص يمكن أن يستبدل في نفس المساحة."
   },
   {
     id: 8,
-    title: "تجربة الزائر",
-    image: "/static/images/Mask Group 5.png",
+    title: "نقل المعارف والمهارات",
+    image: "/static/images/Mask Group 10.png",
     description: "هذا النص يمثل نصاً بديلاً لنص سيتم استبداله فيما بعد بنص آخر. هذا النص هو مثال لنص يمكن أن يستبدل في نفس المساحة."
   }
 ]

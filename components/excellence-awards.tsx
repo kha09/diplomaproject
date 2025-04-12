@@ -16,45 +16,28 @@ const excellenceItems = [
   {
     id: 2,
     title: "الأصــالة",
-    image: "/static/images/Mask Group 19.png?height=200&width=300",
+    image: "/static/images/Group 90.png?height=200&width=300",
     description: "هذا النص يمثل نصاً بديلاً لنص سيتم استبداله فيما بعد بنص آخر. هذا النص هو مثال لنص يمكن أن يستبدل في نفس المساحة."
   },
   {
     id: 3,
-    title: "إدارة تجربة السائحين",
-    image: "/static/images/Mask Group 20.png?height=200&width=300",
+    title: "إثراء تجربة السائحين",
+    image: "/static/images/Mask Group 19.png?height=200&width=300",
     description: "هذا النص يمثل نصاً بديلاً لنص سيتم استبداله فيما بعد بنص آخر. هذا النص هو مثال لنص يمكن أن يستبدل في نفس المساحة."
   },
   {
     id: 4,
     title: "التنظيم الإداري",
-    image: "/static/images/Group 90.png?height=200&width=300",
+    image: "/static/images/Mask Group 20.png?height=200&width=300",
     description: "هذا النص يمثل نصاً بديلاً لنص سيتم استبداله فيما بعد بنص آخر. هذا النص هو مثال لنص يمكن أن يستبدل في نفس المساحة."
   },
   {
     id: 5,
-    title: "التسويق الرقمي",
-    image: "/static/images/Mask Group 18.png?height=200&width=300",
+    title: "الفخامة الهادئة والتقليدية",
+    image: "/static/images/Mask Group 17.png?height=200&width=300",
     description: "هذا النص يمثل نصاً بديلاً لنص سيتم استبداله فيما بعد بنص آخر. هذا النص هو مثال لنص يمكن أن يستبدل في نفس المساحة."
   },
-  {
-    id: 6,
-    title: "الاستدامة البيئية",
-    image: "/static/images/Mask Group 18.png?height=200&width=300",
-    description: "هذا النص يمثل نصاً بديلاً لنص سيتم استبداله فيما بعد بنص آخر. هذا النص هو مثال لنص يمكن أن يستبدل في نفس المساحة."
-  },
-  {
-    id: 7,
-    title: "الضيافة المتميزة",
-    image: "/static/images/Mask Group 18.png?height=200&width=300",
-    description: "هذا النص يمثل نصاً بديلاً لنص سيتم استبداله فيما بعد بنص آخر. هذا النص هو مثال لنص يمكن أن يستبدل في نفس المساحة."
-  },
-  {
-    id: 8,
-    title: "التراث الثقافي",
-    image: "/static/images/Mask Group 18.png?height=200&width=300",
-    description: "هذا النص يمثل نصاً بديلاً لنص سيتم استبداله فيما بعد بنص آخر. هذا النص هو مثال لنص يمكن أن يستبدل في نفس المساحة."
-  }
+
 ]
 
 export default function ExcellenceAwards() {
