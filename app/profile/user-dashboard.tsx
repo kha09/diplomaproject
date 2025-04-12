@@ -372,7 +372,7 @@ export default function Dashboard() {
             </div>
             <div className="flex flex-col sm:flex-row sm:items-center">
               <label htmlFor="dateOfBirth" className="w-full sm:w-32 font-medium text-gray-600 mb-1 sm:mb-0 shrink-0">تاريخ الميلاد:</label>
-              {isEditing ? (<Input id="dateOfBirth" name="dateOfBirth" type="date" value={formData.dateOfBirth || ''} onChange={handleInputChange} className="flex-1" disabled={isLoading} dir="rtl" max={new Date().toISOString().split("T")[0]}/>) : (<p className="text-gray-800 flex-1 py-2" dir="ltr">{formData.dateOfBirth ? new Date(formData.dateOfBirth).toLocaleDateString('ar-SA', { year: 'numeric', month: 'long', day: 'numeric' }) : 'غير متوفر'}</p>)}
+              {isEditing ? (<Input id="dateOfBirth" name="dateOfBirth" type="date" value={formData.dateOfBirth || ''} onChange={handleInputChange} className="flex-1" disabled={isLoading} dir="rtl" max={new Date().toISOString().split("T")[0]}/>) : (<p className="text-gray-800 flex-1 py-2" dir="rtl">{formData.dateOfBirth ? new Date(formData.dateOfBirth).toLocaleDateString('ar-SA', { year: 'numeric', month: 'long', day: 'numeric' }) : 'غير متوفر'}</p>)}
             </div>
           </div>
           {isEditing && (
