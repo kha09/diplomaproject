@@ -3,6 +3,9 @@ import { Clock, Calendar, CircleDot } from "lucide-react";
 import Link from 'next/link'; // Import Link for navigation
 import { Course, Instructor, Diploma } from "@prisma/client"; // Import Prisma types
 
+// Explicitly mark the page as dynamic
+export const dynamic = 'force-dynamic';
+
 // Define the type including potential relations returned by the API
 type CourseWithRelations = Course & {
   instructor: Instructor | null; // Assuming API includes instructor
@@ -16,12 +19,15 @@ export default async function TrainingPrograms() {
   let courses: CourseWithRelations[] = [];
   let fetchError: string | null = null;
   try {
-    // Ensure the API endpoint is correct and running
-    const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:3000'}/api/courses`, { 
-        cache: 'no-store' // Disable caching for dynamic data
+    // Use relative path for internal API calls
+    const response = await fetch(`/api/courses`, { 
+        cache: 'no-store' // Keep no-store as data should be fresh
     }); 
     if (!response.ok) {
-      throw new Error(`Failed to fetch courses: ${response.statusText}`);
+      // Provide more context on failure
+      const errorBody = await response.text();
+      console.error("API Response Error Body:", errorBody);
+      throw new Error(`Failed to fetch courses: ${response.status} ${response.statusText}`);
     }
     courses = await response.json();
   } catch (error) {
