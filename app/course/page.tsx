@@ -1,47 +1,23 @@
 import Image from "next/image";
 import { Clock, Calendar, CircleDot } from "lucide-react";
 import Link from 'next/link'; // Import Link for navigation
-import { Course, Instructor, Diploma } from "@prisma/client"; // Import Prisma types
+// Import the data fetching function and type
+import { getAllCoursesWithRelations, CourseWithRelations } from '@/lib/course-data';
+// Prisma types might not be needed directly here anymore if CourseWithRelations covers it
+// import { Course, Instructor, Diploma } from "@prisma/client"; 
 
 // Explicitly mark the page as dynamic
 export const dynamic = 'force-dynamic';
 
-// Define the type including potential relations returned by the API
-type CourseWithRelations = Course & {
-  instructor: Instructor | null; // Assuming API includes instructor
-  diploma: Diploma | null;    // Assuming API includes diploma
-};
-
 // Make the component async to fetch data
 export default async function TrainingPrograms() { 
   
-  // Fetch data within the Server Component
+  // Fetch data directly using the imported function
   let courses: CourseWithRelations[] = [];
   let fetchError: string | null = null;
   try {
-    // Determine the base URL for API calls
-    let absoluteBaseUrl;
-    if (process.env.VERCEL_URL) {
-      // Use Vercel's provided URL, ensuring HTTPS
-      absoluteBaseUrl = `https://${process.env.VERCEL_URL}`;
-    } else if (process.env.NEXT_PUBLIC_SITE_URL) {
-      // Use the custom site URL if Vercel URL isn't available (useful for custom domains)
-      absoluteBaseUrl = process.env.NEXT_PUBLIC_SITE_URL;
-    } else {
-      // Fallback for local development
-      absoluteBaseUrl = 'http://localhost:3000';
-    }
-
-    const response = await fetch(`${absoluteBaseUrl}/api/courses`, {
-        cache: 'no-store' // Keep no-store as data should be fresh
-    });
-    if (!response.ok) {
-      // Provide more context on failure
-      const errorBody = await response.text();
-      console.error("API Response Error Body:", errorBody);
-      throw new Error(`Failed to fetch courses: ${response.status} ${response.statusText}`);
-    }
-    courses = await response.json();
+    // Call the function directly - no need for fetch or absolute URLs
+    courses = await getAllCoursesWithRelations();
   } catch (error) {
     console.error("Error fetching courses:", error);
     fetchError = error instanceof Error ? error.message : "An unknown error occurred while fetching courses.";
