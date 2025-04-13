@@ -5,6 +5,7 @@ import { ChevronDown } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import Header from "@/components/header" // Import Header
 import Footer from "@/components/footer" // Import Footer
+import DiplomaFeaturesSection from "@/components/diploma-features-section"; // Import the new section
 import { useSession } from "next-auth/react"; // Import useSession
 import { useRouter } from "next/navigation"; // Import useRouter
 
@@ -124,7 +125,7 @@ export default function Home() {
             <div className="bg-[#003049] text-white p-4 text-center">
               <h3 className="text-xl font-bold">دورات الدبلوم</h3>
             </div>
-            <div className="p-6 text-right flex-grow">
+            <div className="p-6 text-right flex-grow" dir="rtl">
               <ul className="text-gray-700 list-disc list-inside text-right space-y-2">
                 <li>الجودة السياحية في إدارة المنشآت والوجهات وفق السياحة الميسرة 21902</li>
                 <li>نموذج التميز السياحي</li>
@@ -141,6 +142,7 @@ export default function Home() {
           </div>
         </div>
       </div>
+      <DiplomaFeaturesSection /> {/* Add the new features section */}
       <Footer /> {/* Add Footer component */}
     </main>
   )
