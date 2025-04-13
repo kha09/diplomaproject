@@ -77,22 +77,23 @@ export default async function TrainingPrograms() {
             <CourseCard key="demo-course" course={{
               id: 0, // Use a unique key like 0 or a string
               name: "دبلوم اخصائي جودة وتميز سياحي",
-              description: "يتكون الدبلوم من مجموعة دورات متخصصة في الجودة والتميز تركز على تطبيق المعايير والإرشادات القياسية ودمجها في خدمات ومنتجات المجال السياحي، لترتقي بمستوى جودة مكوناته وفق أفضل الممارسات العالمية من خلال تأهيل أخصائي جودة وتميز سياحي قادر على تطبيق المواصفات القياسية في جميع مجالات السياحة",
-              startDate: new Date(), // Use current date for demo
-              finishDate: new Date(new Date().setDate(new Date().getDate() + 61)), // Demo end date 5 days later
+              description: "يتكون الدبلوم من مجموعة دورات متخصصة في الجودة والتميز تركز على تطبيق المعايير والإرشادات القياسية ودمجها في خدمات ومنتجات المجال السياحي، لترتقي بمستوى جودة مكوناته وفق أفضل الممارسات العالمية من خلال تأهيل أخصائي جودة وتميز سياحي قادر على تطبيق المواصفات القياسية في جميع مجالات السياحة",
+              startDate: new Date(2025, 3, 30), // April 30, 2025 (Month is 0-indexed)
+              finishDate: new Date(new Date(2025, 3, 30).setDate(new Date(2025, 3, 30).getDate() + 61)), // 61 days after start date
               price: 99.99,
               room: "قاعة أونلاين",
               instructorId: 0, // Dummy ID
               diplomaId: null, // No diploma for demo
-              createdAt: new Date(),
-              updatedAt: new Date(),
-              instructor: { // Dummy instructor data
+              // createdAt: new Date(), // Removed incorrect field
+              // updatedAt: new Date(), // Removed incorrect field
+              instructor: { // Dummy instructor data (Removed 'bio', added 'specialty')
                 id: 0,
                 name: "مدرب تجريبي",
-                bio: "خبير في العروض التوضيحية.",
+                specialty: "تخصص تجريبي", // Added required field
+                // bio: "خبير في العروض التوضيحية.", // Removed incorrect field
                 imagePath: "/static/images/diploma.jpeg", // Use an existing image or placeholder
-                createdAt: new Date(),
-                updatedAt: new Date(),
+                // createdAt: new Date(), // Removed incorrect field
+                // updatedAt: new Date(), // Removed incorrect field
               },
               diploma: null // No diploma for demo
             }} />
