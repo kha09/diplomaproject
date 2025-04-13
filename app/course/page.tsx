@@ -6,6 +6,8 @@ import { getAllCoursesWithRelations, CourseWithRelations } from '@/lib/course-da
 // Import Header and Footer
 import Header from '@/components/header';
 import Footer from '@/components/footer';
+// Import the new CourseCard client component
+import CourseCard from '@/components/course-card';
 // Prisma types might not be needed directly here anymore if CourseWithRelations covers it
 // import { Course, Instructor, Diploma } from "@prisma/client";
 
@@ -74,7 +76,7 @@ export default async function TrainingPrograms() {
         ) : (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {/* --- Demo Course Card --- */}
-            <CourseCard key="demo-course" course={{
+            <CourseCard key="demo-course" detailsLink="/diploma" isDemoCard={true} course={{ // Added detailsLink & isDemoCard props
               id: 0, // Use a unique key like 0 or a string
               name: "دبلوم اخصائي جودة وتميز سياحي",
               description: "يتكون الدبلوم من مجموعة دورات متخصصة في الجودة والتميز تركز على تطبيق المعايير والإرشادات القياسية ودمجها في خدمات ومنتجات المجال السياحي، لترتقي بمستوى جودة مكوناته وفق أفضل الممارسات العالمية من خلال تأهيل أخصائي جودة وتميز سياحي قادر على تطبيق المواصفات القياسية في جميع مجالات السياحة",
@@ -112,71 +114,4 @@ export default async function TrainingPrograms() {
   )
 }
 
-// Update CourseCard to accept and use course data
-function CourseCard({ course }: { course: CourseWithRelations }) {
-  // Basic date formatting (consider using a library like date-fns for more complex needs)
-  const startDate = course.startDate ? new Date(course.startDate).toLocaleDateString('ar-SA') : 'N/A';
-  // Calculate duration (example - you might want a more robust calculation)
-  // Note: Calculating duration accurately across timezones/DST can be complex.
-  // This is a simple day difference calculation.
-  const durationDays = course.startDate && course.finishDate 
-    ? Math.ceil((new Date(course.finishDate).getTime() - new Date(course.startDate).getTime()) / (1000 * 60 * 60 * 24)) 
-    : null; 
-  const durationText = durationDays !== null ? `${durationDays} يوم` : 'N/A'; // Example: "X days"
-
-  // Placeholder for hours - you'd need this data from your DB/API if required
-  const hoursText = 'N/A'; 
-
-  return (
-    <div className="bg-white rounded-lg shadow-md overflow-hidden border border-gray-100 flex flex-col h-full"> {/* Ensure cards take full height */}
-      <div className="p-4 flex-grow"> {/* Allow content to grow */}
-        {/* Use a placeholder or actual image path from course data */}
-        <Image
-          src={course.instructor?.imagePath || "/placeholder.svg?height=200&width=300"} // Example: use instructor image or placeholder
-          alt={course.name || "Course Image"}
-          width={300} // Set appropriate width
-          height={200} // Set appropriate height
-          className="w-full h-48 object-cover rounded-md mb-4" // Added margin-bottom
-        />
-        <div className="text-center"> {/* Removed mt-4 as image has mb-4 */}
-          <h3 className="font-bold text-lg">{course.name}</h3>
-          {/* Display actual description or instructor name */}
-          <p className="text-sm text-gray-600 mt-1">
-             {course.description || (course.instructor ? `بواسطة: ${course.instructor.name}` : '')}
-          </p>
-        </div>
-
-        {/* Use actual data */}
-        <div className="flex justify-between items-center mt-4 text-sm text-gray-600">
-          <div className="flex items-center" title={`Start Date: ${startDate}`}>
-            <Calendar className="w-5 h-5 ml-1 text-blue-600" />
-            <span>{startDate}</span>
-          </div>
-          <div className="flex items-center" title={`Duration: ${durationText}`}>
-            <Clock className="w-5 h-5 ml-1 text-blue-600" />
-            <span>{durationText}</span>
-          </div>
-          <div className="flex items-center" title="Hours (Placeholder)">
-            <CircleDot className="w-5 h-5 ml-1 text-blue-600" />
-            <span>{hoursText}</span> {/* Replace with actual hours if available */}
-          </div>
-        </div>
-      </div>
-      {/* Buttons at the bottom */}
-      <div className="flex justify-between mt-auto p-4 border-t border-gray-100 gap-2"> {/* Use mt-auto to push buttons down */}
-        {/* Link "Register Now" button if applicable */}
-        <Link href={`/register?courseId=${course.id}`} passHref legacyBehavior>
-           <a className="flex-1 text-center py-2 px-4 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition">
-             سجل الآن
-           </a>
-        </Link>
-         {/* Link "Details" button to a dynamic course details page */}
-         <Link href={`/course/${course.id}`} passHref legacyBehavior>
-           <a className="flex-1 text-center py-2 px-4 border border-blue-600 text-blue-600 rounded-md hover:bg-gray-50 transition">
-             التفاصيل
-           </a>
-        </Link>
-      </div>
-    </div>
-  )
-}
+// Removed the old CourseCard function definition from here
