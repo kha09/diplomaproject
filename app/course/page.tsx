@@ -3,8 +3,11 @@ import { Clock, Calendar, CircleDot } from "lucide-react";
 import Link from 'next/link'; // Import Link for navigation
 // Import the data fetching function and type
 import { getAllCoursesWithRelations, CourseWithRelations } from '@/lib/course-data';
+// Import Header and Footer
+import Header from '@/components/header';
+import Footer from '@/components/footer';
 // Prisma types might not be needed directly here anymore if CourseWithRelations covers it
-// import { Course, Instructor, Diploma } from "@prisma/client"; 
+// import { Course, Instructor, Diploma } from "@prisma/client";
 
 // Explicitly mark the page as dynamic
 export const dynamic = 'force-dynamic';
@@ -24,10 +27,12 @@ export default async function TrainingPrograms() {
   }
 
   return (
-    <div className="min-h-screen bg-white" dir="rtl">
-      {/* Header Section */}
-      <div className="relative">
-        <div className="relative pt-32 pb-48 px-4 text-white text-center">
+    <div className="min-h-screen bg-white flex flex-col" dir="ltr"> {/* Added flex flex-col */}
+      <Header /> {/* Add Header component */}
+      <main className="flex-grow"> {/* Wrap content in main and allow it to grow */}
+        {/* Header Section */}
+        <div className="relative">
+          <div className="relative pt-32 pb-48 px-4 text-white text-center">
           {/* Background Image with Overlay */}
           <div className="absolute inset-0 z-0">
             <Image
@@ -61,20 +66,47 @@ export default async function TrainingPrograms() {
       </div>
 
       {/* Cards Grid */}
-      <div className="container mx-auto px-4 py-12 -mt-8 relative z-10">
+      <div className="container mx-auto px-4 py-12 -mt-8 relative z-10" dir="rtl">
         {fetchError ? (
            <p className="text-center text-red-600">Error loading courses: {fetchError}</p>
         ) : courses.length === 0 ? (
            <p className="text-center text-gray-500">No courses available at the moment.</p>
         ) : (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {/* --- Demo Course Card --- */}
+            <CourseCard key="demo-course" course={{
+              id: 0, // Use a unique key like 0 or a string
+              name: "دبلوم اخصائي جودة وتميز سياحي",
+              description: "يتكون الدبلوم من مجموعة دورات متخصصة في الجودة والتميز تركز على تطبيق المعايير والإرشادات القياسية ودمجها في خدمات ومنتجات المجال السياحي، لترتقي بمستوى جودة مكوناته وفق أفضل الممارسات العالمية من خلال تأهيل أخصائي جودة وتميز سياحي قادر على تطبيق المواصفات القياسية في جميع مجالات السياحة",
+              startDate: new Date(), // Use current date for demo
+              finishDate: new Date(new Date().setDate(new Date().getDate() + 61)), // Demo end date 5 days later
+              price: 99.99,
+              room: "قاعة أونلاين",
+              instructorId: 0, // Dummy ID
+              diplomaId: null, // No diploma for demo
+              createdAt: new Date(),
+              updatedAt: new Date(),
+              instructor: { // Dummy instructor data
+                id: 0,
+                name: "مدرب تجريبي",
+                bio: "خبير في العروض التوضيحية.",
+                imagePath: "/static/images/diploma.jpeg", // Use an existing image or placeholder
+                createdAt: new Date(),
+                updatedAt: new Date(),
+              },
+              diploma: null // No diploma for demo
+            }} />
+            {/* --- End Demo Course Card --- */}
+
             {/* Map over fetched courses */}
             {courses.map((course) => (
               <CourseCard key={course.id} course={course} />
             ))}
           </div>
         )}
-      </div>
+        </div>
+      </main>
+      <Footer /> {/* Add Footer component */}
     </div>
   )
 }
