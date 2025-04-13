@@ -31,7 +31,7 @@ export default async function TrainingPrograms() {
           {/* Background Image with Overlay */}
           <div className="absolute inset-0 z-0">
             <Image
-              src="/placeholder.svg?height=600&width=1920"
+              src="/static/images/Mask Group 32.png?height=600&width=1920"
               alt="Hero Background"
               fill
               className="object-cover"
