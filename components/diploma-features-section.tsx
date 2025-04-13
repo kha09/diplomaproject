@@ -8,75 +8,75 @@ import Link from "next/link"
 const featureItems = [
   {
     id: 1,
-    title: "الإدارة المؤسسية",
+    title: "الجودة السياحية في إدارة المنشآت والوجهات وفق السياحة الميسرة ISO 21902",
     image: "/static/images/Mask Group 5.png",
-    description: "متطلبات ضمان جودة الإدارة السياحية للمنظمات بمراعاة إدارة المخاطر ومنع الخسائر و الأوبئة لتحقيق تنمية سياحية مستدامة للمتعاملين."
+    description: ""
   },
   {
     id: 2,
-    title: "الوجهات السياحية",
-    image: "/static/images/Mask Group 6.png",
-    description: "متطلبات ضمان جودة تجهيز وإدارة الوجهات و المقاصد السياحية و آلية تنظيم الحشود و سهولة الوصول اليها بمراعاة تنميتها المستدامة بيئياً واجتماعياً واقتصادياً."
+    title: "التعريف بنظام إدارة الاستدامة للمنشآت الفندقية وفق 21401 ISO.",
+    image: "/static/images/Mask Group 5.png",
+    description: ""
   },
   {
     id: 3,
-    title: "النقل وسهولة الوصول",
-    image: "/static/images/Mask Group 7.png",
-    description: "متطلبات ضمان جودة وسائل النقل بأنواعها وإجراءات تجهيزها وسلامتها بمراعاة سهولة الوصول لذوي الاحتياجات الخاصة وكبار السن والحوامل ومحطات الإركاب والنزول وطريق المشاة."
+    title: "نموذج التميز السياحي.",
+    image: "/static/images/Mask Group 5.png",
+    description: ""
   },
   {
     id: 4,
-    title: "السكن والمطاعم و المرافق",
-    image: "/static/images/Group 8.png",
-    description: "متطلبات ضمان جودة السكن السياحي الفندقي وغير الفندقي وإجراءات وسلامة وصحة المطاعم والمرافق السياحية، بمطابقة مواصفات جودتها والكمية والنوعية."
+    title: "الصحة والسلامة في المجال السياحي وفق 45001 ISO.",
+    image: "/static/images/Mask Group 5.png",
+    description: ""
   },
   {
     id: 5,
-    title: "الخدمات و المنتجات السياحية",
-    image: "/static/images/Mask Group 3.png",
-    description: "متطلبات ضمان جودة الخدمات الواجب توافرها في المنشآت والوجهات والشركات السياحية التي تقدمها لتلبية احتياجات السائحين ورضاهم."
+    title: "المعايير الدولية لجودة السكن الفندقي والمرافق وفق 22483:2020 ISO",
+    image: "/static/images/Mask Group 5.png",
+    description: ""
   },
   {
     id: 6,
-    title: "الحوكمة وأنظمة حقوق السائح",
-    image: "/static/images/Mask Group 4.png",
-    description: "متطلبات ضمان جودة إدارة حوكمة المنشآت والوجهات و الشركات السياحية وحمايتها لحقوق السائحين وضمان أمنهم وصحتهم وسلامتهم ورضاهم."
+    title: "حوكمة المنشآت السياحية وحماية حقوق السائح.",
+    image: "/static/images/Mask Group 5.png",
+    description: ""
   },
   {
     id: 7,
-    title: "الرحلات والتسويق السياحي",
-    image: "/static/images/Mask Group 9.png",
-    description: "متطلبات ضمان جودة تنظيم الرحلات السياحية البرية والبحرية والجوية لشركات السياحة، والإرشاد السياحي على مستوى الأفراد، وتطبيق مواصفة جودة الإعلام في الترويج السياحي."
+    title: "إدارة المعارف السياحية ونقل الخبرات وفق 30401 ISO",
+    image: "/static/images/Mask Group 5.png",
+    description: ""
   },
   {
     id: 8,
-    title: "إدارة المعارف والمهارات السياحية",
-    image: "/static/images/Mask Group 10.png",
-    description: "متطلبات ضمان الجودة إدارة المعارف والمهارات السياحية ونقلها وتحويلها لمنتجات وخدمات تطويريه لرفع كفاءة الافراد وتنمية الشركات والمنشآت السياحية."
+    title: "استمرارية الأعمال السياحية وفق 22301 ISO",
+    image: "/static/images/Mask Group 5.png",
+    description: ""
   },
   {
-    id: 4,
-    title: "السكن والمطاعم و المرافق",
-    image: "/static/images/Group 8.png",
-    description: "متطلبات ضمان جودة السكن السياحي الفندقي وغير الفندقي وإجراءات وسلامة وصحة المطاعم والمرافق السياحية، بمطابقة مواصفات جودتها والكمية والنوعية."
+    id: 9,
+    title: "السياحة البيئية البحرية وفق 14001 ISO",
+    image: "/static/images/Mask Group 5.png",
+    description: ""
   },
   {
-    id: 5,
-    title: "الخدمات و المنتجات السياحية",
-    image: "/static/images/Mask Group 3.png",
-    description: "متطلبات ضمان جودة الخدمات الواجب توافرها في المنشآت والوجهات والشركات السياحية التي تقدمها لتلبية احتياجات السائحين ورضاهم."
+    id: 10,
+    title: "إدارة المخاطر الصحية في القطاع السياحي وفق 31000 ISO.",
+    image: "/static/images/Mask Group 5.png",
+    description: ""
   },
   {
-    id: 6,
-    title: "الحوكمة وأنظمة حقوق السائح",
-    image: "/static/images/Mask Group 4.png",
-    description: "متطلبات ضمان جودة إدارة حوكمة المنشآت والوجهات و الشركات السياحية وحمايتها لحقوق السائحين وضمان أمنهم وصحتهم وسلامتهم ورضاهم."
+    id: 11,
+    title: "جودة وسلامة الغذاء وملائمة السائحين وفق 22000 ISO ومواصفة حلال.",
+    image: "/static/images/Mask Group 5.png",
+    description: ""
   },
   {
-    id: 7,
-    title: "الرحلات والتسويق السياحي",
-    image: "/static/images/Mask Group 9.png",
-    description: "متطلبات ضمان جودة تنظيم الرحلات السياحية البرية والبحرية والجوية لشركات السياحة، والإرشاد السياحي على مستوى الأفراد، وتطبيق مواصفة جودة الإعلام في الترويج السياحي."
+    id: 12,
+    title: "إثراء تجربة السائح وقياس الرضا.",
+    image: "/static/images/Mask Group 5.png",
+    description: ""
   }
 ]
 
@@ -133,7 +133,7 @@ export default function DiplomaFeaturesSection() {
             {featureItems.map((item, index) => (
               <div 
                 key={item.id} 
-                className={`bg-gray-50 rounded-md shadow-sm overflow-hidden transition-all duration-300 transform max-w-xs mx-auto flex flex-col ${ // Re-added flex flex-col
+                className={`bg-gray-50 rounded-md shadow-sm overflow-hidden transition-all duration-300 transform w-72 mx-auto flex flex-col ${ // Replaced max-w-xs with w-72, kept flex flex-col
                   isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-15" // Adjusted translate
                 } ${
                   hoveredItem === item.id 
@@ -172,10 +172,10 @@ export default function DiplomaFeaturesSection() {
                     {item.description}
                   </p>
                   {/* Button container - re-added mt-auto */}
-                  <div className="mt-auto pt-2"> {/* Re-added mt-auto and pt-2 */}
+                  <div className="mt-auto pt-1"> {/* Re-added mt-auto and pt-2 */}
                     <Link 
                       href="#" // Update this link destination if needed
-                      className={`block w-full text-center px-3 py-1 rounded-md text-xs font-medium transition-all duration-300 ${ // Added block, w-full, text-center
+                      className={`block w-full text-center px-2 py-1 rounded-md text-base font-semibold transition-all duration-300 ${ // Kept py-3, text-base, added font-semibold
                         hoveredItem === item.id 
                           ? "bg-[#00C1BF] text-white" 
                           : "bg-[#005A98] text-white"
