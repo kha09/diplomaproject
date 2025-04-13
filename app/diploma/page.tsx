@@ -1,13 +1,31 @@
+"use client"; // Make this a client component
+
 import Image from "next/image"
 import { ChevronDown } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import Header from "@/components/header" // Import Header
 import Footer from "@/components/footer" // Import Footer
+import { useSession } from "next-auth/react"; // Import useSession
+import { useRouter } from "next/navigation"; // Import useRouter
 
 // Import the CSS file
 import './diploma.css';
 
 export default function Home() {
+  const { data: session, status } = useSession();
+  const router = useRouter();
+
+  const handleRegisterClick = () => {
+    if (status === "authenticated") {
+      // Redirect to external store page for logged-in users
+      window.location.href = "https://store.qeatourism.com/%D8%AF%D8%A8%D9%84%D9%88%D9%85-%D8%A7%D8%AE%D8%B5%D8%A7%D8%A6%D9%8A-%D8%AC%D9%88%D8%AF%D8%A9-%D9%88%D8%AA%D9%85%D9%8A%D8%B2-%D8%B3%D9%8A%D8%A7%D8%AD%D9%8A/p1828793193";
+    } else if (status === "unauthenticated") {
+      // Redirect to login page for logged-out users
+      router.push('/login');
+    }
+    // If status is "loading", the button will be disabled or do nothing until status resolves
+  };
+
   return (
     <main className="min-h-screen">
       <Header /> {/* Add Header component */}
@@ -60,7 +78,13 @@ export default function Home() {
           <Button variant="outline" className="border-[#1a5a7a] text-[#1a5a7a] hover:bg-[#f0f7fa] rounded-md px-6 py-2">
             تواصل معنا
           </Button>
-          <Button className="bg-[#1a5a7a] hover:bg-[#134a68] text-white rounded-md px-6 py-2">سجل الآن</Button>
+          <Button
+            className="bg-[#1a5a7a] hover:bg-[#134a68] text-white rounded-md px-6 py-2"
+            onClick={handleRegisterClick}
+            disabled={status === 'loading'} // Disable button while loading session status
+          >
+            {status === 'loading' ? 'جار التحميل...' : 'سجل الآن'}
+          </Button>
         </div>
       </div>
 
