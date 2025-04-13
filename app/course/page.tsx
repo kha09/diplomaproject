@@ -70,13 +70,12 @@ export default async function TrainingPrograms() {
       {/* Cards Grid */}
       <div className="container mx-auto px-4 py-12 -mt-8 relative z-10" dir="rtl">
         {fetchError ? (
-           <p className="text-center text-red-600">Error loading courses: {fetchError}</p>
-        ) : courses.length === 0 ? (
-           <p className="text-center text-gray-500">No courses available at the moment.</p>
+          <p className="text-center text-red-600">Error loading courses: {fetchError}</p>
         ) : (
+          // Render the grid structure regardless of whether courses were fetched (unless there's an error)
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {/* --- Demo Course Card --- */}
-            <CourseCard key="demo-course" detailsLink="/diploma" isDemoCard={true} course={{ // Added detailsLink & isDemoCard props
+            {/* --- Demo Course Card (Always render if no fetch error) --- */}
+            <CourseCard key="demo-course" detailsLink="/diploma" isDemoCard={true} course={{
               id: 0, // Use a unique key like 0 or a string
               name: "دبلوم اخصائي جودة وتميز سياحي",
               description: "يتكون الدبلوم من مجموعة دورات متخصصة في الجودة والتميز تركز على تطبيق المعايير والإرشادات القياسية ودمجها في خدمات ومنتجات المجال السياحي، لترتقي بمستوى جودة مكوناته وفق أفضل الممارسات العالمية من خلال تأهيل أخصائي جودة وتميز سياحي قادر على تطبيق المواصفات القياسية في جميع مجالات السياحة",
@@ -101,13 +100,19 @@ export default async function TrainingPrograms() {
             }} />
             {/* --- End Demo Course Card --- */}
 
-            {/* Map over fetched courses */}
-            {courses.map((course) => (
-              <CourseCard key={course.id} course={course} />
-            ))}
+            {/* Map over fetched courses ONLY if they exist */}
+            {courses.length > 0 ? (
+              courses.map((course) => (
+                <CourseCard key={course.id} course={course} />
+              ))
+            ) : (
+              // Optional: If you want a message when ONLY the demo card is shown
+              // <p className="col-span-full text-center text-gray-500">No other courses available at the moment.</p>
+              null // Render nothing else if only the demo card should show when courses are empty
+            )}
           </div>
         )}
-        </div>
+      </div>
       </main>
       <Footer /> {/* Add Footer component */}
     </div>
