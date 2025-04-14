@@ -401,13 +401,13 @@ export default function Dashboard() {
                  <div className="flex items-center gap-2">
                    <Input
                      id="productCode"
-                     name="productCode"
-                     type="text"
-                     placeholder="XXXX-XXXX-XXXX"
-                     className="flex-1"
-                     dir="ltr" // Assuming code is LTR
-                   />
-                   <div className="relative group">
+                      name="productCode"
+                      type="text"
+                      placeholder="XXXX-XXXX-XXXX"
+                      className="flex-1 max-w-xs" // Added max-w-xs
+                      dir="ltr" // Assuming code is LTR
+                    />
+                    <div className="relative group">
                      <HelpCircle className="h-5 w-5 text-gray-400 cursor-help" />
                      <span className="absolute bottom-full right-0 mb-2 hidden group-hover:block w-max max-w-xs p-2 text-xs text-white bg-gray-700 rounded-md shadow-lg z-10">
                        يمكنك العثور على كود المنتج في رسالة التأكيد التي تم إرسالها إلى بريدك الإلكتروني بعد الشراء.
