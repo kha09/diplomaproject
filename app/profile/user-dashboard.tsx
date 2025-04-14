@@ -290,11 +290,11 @@ export default function Dashboard() {
           <ul className="space-y-2">
              <li><a href="#" className="flex items-center gap-3 p-3 rounded-md bg-blue-700 hover:bg-blue-600 transition-colors"><User className="h-5 w-5" /><span>لوحة التحكم</span></a></li>
              <li><a href="#" className="flex items-center gap-3 p-3 rounded-md hover:bg-blue-700 transition-colors"><Book className="h-5 w-5" /><span>الدورات</span></a></li>
-             <li><a href="#" className="flex items-center gap-3 p-3 rounded-md hover:bg-blue-700 transition-colors"><Bell className="h-5 w-5" /><span>الإشعارات</span></a></li>
-             <li><a href="#" className="flex items-center gap-3 p-3 rounded-md hover:bg-blue-700 transition-colors"><Calendar className="h-5 w-5" /><span>التقويم</span></a></li>
+             {/* <li><a href="#" className="flex items-center gap-3 p-3 rounded-md hover:bg-blue-700 transition-colors"><Bell className="h-5 w-5" /><span>الإشعارات</span></a></li> */}
+             {/* <li><a href="#" className="flex items-center gap-3 p-3 rounded-md hover:bg-blue-700 transition-colors"><Calendar className="h-5 w-5" /><span>التقويم</span></a></li> */}
              <li><a href="#" className="flex items-center gap-3 p-3 rounded-md hover:bg-blue-700 transition-colors"><Package className="h-5 w-5" /><span>طلباتــي</span></a></li>
-             <li><a href="#" className="flex items-center gap-3 p-3 rounded-md hover:bg-blue-700 transition-colors"><CreditCard className="h-5 w-5" /><span>طرق الدفع</span></a></li>
-             <li><a href="#" className="flex items-center gap-3 p-3 rounded-md hover:bg-blue-700 transition-colors"><Settings className="h-5 w-5" /><span>الإعدادات</span></a></li>
+             {/* <li><a href="#" className="flex items-center gap-3 p-3 rounded-md hover:bg-blue-700 transition-colors"><CreditCard className="h-5 w-5" /><span>طرق الدفع</span></a></li> */}
+             {/* <li><a href="#" className="flex items-center gap-3 p-3 rounded-md hover:bg-blue-700 transition-colors"><Settings className="h-5 w-5" /><span>الإعدادات</span></a></li> */}
           </ul>
         </nav>
         <div className="p-4 border-t border-blue-700 mt-auto">
