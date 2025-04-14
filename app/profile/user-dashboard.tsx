@@ -2,7 +2,7 @@
 
 import { useState, useEffect, useRef, ChangeEvent } from "react";
 import Image from "next/image";
-import { Bell, Book, Calendar, CreditCard, LogOut, Menu, Package, Settings, User, Mail, Save, XCircle, Edit } from "lucide-react";
+import { Bell, Book, Calendar, CreditCard, LogOut, Menu, Package, Settings, User, Mail, Save, XCircle, Edit, HelpCircle } from "lucide-react"; // Added HelpCircle
 import { signOut, useSession, SessionContextValue } from "next-auth/react"; // Import SessionContextValue for typing
 import { Session } from "next-auth"; // Import Session type
 import { Input } from "@/components/ui/input";
@@ -38,6 +38,7 @@ interface UpdatedUserData {
 export default function Dashboard() {
   const { data: session, status, update }: SessionContextValue = useSession(); // Explicitly type useSession hook
   const [sidebarOpen, setSidebarOpen] = useState(true);
+  const [activeView, setActiveView] = useState<string>('dashboard'); // 'dashboard', 'courses', 'orders'
   const [isEditing, setIsEditing] = useState(false);
   const [formData, setFormData] = useState<UserFormData>({
     fullName: "",
@@ -288,11 +289,23 @@ export default function Dashboard() {
         </div>
         <nav className="flex-1 p-4 overflow-y-auto">
           <ul className="space-y-2">
-             <li><a href="#" className="flex items-center gap-3 p-3 rounded-md bg-blue-700 hover:bg-blue-600 transition-colors"><User className="h-5 w-5" /><span>لوحة التحكم</span></a></li>
-             <li><a href="#" className="flex items-center gap-3 p-3 rounded-md hover:bg-blue-700 transition-colors"><Book className="h-5 w-5" /><span>الدورات</span></a></li>
+             <li>
+               <button onClick={() => setActiveView('dashboard')} className={`w-full flex items-center gap-3 p-3 rounded-md transition-colors text-right ${activeView === 'dashboard' ? 'bg-blue-700' : 'hover:bg-blue-700'}`}>
+                 <User className="h-5 w-5" /><span>لوحة التحكم</span>
+               </button>
+             </li>
+             <li>
+               <button onClick={() => setActiveView('courses')} className={`w-full flex items-center gap-3 p-3 rounded-md transition-colors text-right ${activeView === 'courses' ? 'bg-blue-700' : 'hover:bg-blue-700'}`}>
+                 <Book className="h-5 w-5" /><span>الدورات</span>
+               </button>
+             </li>
              {/* <li><a href="#" className="flex items-center gap-3 p-3 rounded-md hover:bg-blue-700 transition-colors"><Bell className="h-5 w-5" /><span>الإشعارات</span></a></li> */}
              {/* <li><a href="#" className="flex items-center gap-3 p-3 rounded-md hover:bg-blue-700 transition-colors"><Calendar className="h-5 w-5" /><span>التقويم</span></a></li> */}
-             <li><a href="#" className="flex items-center gap-3 p-3 rounded-md hover:bg-blue-700 transition-colors"><Package className="h-5 w-5" /><span>طلباتــي</span></a></li>
+             <li>
+               <button onClick={() => setActiveView('orders')} className={`w-full flex items-center gap-3 p-3 rounded-md transition-colors text-right ${activeView === 'orders' ? 'bg-blue-700' : 'hover:bg-blue-700'}`}>
+                 <Package className="h-5 w-5" /><span>طلباتــي</span>
+               </button>
+             </li>
              {/* <li><a href="#" className="flex items-center gap-3 p-3 rounded-md hover:bg-blue-700 transition-colors"><CreditCard className="h-5 w-5" /><span>طرق الدفع</span></a></li> */}
              {/* <li><a href="#" className="flex items-center gap-3 p-3 rounded-md hover:bg-blue-700 transition-colors"><Settings className="h-5 w-5" /><span>الإعدادات</span></a></li> */}
           </ul>
@@ -311,77 +324,102 @@ export default function Dashboard() {
             <Menu className="h-6 w-6" />
           </button>
         </div>
-        <h1 className="text-2xl md:text-3xl font-bold text-gray-800 mb-6">مرحبا بك يا {displayUserName}</h1>
-        <div className="bg-white p-6 rounded-lg shadow-md">
-          <div className="flex justify-between items-center mb-4">
-            <h2 className="text-xl font-semibold text-gray-700">المعلومات الشخصية</h2>
-            {!isEditing && (<Button variant="outline" size="sm" onClick={handleEdit}><Edit className="ml-2 h-4 w-4" /> تعديل</Button>)}
-          </div>
-          {error && <p className="text-red-500 text-sm mb-4 bg-red-100 p-3 rounded-md">{error}</p>}
-          {successMessage && <p className="text-green-600 text-sm mb-4 bg-green-100 p-3 rounded-md">{successMessage}</p>}
 
-          {/* --- Temporarily Disable Image Upload UI --- */}
-          {/*
-          {isEditing && (
-            <div className="flex flex-col items-center sm:flex-row sm:items-start mb-6">
-              <label className="w-full sm:w-32 font-medium text-gray-600 mb-2 sm:mb-0 shrink-0 pt-2">الصورة الشخصية:</label>
-              <div className="flex flex-col items-center gap-4">
-                 <div className="relative h-24 w-24 rounded-full overflow-hidden border-2 border-gray-300 bg-gray-100">
-                   <Image
-                     key={imagePreview}
-                     src={imagePreview || "/static/images/default-avatar.png"}
-                     alt="Profile Preview"
-                     width={96} height={96} className="object-cover w-full h-full"
-                     unoptimized={imagePreview?.startsWith('data:image')}
-                     onError={(e) => { e.currentTarget.src = '/static/images/default-avatar.png'; }}
-                   />
-                 </div>
-                 <Button variant="outline" size="sm" onClick={() => fileInputRef.current?.click()} disabled={isLoading}>تغيير الصورة</Button>
-                 <input type="file" ref={fileInputRef} onChange={handleImageChange} accept="image/png, image/jpeg, image/jpg" className="hidden" />
+        {/* Conditional Rendering based on activeView */}
+        {activeView === 'dashboard' && (
+          <>
+            <h1 className="text-2xl md:text-3xl font-bold text-gray-800 mb-6">مرحبا بك يا {displayUserName}</h1>
+            <div className="bg-white p-6 rounded-lg shadow-md">
+              <div className="flex justify-between items-center mb-4">
+                <h2 className="text-xl font-semibold text-gray-700">المعلومات الشخصية</h2>
+                {!isEditing && (<Button variant="outline" size="sm" onClick={handleEdit}><Edit className="ml-2 h-4 w-4" /> تعديل</Button>)}
               </div>
-            </div>
-           )}
-           */}
-           {/* --- End Temporarily Disable --- */}
+              {error && <p className="text-red-500 text-sm mb-4 bg-red-100 p-3 rounded-md">{error}</p>}
+              {successMessage && <p className="text-green-600 text-sm mb-4 bg-green-100 p-3 rounded-md">{successMessage}</p>}
 
-          <div className="space-y-4">
-            {/* Fields: Full Name, Email, Phone, Degree, Country, City, DOB */}
-            <div className="flex flex-col sm:flex-row sm:items-center">
-              <label htmlFor="fullName" className="w-full sm:w-32 font-medium text-gray-600 mb-1 sm:mb-0 shrink-0">الاسم الكامل:</label>
-              {isEditing ? (<Input id="fullName" name="fullName" type="text" value={formData.fullName} onChange={handleInputChange} className="flex-1" disabled={isLoading} dir="rtl"/>) : (<p className="text-gray-800 flex-1 py-2">{formData.fullName}</p>)}
+              {/* --- Temporarily Disable Image Upload UI --- */}
+              {/* ... existing image upload UI ... */}
+              {/* --- End Temporarily Disable --- */}
+
+              <div className="space-y-4">
+                {/* Fields: Full Name, Email, Phone, Degree, Country, City, DOB */}
+                <div className="flex flex-col sm:flex-row sm:items-center">
+                  <label htmlFor="fullName" className="w-full sm:w-32 font-medium text-gray-600 mb-1 sm:mb-0 shrink-0">الاسم الكامل:</label>
+                  {isEditing ? (<Input id="fullName" name="fullName" type="text" value={formData.fullName} onChange={handleInputChange} className="flex-1" disabled={isLoading} dir="rtl"/>) : (<p className="text-gray-800 flex-1 py-2">{formData.fullName}</p>)}
+                </div>
+                <div className="flex flex-col sm:flex-row sm:items-center">
+                  <label htmlFor="email" className="w-full sm:w-32 font-medium text-gray-600 mb-1 sm:mb-0 shrink-0">البريد الإلكتروني:</label>
+                  {isEditing ? (<Input id="email" name="email" type="email" value={formData.email} onChange={handleInputChange} className="flex-1" disabled={isLoading} dir="ltr"/>) : (<p className="text-gray-800 flex-1 py-2" dir="rtl">{formData.email}</p>)}
+                </div>
+                <div className="flex flex-col sm:flex-row sm:items-center">
+                  <label htmlFor="phoneNumber" className="w-full sm:w-32 font-medium text-gray-600 mb-1 sm:mb-0 shrink-0">رقم الجوال:</label>
+                  {isEditing ? (<Input id="phoneNumber" name="phoneNumber" type="tel" value={formData.phoneNumber || ''} onChange={handleInputChange} className="flex-1" disabled={isLoading} dir="ltr"/>) : (<p className="text-gray-800 flex-1 py-2" dir="rtl">{formData.phoneNumber || 'غير متوفر'}</p>)}
+                </div>
+                <div className="flex flex-col sm:flex-row sm:items-center">
+                  <label htmlFor="degree" className="w-full sm:w-32 font-medium text-gray-600 mb-1 sm:mb-0 shrink-0">المؤهل العلمي:</label>
+                  {isEditing ? (<Input id="degree" name="degree" type="text" value={formData.degree || ''} onChange={handleInputChange} className="flex-1" disabled={isLoading} dir="rtl"/>) : (<p className="text-gray-800 flex-1 py-2">{formData.degree || 'غير متوفر'}</p>)}
+                </div>
+                <div className="flex flex-col sm:flex-row sm:items-center">
+                  <label htmlFor="country" className="w-full sm:w-32 font-medium text-gray-600 mb-1 sm:mb-0 shrink-0">الدولة:</label>
+                  {isEditing ? (<Input id="country" name="country" type="text" value={formData.country || ''} onChange={handleInputChange} className="flex-1" disabled={isLoading} dir="rtl"/>) : (<p className="text-gray-800 flex-1 py-2">{formData.country || 'غير متوفر'}</p>)}
+                </div>
+                <div className="flex flex-col sm:flex-row sm:items-center">
+                  <label htmlFor="city" className="w-full sm:w-32 font-medium text-gray-600 mb-1 sm:mb-0 shrink-0">المدينة:</label>
+                  {isEditing ? (<Input id="city" name="city" type="text" value={formData.city || ''} onChange={handleInputChange} className="flex-1" disabled={isLoading} dir="rtl"/>) : (<p className="text-gray-800 flex-1 py-2">{formData.city || 'غير متوفر'}</p>)}
+                </div>
+                <div className="flex flex-col sm:flex-row sm:items-center">
+                  <label htmlFor="dateOfBirth" className="w-full sm:w-32 font-medium text-gray-600 mb-1 sm:mb-0 shrink-0">تاريخ الميلاد:</label>
+                  {isEditing ? (<Input id="dateOfBirth" name="dateOfBirth" type="date" value={formData.dateOfBirth || ''} onChange={handleInputChange} className="flex-1" disabled={isLoading} dir="rtl" max={new Date().toISOString().split("T")[0]}/>) : (<p className="text-gray-800 flex-1 py-2" dir="rtl">{formData.dateOfBirth ? new Date(formData.dateOfBirth).toLocaleDateString('ar-SA', { year: 'numeric', month: 'long', day: 'numeric' }) : 'غير متوفر'}</p>)}
+                </div>
+              </div>
+              {isEditing && (
+                <div className="mt-6 flex justify-end gap-3">
+                  <Button variant="outline" onClick={handleCancel} disabled={isLoading}><XCircle className="ml-2 h-4 w-4" /> إلغاء</Button>
+                  <Button onClick={handleSave} disabled={isLoading}>{isLoading ? "جاري الحفظ..." : <> <Save className="ml-2 h-4 w-4" /> حفظ التغييرات </>}</Button>
+                </div>
+              )}
             </div>
-            <div className="flex flex-col sm:flex-row sm:items-center">
-              <label htmlFor="email" className="w-full sm:w-32 font-medium text-gray-600 mb-1 sm:mb-0 shrink-0">البريد الإلكتروني:</label>
-              {isEditing ? (<Input id="email" name="email" type="email" value={formData.email} onChange={handleInputChange} className="flex-1" disabled={isLoading} dir="ltr"/>) : (<p className="text-gray-800 flex-1 py-2" dir="rtl">{formData.email}</p>)}
-            </div>
-            <div className="flex flex-col sm:flex-row sm:items-center">
-              <label htmlFor="phoneNumber" className="w-full sm:w-32 font-medium text-gray-600 mb-1 sm:mb-0 shrink-0">رقم الجوال:</label>
-              {isEditing ? (<Input id="phoneNumber" name="phoneNumber" type="tel" value={formData.phoneNumber || ''} onChange={handleInputChange} className="flex-1" disabled={isLoading} dir="ltr"/>) : (<p className="text-gray-800 flex-1 py-2" dir="rtl">{formData.phoneNumber || 'غير متوفر'}</p>)}
-            </div>
-            <div className="flex flex-col sm:flex-row sm:items-center">
-              <label htmlFor="degree" className="w-full sm:w-32 font-medium text-gray-600 mb-1 sm:mb-0 shrink-0">المؤهل العلمي:</label>
-              {isEditing ? (<Input id="degree" name="degree" type="text" value={formData.degree || ''} onChange={handleInputChange} className="flex-1" disabled={isLoading} dir="rtl"/>) : (<p className="text-gray-800 flex-1 py-2">{formData.degree || 'غير متوفر'}</p>)}
-            </div>
-            <div className="flex flex-col sm:flex-row sm:items-center">
-              <label htmlFor="country" className="w-full sm:w-32 font-medium text-gray-600 mb-1 sm:mb-0 shrink-0">الدولة:</label>
-              {isEditing ? (<Input id="country" name="country" type="text" value={formData.country || ''} onChange={handleInputChange} className="flex-1" disabled={isLoading} dir="rtl"/>) : (<p className="text-gray-800 flex-1 py-2">{formData.country || 'غير متوفر'}</p>)}
-            </div>
-            <div className="flex flex-col sm:flex-row sm:items-center">
-              <label htmlFor="city" className="w-full sm:w-32 font-medium text-gray-600 mb-1 sm:mb-0 shrink-0">المدينة:</label>
-              {isEditing ? (<Input id="city" name="city" type="text" value={formData.city || ''} onChange={handleInputChange} className="flex-1" disabled={isLoading} dir="rtl"/>) : (<p className="text-gray-800 flex-1 py-2">{formData.city || 'غير متوفر'}</p>)}
-            </div>
-            <div className="flex flex-col sm:flex-row sm:items-center">
-              <label htmlFor="dateOfBirth" className="w-full sm:w-32 font-medium text-gray-600 mb-1 sm:mb-0 shrink-0">تاريخ الميلاد:</label>
-              {isEditing ? (<Input id="dateOfBirth" name="dateOfBirth" type="date" value={formData.dateOfBirth || ''} onChange={handleInputChange} className="flex-1" disabled={isLoading} dir="rtl" max={new Date().toISOString().split("T")[0]}/>) : (<p className="text-gray-800 flex-1 py-2" dir="rtl">{formData.dateOfBirth ? new Date(formData.dateOfBirth).toLocaleDateString('ar-SA', { year: 'numeric', month: 'long', day: 'numeric' }) : 'غير متوفر'}</p>)}
+          </>
+        )}
+
+        {activeView === 'courses' && (
+          <div className="bg-white p-6 rounded-lg shadow-md">
+            <h2 className="text-xl font-semibold text-gray-700 mb-4">دوراتي</h2>
+            {/* Placeholder for courses content */}
+            <p className="text-gray-600">سيتم عرض الدورات المسجل بها هنا قريباً.</p>
+          </div>
+        )}
+
+        {activeView === 'orders' && (
+          <div className="bg-white p-6 rounded-lg shadow-md">
+            <h2 className="text-xl font-semibold text-gray-700 mb-4">طلباتي - تفعيل المنتج</h2>
+            <div className="space-y-4">
+               <div>
+                 <label htmlFor="productCode" className="block text-sm font-medium text-gray-700 mb-1">
+                   أدخل كود المنتج
+                 </label>
+                 <div className="flex items-center gap-2">
+                   <Input
+                     id="productCode"
+                     name="productCode"
+                     type="text"
+                     placeholder="XXXX-XXXX-XXXX"
+                     className="flex-1"
+                     dir="ltr" // Assuming code is LTR
+                   />
+                   <div className="relative group">
+                     <HelpCircle className="h-5 w-5 text-gray-400 cursor-help" />
+                     <span className="absolute bottom-full right-0 mb-2 hidden group-hover:block w-max max-w-xs p-2 text-xs text-white bg-gray-700 rounded-md shadow-lg z-10">
+                       يمكنك العثور على كود المنتج في رسالة التأكيد التي تم إرسالها إلى بريدك الإلكتروني بعد الشراء.
+                     </span>
+                   </div>
+                 </div>
+               </div>
+               <Button>تفعيل</Button> {/* Add functionality later */}
             </div>
           </div>
-          {isEditing && (
-            <div className="mt-6 flex justify-end gap-3">
-              <Button variant="outline" onClick={handleCancel} disabled={isLoading}><XCircle className="ml-2 h-4 w-4" /> إلغاء</Button>
-              <Button onClick={handleSave} disabled={isLoading}>{isLoading ? "جاري الحفظ..." : <> <Save className="ml-2 h-4 w-4" /> حفظ التغييرات </>}</Button>
-            </div>
-          )}
-        </div>
+        )}
+
       </div>
     </div>
   );
