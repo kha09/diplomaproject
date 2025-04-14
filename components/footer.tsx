@@ -121,8 +121,11 @@ export default function Footer() {
             </div>
           </div>
         </div>
+        {/* Added Image */}
+        <div className="mt-8 flex justify-center">
+          <Image src="/static/images/iYbNT_lg.png" alt="Additional Footer Image" width={150} height={75} />
+        </div>
       </div>
     </footer>
   )
 }
-
