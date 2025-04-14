@@ -386,7 +386,7 @@ export default function Dashboard() {
           <div className="bg-white p-6 rounded-lg shadow-md">
             <h2 className="text-xl font-semibold text-gray-700 mb-4">دوراتي</h2>
             {/* Placeholder for courses content */}
-            <p className="text-gray-600">سيتم عرض الدورات المسجل بها هنا قريباً.</p>
+            <p className="text-gray-600">سيتم عرض الدورات بعد إدخال كود تفعيل الدورة في قسم طلباتي.</p>
           </div>
         )}
 
