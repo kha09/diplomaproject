@@ -4,8 +4,8 @@ generator client {
 
 datasource db {
   provider  = "postgresql"
-  url       = env("DATABASE_URL") // For connection pooling
-  directUrl = env("DIRECT_URL") // For migrations/db push
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
 }
 
 model User {
@@ -88,4 +88,10 @@ model Session {
   user         User     @relation(fields: [userId], references: [id])
 
   @@index([userId])
+}
+
+model DiplomaCode {
+  id        Int      @id @default(autoincrement())
+  code      String   @unique
+  available Boolean  @default(true)
 }
