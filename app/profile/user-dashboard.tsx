@@ -2,12 +2,14 @@
 
 import { useState, useEffect, useRef, ChangeEvent } from "react";
 import Image from "next/image";
-import { Bell, Book, Calendar, CreditCard, LogOut, Menu, Package, Settings, User, Mail, Save, XCircle, Edit, HelpCircle, CheckCircle } from "lucide-react"; // Added HelpCircle, CheckCircle
+import { Bell, Book, Calendar, CreditCard, LogOut, Menu, Package, Settings, User, Mail, Save, XCircle, Edit, HelpCircle, CheckCircle, GraduationCap } from "lucide-react"; // Added HelpCircle, CheckCircle, GraduationCap
 import { signOut, useSession, SessionContextValue } from "next-auth/react"; // Import SessionContextValue for typing
 import { Session } from "next-auth"; // Import Session type
+import Link from "next/link"; // Import Link
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { ExternalLink, Clock, Calendar as CalendarIcon } from "lucide-react"; // Import ExternalLink, Clock, CalendarIcon icons
+import Header from "@/components/header"; // Import the Header component
 
 // Updated course data including date and time for each session
 const coursesData = [
@@ -68,7 +70,7 @@ interface UpdatedUserData {
 export default function Dashboard() {
   const { data: session, status, update }: SessionContextValue = useSession(); // Explicitly type useSession hook
   const [sidebarOpen, setSidebarOpen] = useState(true);
-  const [activeView, setActiveView] = useState<string>('dashboard'); // 'dashboard', 'courses', 'orders'
+  const [activeView, setActiveView] = useState<string>('dashboard'); // 'dashboard', 'courses', 'orders', 'diplomaSubscription'
   const [isEditing, setIsEditing] = useState(false);
   const [formData, setFormData] = useState<UserFormData>({
     fullName: "",
@@ -329,9 +331,11 @@ export default function Dashboard() {
   const displayUserImage = imagePreview || "/static/images/default-avatar.png";
 
   return (
-    <div className="flex min-h-screen bg-gray-100" dir="rtl">
-      {/* Sidebar */}
-      <div
+    <div className="flex flex-col min-h-screen bg-gray-100"> {/* Wrap in a flex-col container */}
+      <Header /> {/* Add the Header component */}
+      <div className="flex flex-1" dir="rtl"> {/* Existing flex row for sidebar + content */}
+        {/* Sidebar */}
+        <div
         className={`${sidebarOpen ? "translate-x-0" : "translate-x-full"} md:translate-x-0 fixed md:relative inset-y-0 right-0 w-64 md:w-72 bg-blue-800 text-white transition-transform duration-300 ease-in-out z-30 flex flex-col`}
       >
         <div className="md:hidden p-4 text-left">
@@ -371,16 +375,21 @@ export default function Dashboard() {
              </li>
              <li>
                <button onClick={() => setActiveView('courses')} className={`w-full flex items-center gap-3 p-3 rounded-md transition-colors text-right ${activeView === 'courses' ? 'bg-blue-700' : 'hover:bg-blue-700'}`}>
-                 <Book className="h-5 w-5" /><span>الدورات</span>
-               </button>
-             </li>
-             {/* <li><a href="#" className="flex items-center gap-3 p-3 rounded-md hover:bg-blue-700 transition-colors"><Bell className="h-5 w-5" /><span>الإشعارات</span></a></li> */}
-             {/* <li><a href="#" className="flex items-center gap-3 p-3 rounded-md hover:bg-blue-700 transition-colors"><Calendar className="h-5 w-5" /><span>التقويم</span></a></li> */}
+                <Book className="h-5 w-5" /><span>الدورات</span>
+              </button>
+            </li>
              <li>
-               <button onClick={() => setActiveView('orders')} className={`w-full flex items-center gap-3 p-3 rounded-md transition-colors text-right ${activeView === 'orders' ? 'bg-blue-700' : 'hover:bg-blue-700'}`}>
-                 <Package className="h-5 w-5" /><span>طلباتــي</span>
+               <button onClick={() => setActiveView('diplomaSubscription')} className={`w-full flex items-center gap-3 p-3 rounded-md transition-colors text-right ${activeView === 'diplomaSubscription' ? 'bg-blue-700' : 'hover:bg-blue-700'}`}>
+                 <GraduationCap className="h-5 w-5" /><span>الاشتراك في الدبلوم</span>
                </button>
              </li>
+            {/* <li><a href="#" className="flex items-center gap-3 p-3 rounded-md hover:bg-blue-700 transition-colors"><Bell className="h-5 w-5" /><span>الإشعارات</span></a></li> */}
+            {/* <li><a href="#" className="flex items-center gap-3 p-3 rounded-md hover:bg-blue-700 transition-colors"><Calendar className="h-5 w-5" /><span>التقويم</span></a></li> */}
+            <li>
+              <button onClick={() => setActiveView('orders')} className={`w-full flex items-center gap-3 p-3 rounded-md transition-colors text-right ${activeView === 'orders' ? 'bg-blue-700' : 'hover:bg-blue-700'}`}>
+                <Package className="h-5 w-5" /><span>طلباتــي</span>
+              </button>
+            </li>
              {/* <li><a href="#" className="flex items-center gap-3 p-3 rounded-md hover:bg-blue-700 transition-colors"><CreditCard className="h-5 w-5" /><span>طرق الدفع</span></a></li> */}
              {/* <li><a href="#" className="flex items-center gap-3 p-3 rounded-md hover:bg-blue-700 transition-colors"><Settings className="h-5 w-5" /><span>الإعدادات</span></a></li> */}
           </ul>
@@ -532,9 +541,37 @@ export default function Dashboard() {
                </Button>
             </div>
           </div>
-        )}
+         )}
 
-      </div>
-    </div>
+         {/* Diploma Subscription View */}
+         {activeView === 'diplomaSubscription' && (
+           <div className="bg-white p-6 rounded-lg shadow-md">
+             <h2 className="text-xl font-semibold text-gray-700 mb-4">الاشتراك في الدبلوم</h2>
+             <div className="flex flex-col md:flex-row gap-6 items-start">
+               <div className="w-full md:w-2/3 text-right order-2 md:order-1">
+                 <h3 className="text-xl font-bold text-teal-700 mb-2">دبلوم أخصائي جودة وتميز سياحي</h3>
+                 <p className="text-sm text-gray-600 mb-4">
+                   يتكون الدبلوم من مجموعة دورات متخصصة في الجودة والتميز تركز على تطبيق المعايير والإرشادات القياسية ودمجها في خدمات ومنتجات المجال السياحي
+                 </p>
+                 <Link href="/diploma" className="inline-block px-5 py-2 bg-blue-700 text-white rounded-md hover:bg-blue-800 transition-colors text-sm font-medium">
+                   عرض تفاصيل الدبلوم
+                 </Link>
+               </div>
+               <div className="w-full md:w-1/3 order-1 md:order-2">
+                 <Image
+                   src="/static/images/diploma.jpeg" // Using .jpeg based on file list
+                   alt="دبلوم أخصائي جودة وتميز سياحي"
+                   width={300} // Adjusted size
+                   height={200} // Adjusted size
+                   className="rounded-md object-cover w-full h-auto shadow-sm"
+                 />
+               </div>
+             </div>
+           </div>
+         )}
+
+       </div>
+      </div> {/* Close the inner flex row */}
+    </div> // Close the outer flex-col container
   );
-}
+ }
