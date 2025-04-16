@@ -1,6 +1,7 @@
 import Header from "../components/header"
 import HeroSection from "../components/hero-section"
 import ContactForm from "../components/contact-form"
+import AboutUsSection from "../components/about-us-section" // Added import
 import ServicesSection from "../components/services-section"
 import AwardsSection from "../components/awards-section"
 import TourismCategories from "../components/tourism-categories"
@@ -16,6 +17,7 @@ export default function Home() {
       <Header />
       <HeroSection />
       <ContactForm />
+      <AboutUsSection /> {/* Added component */}
       <ServicesSection />
       <AwardsSection />
       
