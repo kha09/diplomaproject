@@ -3,6 +3,7 @@ import HeroSection from "../components/hero-section"
 import ContactForm from "../components/contact-form"
 import AboutUsSection from "../components/about-us-section" // Added import
 import ServicesSection from "../components/services-section"
+import VisionMissionSection from "../components/vision-mission-section" // Added import
 import AwardsSection from "../components/awards-section"
 import TourismCategories from "../components/tourism-categories"
 import ExcellenceAwards from "../components/excellence-awards"
@@ -19,6 +20,7 @@ export default function Home() {
       <ContactForm />
       <AboutUsSection /> {/* Added component */}
       <ServicesSection />
+      <VisionMissionSection /> {/* Added component */}
       <AwardsSection />
       
      
