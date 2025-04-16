@@ -48,7 +48,7 @@ export default function TrainingSection() {
               </div>
               <div className="w-full md:w-1/3">
                 <Image
-                  src="/static/images/diploma.jpeg?height=150&width=200"
+                  src="/static/images/diploma.jpg?height=150&width=200"
                   alt="Rock formation"
                   width={200}
                   height={150}
