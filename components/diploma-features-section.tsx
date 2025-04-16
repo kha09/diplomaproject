@@ -9,73 +9,73 @@ const featureItems = [
   {
     id: 1,
     title: "الجودة السياحية في إدارة المنشآت والوجهات وفق السياحة الميسرة ISO 21902",
-    image: "/static/images/Mask Group 5.png",
+    image: "/static/images/03.jpeg",
     description: ""
   },
   {
     id: 2,
     title: "التعريف بنظام إدارة الاستدامة للمنشآت الفندقية وفق 21401 ISO.",
-    image: "/static/images/Mask Group 5.png",
+    image: "/static/images/06.jpeg",
     description: ""
   },
   {
     id: 3,
     title: "نموذج التميز السياحي.",
-    image: "/static/images/Mask Group 5.png",
+    image: "/static/images/09.jpeg",
     description: ""
   },
   {
     id: 4,
     title: "الصحة والسلامة في المجال السياحي وفق 45001 ISO.",
-    image: "/static/images/Mask Group 5.png",
+    image: "/static/images/05.jpeg",
     description: ""
   },
   {
     id: 5,
     title: "المعايير الدولية لجودة السكن الفندقي والمرافق وفق 22483:2020 ISO",
-    image: "/static/images/Mask Group 5.png",
+    image: "/static/images/10.jpeg",
     description: ""
   },
   {
     id: 6,
     title: "حوكمة المنشآت السياحية وحماية حقوق السائح.",
-    image: "/static/images/Mask Group 5.png",
+    image: "/static/images/12.jpeg",
     description: ""
   },
   {
     id: 7,
     title: "إدارة المعارف السياحية ونقل الخبرات وفق 30401 ISO",
-    image: "/static/images/Mask Group 5.png",
+    image: "/static/images/07.jpeg",
     description: ""
   },
   {
     id: 8,
     title: "استمرارية الأعمال السياحية وفق 22301 ISO",
-    image: "/static/images/Mask Group 5.png",
+    image: "/static/images/04.jpeg",
     description: ""
   },
   {
     id: 9,
     title: "السياحة البيئية البحرية وفق 14001 ISO",
-    image: "/static/images/Mask Group 5.png",
+    image: "/static/images/02.jpeg",
     description: ""
   },
   {
     id: 10,
     title: "إدارة المخاطر الصحية في القطاع السياحي وفق 31000 ISO.",
-    image: "/static/images/Mask Group 5.png",
+    image: "/static/images/01.jpeg",
     description: ""
   },
   {
     id: 11,
     title: "جودة وسلامة الغذاء وملائمة السائحين وفق 22000 ISO ومواصفة حلال.",
-    image: "/static/images/Mask Group 5.png",
+    image: "/static/images/11.jpeg",
     description: ""
   },
   {
     id: 12,
     title: "إثراء تجربة السائح وقياس الرضا.",
-    image: "/static/images/Mask Group 5.png",
+    image: "/static/images/08.jpeg",
     description: ""
   }
 ]

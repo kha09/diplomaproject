@@ -42,13 +42,13 @@ export default function TrainingSection() {
                 <p className="text-sm text-gray-600 mb-2">
                   يتكون الدبلوم من مجموعة دورات متخصصة في الجودة والتميز تركز على تطبيق المعايير والإرشادات القياسية ودمجها في خدمات ومنتجات المجال السياحي
                 </p>
-                <Link href="#" className="text-teal-500 hover:text-teal-700 text-sm font-medium">
+                <Link href="/diploma" className="text-teal-500 hover:text-teal-700 text-sm font-medium">
                   عرض المزيد
                 </Link>
               </div>
               <div className="w-full md:w-1/3">
                 <Image
-                  src="/static/images/Mask Group 14.png?height=150&width=200"
+                  src="/static/images/diploma.jpeg?height=150&width=200"
                   alt="Rock formation"
                   width={200}
                   height={150}
