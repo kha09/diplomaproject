@@ -97,26 +97,41 @@ export default function Home() {
           {/* Card 1 */}
           <div className="border rounded-lg overflow-hidden flex flex-col h-full">
             <div className="bg-[#003049] text-white p-4 text-center">
-              <h3 className="text-xl font-bold">شهادة معتمدة</h3>
+              <h3 className="text-xl font-bold">مدة وشهادة الدبلوم</h3> {/* Updated title */}
             </div>
-            <div className="p-6 text-right flex-grow">
-              <p className="text-gray-700">هذا النص يتم استبداله بنص آخر لوصف الشهادات المعتمدة</p>
+            <div className="p-6 text-right flex-grow" dir="rtl"> {/* Added dir="rtl" */}
+              <ul className="text-gray-700 list-disc list-inside text-right space-y-2"> {/* Added ul */}
+                <li>الدبلوم بعدد (160) ساعة</li>
+                <li>منها(40) ساعة تطبيق عملي مشروع تخرج</li>
+                <li>يبدأ الدبلوم في 9 ذو القعدة 1446هـ الموافق 07 مايو 2025م</li>
+                <li>وينتهي في 22 ذو الحجة 1446 هـ الموافق 18 يونيو 2025م.</li>
+                <br/> {/* Add a line break for separation */}
+                <li className="font-semibold">شهادة معتمدة</li> {/* Make subheading bold */}
+                <li>شهادة دبلوم أخصائي جودة وتميز سياحي</li>
+                <li>معتمدة من المنظمة العربية للسياحة</li>
+              </ul> {/* Closed ul */}
             </div>
             <div className="flex justify-center p-4 mt-auto border-t">
-              <ChevronDown className="text-gray-400 w-6 h-6" />
+              <ChevronDown className="text-gray-400 w-6 h-6" /> {/* Kept the chevron */}
             </div>
           </div>
 
           {/* Card 2 */}
           <div className="border rounded-lg overflow-hidden flex flex-col h-full">
             <div className="bg-[#003049] text-white p-4 text-center">
-              <h3 className="text-xl font-bold">مدة الدبلوم</h3>
+              <h3 className="text-xl font-bold">أهداف الدبلوم</h3> {/* Keep title as "أهداف الدبلوم" */}
             </div>
-            <div className="p-6 text-right flex-grow">
-              <p className="text-gray-700">هذا النص يتم استبداله بنص آخر لوصف مدة وعدد ساعات الدبلوم المقدمة تفصيليا</p>
+            <div className="p-6 text-right flex-grow" dir="rtl"> {/* Add dir="rtl" */}
+              <ul className="text-gray-700 list-disc list-inside text-right space-y-2"> {/* Add ul */}
+                 <li>إعداد وتأهيل الكفاءات العربية القادرة على تطبيق معايير الجودة والتميز في المجال السياحي والابتكار لتنميته المستدامة</li>
+                 <li>القدرة على عمل مؤشرات الآداء وقياسها في استراتيجية المنشآت والوجهات السياحية وتحسين عملياتها</li>
+                 <li>تمكين المشاركين من تحليل المخاطر وآلية وضع الخطط وتنفيذها لاستمرارية الأعمال وإدارة الأزمات السياحية</li>
+                 <li>تطبيق استراتيجيات الحوكمة في المنشات السياحية وحماية حقوق السائح وإثراء تجربته</li>
+                 <li>توظيف أدوات الجودة للارتقاء بالخدمات والمنتجات السياحية وقياس أثرها والاستثمار الأمثل في اقتصادياتها</li>
+              </ul> {/* Closed ul */}
             </div>
             <div className="flex justify-center p-4 mt-auto border-t">
-              <ChevronDown className="text-gray-400 w-6 h-6" />
+              <ChevronDown className="text-gray-400 w-6 h-6" /> {/* Keep the chevron */}
             </div>
           </div>
 
@@ -127,13 +142,17 @@ export default function Home() {
             </div>
             <div className="p-6 text-right flex-grow" dir="rtl">
               <ul className="text-gray-700 list-disc list-inside text-right space-y-2">
-                <li>الجودة السياحية في إدارة المنشآت والوجهات وفق السياحة الميسرة 21902</li>
-                <li>نموذج التميز السياحي</li>
-                <li>التعريف بنظام إدارة الاستدامة ISO 21401 وفق</li>
-                <li>الصحة والسلامة في المجال السياحي ISO 45001 وفق</li>
-                <li>المعايير الدولية ISO و ISO 22483:2020 لجودة السكن الفندقي و المرافق وفق 18513:2021</li>
-                <li>حوكمة المنشآت السياحية وحماية حقوق السائح</li>
-                <li>إدارة المعارف السياحية ونقل الخبرات ISO</li>
+                <li>الجودة السياحية في إدارة المنشآت والوجهات وفق السياحة الميسرة ISO 21902.</li>
+                <li>نموذج التميز السياحي.</li>
+                <li>التعريف بنظام إدارة الاستدامة للمنشآت الفندقية وفق ISO 21401.</li>
+                <li>الصحة والسلامة في المجال السياحي وفق ISO 45001.</li>
+                <li>المعايير الدولية لجودة السكن الفندقي و المرافق وفق ISO 18513:2021 و ISO 22483:2020</li>
+                <li>حوكمة المنشآت السياحية وحماية حقوق السائح.</li>
+                <li>إدارة المعارف السياحية ونقل الخبرات وفق ISO 30401.</li>
+                <li>استمرارية الأعمال السياحية وفق ISO 22301.</li>
+                <li>السياحة البيئية البحرية وفق ISO 14001.</li>
+                <li>إدارة المخاطر الصحية في القطاع السياحي وفق ISO 31000.</li>
+                <li>جودة وسلامة الغذاء وملائمة السائحين وفق ISO 22000 ومواصفة حلال.</li>
               </ul>
             </div>
             <div className="flex justify-center p-4 mt-auto border-t">
