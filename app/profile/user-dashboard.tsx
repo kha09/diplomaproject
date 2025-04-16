@@ -2,7 +2,7 @@
 
 import { useState, useEffect, useRef, ChangeEvent } from "react";
 import Image from "next/image";
-import { Bell, Book, Calendar, CreditCard, LogOut, Menu, Package, Settings, User, Mail, Save, XCircle, Edit, HelpCircle } from "lucide-react"; // Added HelpCircle
+import { Bell, Book, Calendar, CreditCard, LogOut, Menu, Package, Settings, User, Mail, Save, XCircle, Edit, HelpCircle, CheckCircle } from "lucide-react"; // Added HelpCircle, CheckCircle
 import { signOut, useSession, SessionContextValue } from "next-auth/react"; // Import SessionContextValue for typing
 import { Session } from "next-auth"; // Import Session type
 import { Input } from "@/components/ui/input";
@@ -57,6 +57,13 @@ export default function Dashboard() {
   const [error, setError] = useState<string | null>(null);
   const [successMessage, setSuccessMessage] = useState<string | null>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
+
+  // State for product code activation
+  const [productCode, setProductCode] = useState<string>("");
+  const [activationLoading, setActivationLoading] = useState<boolean>(false);
+  const [activationError, setActivationError] = useState<string | null>(null);
+  const [activationSuccess, setActivationSuccess] = useState<string | null>(null);
+
 
   const formatDateForInput = (date: Date | string | null | undefined): string => {
     if (!date) return "";
@@ -242,6 +249,44 @@ export default function Dashboard() {
     }
   };
 
+  // Handler for activating the product code
+  const handleActivateCode = async () => {
+    setActivationLoading(true);
+    setActivationError(null);
+    setActivationSuccess(null);
+
+    if (!productCode.trim()) {
+      setActivationError("الرجاء إدخال كود المنتج.");
+      setActivationLoading(false);
+      return;
+    }
+
+    try {
+      const response = await fetch('/api/diploma-codes/activate', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ code: productCode }),
+      });
+
+      const result = await response.json();
+
+      if (!response.ok) {
+        throw new Error(result.message || 'حدث خطأ أثناء تفعيل الكود.');
+      }
+
+      setActivationSuccess(result.message || "تم الاضافة بنجاح");
+      setProductCode(""); // Clear input on success
+
+    } catch (err: any) {
+      setActivationError(err.message || "الكود غير صالح أو حدث خطأ.");
+    } finally {
+      setActivationLoading(false);
+    }
+  };
+
+
   if (status === "loading") {
     return <div className="flex justify-center items-center min-h-screen">جاري التحميل...</div>;
   }
@@ -393,6 +438,10 @@ export default function Dashboard() {
         {activeView === 'orders' && (
           <div className="bg-white p-6 rounded-lg shadow-md">
             <h2 className="text-xl font-semibold text-gray-700 mb-4">طلباتي - تفعيل المنتج</h2>
+            {/* Display Activation Messages */}
+            {activationError && <p className="text-red-500 text-sm mb-4 bg-red-100 p-3 rounded-md flex items-center gap-2"><XCircle className="h-4 w-4"/> {activationError}</p>}
+            {activationSuccess && <p className="text-green-600 text-sm mb-4 bg-green-100 p-3 rounded-md flex items-center gap-2"><CheckCircle className="h-4 w-4"/> {activationSuccess}</p>}
+
             <div className="space-y-4">
                <div>
                  <label htmlFor="productCode" className="block text-sm font-medium text-gray-700 mb-1">
@@ -406,6 +455,9 @@ export default function Dashboard() {
                       placeholder="XXXX-XXXX-XXXX"
                       className="flex-1 max-w-xs" // Added max-w-xs
                       dir="ltr" // Assuming code is LTR
+                      value={productCode}
+                      onChange={(e) => setProductCode(e.target.value)}
+                      disabled={activationLoading}
                     />
                     <div className="relative group">
                      <HelpCircle className="h-5 w-5 text-gray-400 cursor-help" />
@@ -415,7 +467,9 @@ export default function Dashboard() {
                    </div>
                  </div>
                </div>
-               <Button>تفعيل</Button> {/* Add functionality later */}
+               <Button onClick={handleActivateCode} disabled={activationLoading}>
+                 {activationLoading ? "جاري التفعيل..." : "تفعيل"}
+               </Button>
             </div>
           </div>
         )}
