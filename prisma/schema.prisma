@@ -21,6 +21,7 @@ model User {
   diplomaId   Int?
   role        String    @default("USER")
   imagePath   String?
+  hasActivatedCode Boolean @default(false) // Added field to track code activation
   sessions    Session[]
   diploma     Diploma?  @relation(fields: [diplomaId], references: [id])
   courses     Course[]  @relation("CourseToUser")

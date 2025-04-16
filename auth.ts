@@ -109,6 +109,7 @@ export const authOptions: NextAuthOptions = {
         token.city = session.user.city;
         token.dateOfBirth = session.user.dateOfBirth;
         token.imagePath = session.user.imagePath;
+        token.hasActivatedCode = session.user.hasActivatedCode; // Add hasActivatedCode on update
         return token; // Return updated token immediately
       }
 
@@ -129,6 +130,7 @@ export const authOptions: NextAuthOptions = {
               city: true,
               dateOfBirth: true,
               imagePath: true,
+              hasActivatedCode: true, // Select hasActivatedCode
             }
           });
 
@@ -143,10 +145,11 @@ export const authOptions: NextAuthOptions = {
             token.country = dbUser.country;
             token.city = dbUser.city;
             token.dateOfBirth = dbUser.dateOfBirth; // Keep as Date object or null
-            token.imagePath = dbUser.imagePath;
-            token.picture = dbUser.imagePath; // Map imagePath to standard 'picture' claim
-          } else {
-             console.error("JWT Callback: User not found in DB for token ID:", token.id);
+             token.imagePath = dbUser.imagePath;
+             token.picture = dbUser.imagePath; // Map imagePath to standard 'picture' claim
+             token.hasActivatedCode = dbUser.hasActivatedCode; // Add hasActivatedCode from DB
+           } else {
+              console.error("JWT Callback: User not found in DB for token ID:", token.id);
              // Potentially invalidate token or handle error
              return null; // Returning null might sign the user out
           }
@@ -170,10 +173,11 @@ export const authOptions: NextAuthOptions = {
         session.user.degree = token.degree;
         session.user.country = token.country;
         session.user.city = token.city;
-        session.user.dateOfBirth = token.dateOfBirth;
-        session.user.imagePath = token.imagePath; // Also keep original imagePath if needed
-      }
-      return session;
+         session.user.dateOfBirth = token.dateOfBirth;
+         session.user.imagePath = token.imagePath; // Also keep original imagePath if needed
+         session.user.hasActivatedCode = token.hasActivatedCode; // Add hasActivatedCode to session
+       }
+       return session;
     },
     // Redirect callback remains the same
     async redirect({ url, baseUrl, token }: { url: string, baseUrl: string, token?: any }) {

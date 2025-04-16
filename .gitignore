@@ -38,3 +38,7 @@ next-env.d.ts
 # .gitignore
 .instructions.md
 *.env
+
+#excel
+.xlsx
+.csv

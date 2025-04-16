@@ -1,7 +1,21 @@
 import { NextResponse } from 'next/server';
-import prisma from '@/prisma/client'; // Assuming your Prisma client instance is exported from here
+import prisma from '@/prisma/client';
+import { getServerSession } from 'next-auth/next';
+import { authOptions } from '@/auth'; // Corrected path to root auth.ts
 
 export async function POST(request: Request) {
+  const session = await getServerSession(authOptions);
+
+  if (!session?.user?.id) {
+    return NextResponse.json({ message: 'غير مصرح به' }, { status: 401 });
+  }
+  // Ensure user ID is a number for Prisma
+  const userId = parseInt(session.user.id, 10);
+  if (isNaN(userId)) {
+      return NextResponse.json({ message: 'معرف المستخدم غير صالح' }, { status: 400 });
+  }
+
+
   try {
     const body = await request.json();
     const { code } = body;
@@ -20,10 +34,19 @@ export async function POST(request: Request) {
       return NextResponse.json({ message: 'الكود غير صالح' }, { status: 400 });
     }
 
-    // If code is valid and available, update it to unavailable
-    await prisma.diplomaCode.update({
-      where: { id: diplomaCode.id },
-      data: { available: false },
+    // Use a transaction to ensure both updates succeed or fail together
+    await prisma.$transaction(async (tx) => {
+      // 1. Mark the code as unavailable
+      await tx.diplomaCode.update({
+        where: { id: diplomaCode.id },
+        data: { available: false },
+      });
+
+      // 2. Mark the user as having activated a code
+      await tx.user.update({
+        where: { id: userId },
+        data: { hasActivatedCode: true },
+      });
     });
 
     // Return success message

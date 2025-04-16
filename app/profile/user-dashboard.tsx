@@ -7,6 +7,24 @@ import { signOut, useSession, SessionContextValue } from "next-auth/react"; // I
 import { Session } from "next-auth"; // Import Session type
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
+import { ExternalLink } from "lucide-react"; // Import ExternalLink icon
+
+// Parsed course data from the CSV
+const coursesData = [
+  { name: "معايير الجودة السياحية في إدارة المنشآت والوجهات وفق السياحة الميسرة 21902 ISO", links: ["https://us06web.zoom.us/j/83763470935?pwd=mrbZp8Dpx7joXiJak0wBHGlzXeFAL3.1", "https://us06web.zoom.us/j/87436889527?pwd=gjwMuJxnAEttovhoAnXvGcbobXEXsU.1"] },
+  { name: "التعريف بنظام إدارة الاستدامة للمنشآت الفندقية وفق 21401 ISO.", links: ["https://us06web.zoom.us/j/83620974344?pwd=56nGtv1gyzEi6fajbMKnmM41LeRpvv.1", "https://us06web.zoom.us/j/81230170406?pwd=TGdL6LLbgPmDiMaOwsuY00DVdKxTCf.1"] },
+  { name: "نموذج التميز السياحي.", links: ["https://us06web.zoom.us/j/81124621542?pwd=c7lhSORqbmYUnfBerTV53sb7od5Q1Q.1", "https://us06web.zoom.us/j/86275260858?pwd=3SpGoIgmb4KkbaxdtNnW5kljuu2Jv6.1"] },
+  { name: "الصحة والسلامة في المجال السياحي وفق 45001 ISO.", links: ["https://us06web.zoom.us/j/89019761766?pwd=hQgCbcpmGUAbEy3epaRSu1DhKoeP3O.1", "https://us06web.zoom.us/j/89994790992?pwd=6tWOweb8QTfuBkcg9nyYRRKM4DjUCn.1"] },
+  { name: "المعايير الدولية لجودة السكن الفندقي والمرافق وفق 22483:2020 ISO", links: ["https://us06web.zoom.us/j/89044732534?pwd=zOpi3cvbGCeaasvhN259gJEMC34wwU.1", "https://us06web.zoom.us/j/81215592841?pwd=OicgO2W1gmA9xQuL89DQQSW6reYuSR.1"] },
+  { name: "حوكمة المنشآت السياحية وحماية حقوق السائح.", links: ["https://us06web.zoom.us/j/88917853960?pwd=rg7iFaqOuywTpYtjyY15bygGgKnHdJ.1", "https://us06web.zoom.us/j/83456731950?pwd=Vk7tpebb0O1jDLw98eOzmsmQDFyDnK.1"] },
+  { name: "إدارة المعارف السياحية ونقل الخبرات وفق 30401 ISO", links: ["https://us06web.zoom.us/j/87188155043?pwd=dgc7iIAnppZj55MuM8w0O9691zubch.1", "https://us06web.zoom.us/j/88928160014?pwd=jkTPmedLqqq3rQ9bXaZyzSXPiVh6rM.1"] },
+  { name: "استمرارية الأعمال السياحية وفق 22301 ISO", links: ["https://us06web.zoom.us/j/86946929854?pwd=m54nfiHLFhP0MGDkcHcnLVvHCBzXuB.1", "https://us06web.zoom.us/j/83473283961?pwd=bPy3Z5davRG9XLpJXXjzXL0alSP3q4.1"] },
+  { name: "السياحة البيئية البحرية وفق 14001 ISO", links: ["https://us06web.zoom.us/j/85669790477?pwd=6S0otgezu0399P3xma0gGFmGqm9HlX.1", "https://us06web.zoom.us/j/87361704945?pwd=iCbbSyTJJf117emUkbHkYpHRQziobv.1"] },
+  { name: "إدارة المخاطر الصحية في القطاع السياحي وفق 31000 ISO.", links: ["https://us06web.zoom.us/j/82102666561?pwd=jLFsn80fjThuTpv5o5bKViv0sStOkh.1", "https://us06web.zoom.us/j/83131899242?pwd=TirFEFyn8owbZ11VHR6X6tN3SlRPgJ.1"] },
+  { name: "جودة وسلامة الغذاء وملائمة السائحين وفق 22000 ISO ومواصفة حلال.", links: ["https://us06web.zoom.us/j/88091292541?pwd=77Xalywl6ceRYzopjpcHoaKzak3ZNw.1", "https://us06web.zoom.us/j/82956469733?pwd=VdCSxwRBGPbZm296KLYPGSpob0NLX2.1"] },
+  { name: "إثراء تجربة السائح وقياس الرضا.", links: ["https://us06web.zoom.us/j/84363520460?pwd=VH6wcHfGR21NqjCatwF0bbSJOM6fTk.1", "https://us06web.zoom.us/j/84944918128?pwd=0xsnHdNDobCzAZBdqkiT26sVhQKxAJ.1"] },
+];
+
 
 // Interface matching Prisma schema + imagePath for form data
 interface UserFormData {
@@ -430,8 +448,31 @@ export default function Dashboard() {
         {activeView === 'courses' && (
           <div className="bg-white p-6 rounded-lg shadow-md">
             <h2 className="text-xl font-semibold text-gray-700 mb-4">دوراتي</h2>
-            {/* Placeholder for courses content */}
-            <p className="text-gray-600">سيتم عرض الدورات بعد إدخال كود تفعيل الدورة في قسم طلباتي.</p>
+            {session?.user?.hasActivatedCode ? (
+              <div className="space-y-4">
+                {coursesData.map((course, index) => (
+                  <div key={index} className="border border-gray-200 rounded-md p-4">
+                    <h3 className="font-medium text-lg text-blue-700 mb-2">{course.name}</h3>
+                    <div className="space-y-1">
+                      {course.links.map((link, linkIndex) => (
+                        <a
+                          key={linkIndex}
+                          href={link}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="flex items-center gap-2 text-blue-600 hover:text-blue-800 hover:underline text-sm"
+                        >
+                          <ExternalLink className="h-4 w-4" />
+                          رابط الدورة {course.links.length > 1 ? `(الجزء ${linkIndex + 1})` : ''}
+                        </a>
+                      ))}
+                    </div>
+                  </div>
+                ))}
+              </div>
+            ) : (
+              <p className="text-gray-600">سيتم عرض الدورات بعد إدخال كود تفعيل الدورة في قسم طلباتي.</p>
+            )}
           </div>
         )}
 
