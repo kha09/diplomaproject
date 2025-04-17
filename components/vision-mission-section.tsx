@@ -2,12 +2,12 @@ import React from 'react';
 
 const VisionMissionSection: React.FC = () => {
   return (
-    <section className="py-12 md:py-16" dir="rtl">
+    <section className="py-8 md:py-12" dir="rtl"> {/* Reduced vertical padding */}
       <div className="container mx-auto px-4 md:px-6">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-0">
           {/* Vision Column (Now on the right side in RTL) */}
           <div 
-            className="p-12 md:p-16 flex flex-col justify-center items-center text-center text-white bg-cover bg-center min-h-80" // Increased padding, added min-height
+            className="p-8 md:p-12 flex flex-col justify-center items-center text-center text-white bg-cover bg-center min-h-64" // Reduced padding and min-height
             style={{ backgroundImage: "url('/static/images/vision.jpg')" }}
           >
             <h2 className="text-3xl font-bold mb-4">
@@ -20,7 +20,7 @@ const VisionMissionSection: React.FC = () => {
           </div>
 
           {/* Mission Column (Now on the left side in RTL) */}
-          <div className="bg-gray-100 dark:bg-gray-800 p-12 md:p-16 flex flex-col justify-center items-center text-center min-h-80"> {/* Increased padding, added min-height */}
+          <div className="bg-gray-100 dark:bg-gray-800 p-8 md:p-12 flex flex-col justify-center items-center text-center min-h-64"> {/* Reduced padding and min-height */}
             <h2 className="text-3xl font-bold text-blue-700 dark:text-blue-400 mb-4">
               الرسالة
             </h2>

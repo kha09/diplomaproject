@@ -56,9 +56,11 @@ export default function ContactForm() {
   return (
     <section className="relative mb-10" style={{ marginTop: "-6rem" }}>
       <div className="container px-4 md:px-6">
-        <div className="mx-auto">
+        {/* Added max-w-3xl to constrain width */}
+        <div className="mx-auto max-w-3xl"> 
           <div className="overflow-hidden rounded-lg shadow-xl" style={{ backgroundColor: "#00CECC" }}>
-            <div className="p-8 text-center text-white">
+            {/* Reduced padding from p-8 to p-6 */}
+            <div className="p-6 text-center text-white"> 
               <h3 className="mb-6 text-xl font-bold" dir="rtl">
                 اترك بياناتك وسوف نتواصل معك
               </h3>
