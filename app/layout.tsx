@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import localFont from "next/font/local";
 import Script from "next/script"; // Import Script component
+import { Analytics } from "@vercel/analytics/react";
 import "./globals.css";
 import Providers from "@/components/providers"; // Import the Providers component
 import WhatsAppButton from "@/components/whatsapp-button"; // Import the WhatsApp button
@@ -110,6 +111,7 @@ export default function RootLayout({
         </noscript>
         {/* End Google Tag Manager (noscript) */}
         <Providers>{children}</Providers> {/* Wrap children with Providers */}
+        <Analytics />
         <WhatsAppButton /> {/* Add the WhatsApp button here */}
       </body>
     </html>
