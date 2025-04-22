@@ -19,7 +19,7 @@ export default function Home() {
   const handleRegisterClick = () => {
     if (status === "authenticated") {
       // Redirect to external store page for logged-in users
-      window.location.href = "https://store.qeatourism.com/%D8%AF%D8%A8%D9%84%D9%88%D9%85-%D8%A7%D8%AE%D8%B5%D8%A7%D8%A6%D9%8A-%D8%AC%D9%88%D8%AF%D8%A9-%D9%88%D8%AA%D9%85%D9%8A%D8%B2-%D8%B3%D9%8A%D8%A7%D8%AD%D9%8A/p1828793193";
+      window.location.href = "https://store.qeatourism.com/%D8%AF%D8%A8%D9%84%D9%88%D9%85-%D8%A7%D8%AE%D8%B5%D8%A7%D8%A6%D9%8A-%D8%AC%D9%88%D8%AF%D8%A9-%D9%88%D8%AA%D9%85%D9%8A%D8%B2-%D8%B3%D9%8A%D8%A7%D8%AD%D9%8A-%D8%AF%D9%81%D8%B9%D8%A9-%D8%A3%D9%88%D9%84%D9%89/p1160252794";
     } else if (status === "unauthenticated") {
       // Redirect to login page for logged-out users
       router.push('/login');
