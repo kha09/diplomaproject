@@ -103,21 +103,26 @@ export default function Footer() {
               <Image src="/static/images/logoprizenew.png" alt="Logo" width={220} height={220} className="mb-4" />
             </div>
             <div className="flex gap-4 mt-auto">
-              <Link href="#" aria-label="LinkedIn">
+              <Link href="https://www.linkedin.com/company/%D8%AC%D8%A7%D8%A6%D8%B2%D8%A9-%D8%A7%D9%84%D9%85%D9%86%D8%B8%D9%85%D8%A9-%D8%A7%D9%84%D8%B9%D8%B1%D8%A8%D9%8A%D8%A9-%D9%84%D9%84%D8%B3%D9%8A%D8%A7%D8%AD%D8%A9-%D9%81%D9%8A-%D8%A7%D9%84%D8%AC%D9%88%D8%AF%D8%A9-%D9%88%D8%A7%D9%84%D8%AA%D9%85%D9%8A%D8%B2-%D8%A7%D9%84%D8%B3%D9%8A%D8%A7%D8%AD%D9%8A/posts/?feedView=all" target="_blank" aria-label="LinkedIn">
                 <Linkedin className="h-5 w-5" />
               </Link>
-              <Link href="#" aria-label="Twitter">
+              <Link href="https://x.com/qetourism" target="_blank" aria-label="Twitter">
                 <Twitter className="h-5 w-5" />
               </Link>
-              <Link href="#" aria-label="Instagram">
+              <Link href="https://www.instagram.com/qeat.ourism/" target="_blank" aria-label="Instagram">
                 <Instagram className="h-5 w-5" />
               </Link>
-              <Link href="#" aria-label="Facebook">
+              <Link href="https://www.facebook.com/profile.php?id=61572204562727" target="_blank" aria-label="Facebook">
                 <Facebook className="h-5 w-5" />
               </Link>
-              <Link href="#" aria-label="WhatsApp">
+              <Link
+                href="https://wa.me/966552957095"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="WhatsApp">
                 <WhatsApp className="h-5 w-5" />
               </Link>
+
             </div>
           </div>
         </div>
