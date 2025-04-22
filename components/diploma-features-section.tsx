@@ -173,11 +173,24 @@ export default function DiplomaFeaturesSection() {
                   </p>
                   {/* Button container - re-added mt-auto */}
                   <div className="mt-auto pt-1"> {/* Re-added mt-auto and pt-2 */}
-                    <Link 
-                      href="#" // Update this link destination if needed
+                    <Link
+                      href={
+                        item.id === 1 ? "/course/iso-21902-tourism-quality" :
+                        item.id === 2 ? "/course/iso-21401-sustainability" :
+                        item.id === 3 ? "/course/tourism-excellence-model" :
+                        item.id === 4 ? "/course/iso-45001-health-safety" :
+                        item.id === 5 ? "/course/iso-22483-hotel-quality" :
+                        item.id === 6 ? "/course/tourism-governance" :
+                        item.id === 7 ? "/course/iso-30401-knowledge-management" :
+                        item.id === 8 ? "/course/iso-22301-business-continuity" :
+                        item.id === 9 ? "/course/iso-14001-marine-ecotourism" :
+                        item.id === 10 ? "/course/iso-31000-health-risk-management" :
+                        item.id === 11 ? "/course/iso-22000-halal-food-safety" :
+                        item.id === 12 ? "/course/tourist-experience-satisfaction" : "#"
+                      } // Update this link destination if needed
                       className={`block w-full text-center px-2 py-1 rounded-md text-base font-semibold transition-all duration-300 ${ // Kept py-3, text-base, added font-semibold
-                        hoveredItem === item.id 
-                          ? "bg-[#00C1BF] text-white" 
+                        hoveredItem === item.id
+                          ? "bg-[#00C1BF] text-white"
                           : "bg-[#005A98] text-white"
                       }`}
                     >
