@@ -3,7 +3,7 @@ import Link from 'next/link';
 import Image from 'next/image'; // Import the next/image component
 
 const WhatsAppButton = () => {
-  const phoneNumber = '966505568884';
+  const phoneNumber = '96655295795';
   const whatsappLink = `https://wa.me/${phoneNumber}`;
 
   return (
