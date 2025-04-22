@@ -31,7 +31,7 @@ export default function Footer() {
             {/* Column 1 */}
             <div className="flex flex-col text-right">
               <h3 className="font-bold mb-4 text-lg">الخدمــــات</h3>
-              <Link href="#" className="mb-2 text-sm">
+             {/* <Link href="#" className="mb-2 text-sm">
                 روابط فرعية
               </Link>
               <Link href="#" className="mb-2 text-sm">
@@ -42,13 +42,13 @@ export default function Footer() {
               </Link>
               <Link href="#" className="mb-2 text-sm">
                 روابط فرعية
-              </Link>
+              </Link> */}
             </div>
 
             {/* Column 2 */}
             <div className="flex flex-col text-right">
               <h3 className="font-bold mb-4 text-lg">وسائل التواصل</h3>
-              <Link href="#" className="mb-2 text-sm">
+             {/* <Link href="#" className="mb-2 text-sm">
                 روابط فرعية
               </Link>
               <Link href="#" className="mb-2 text-sm">
@@ -59,13 +59,13 @@ export default function Footer() {
               </Link>
               <Link href="#" className="mb-2 text-sm">
                 روابط فرعية
-              </Link>
+              </Link> */}
             </div>
 
             {/* Column 3 */}
             <div className="flex flex-col text-right">
               <h3 className="font-bold mb-4 text-lg">تواصل معنا</h3>
-              <Link href="#" className="mb-2 text-sm">
+             {/* <Link href="#" className="mb-2 text-sm">
                 روابط فرعية
               </Link>
               <Link href="#" className="mb-2 text-sm">
@@ -76,13 +76,13 @@ export default function Footer() {
               </Link>
               <Link href="#" className="mb-2 text-sm">
                 روابط فرعية
-              </Link>
+              </Link> */}
             </div>
 
             {/* Column 4 */}
             <div className="flex flex-col text-right">
               <h3 className="font-bold mb-4 text-lg">الأسئلة الشائعة</h3>
-              <Link href="#" className="mb-2 text-sm">
+             {/* <Link href="#" className="mb-2 text-sm">
                 روابط فرعية
               </Link>
               <Link href="#" className="mb-2 text-sm">
@@ -93,7 +93,7 @@ export default function Footer() {
               </Link>
               <Link href="#" className="mb-2 text-sm">
                 روابط فرعية
-              </Link>
+              </Link> */}
             </div>
           </div>
 
