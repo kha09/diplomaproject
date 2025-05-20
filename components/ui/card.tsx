@@ -17,4 +17,17 @@ const Card = forwardRef<HTMLDivElement, CardProps>(
 )
 Card.displayName = "Card"
 
-export { Card }
+export interface CardContentProps extends HTMLAttributes<HTMLDivElement> {}
+
+const CardContent = forwardRef<HTMLDivElement, CardContentProps>(
+  ({ className, ...props }, ref) => (
+    <div
+      ref={ref}
+      className={cn("p-6 pt-0", className)}
+      {...props}
+    />
+  )
+)
+CardContent.displayName = "CardContent"
+
+export { Card, CardContent }

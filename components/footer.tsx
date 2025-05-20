@@ -30,7 +30,9 @@ export default function Footer() {
           <div className="md:col-span-6 grid grid-cols-2 md:grid-cols-4 gap-4 text-right">
             {/* Column 1 */}
             <div className="flex flex-col text-right">
-              <h3 className="font-bold mb-4 text-lg">الخدمــــات</h3>
+              <Link href="/footerpage/privacy">
+                <h3 className="font-bold mb-4 text-lg">الخصوصية</h3>
+              </Link>
              {/* <Link href="#" className="mb-2 text-sm">
                 روابط فرعية
               </Link>
@@ -47,7 +49,9 @@ export default function Footer() {
 
             {/* Column 2 */}
             <div className="flex flex-col text-right">
-              <h3 className="font-bold mb-4 text-lg">وسائل التواصل</h3>
+              <Link href="/footerpage/refund">
+                <h3 className="font-bold mb-4 text-lg">سياسة الاسترجاع</h3>
+              </Link>
              {/* <Link href="#" className="mb-2 text-sm">
                 روابط فرعية
               </Link>

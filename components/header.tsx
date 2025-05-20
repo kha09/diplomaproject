@@ -40,7 +40,7 @@ export default function Header() {
           <Link href="/" className="text-sm font-medium text-teal-600 transition-colors hover:text-teal-700">
             الرئيسية
           </Link>
-          <Link href="#awards" className="text-sm font-medium text-teal-600 transition-colors hover:text-teal-700">
+          <Link href="/prize" className="text-sm font-medium text-teal-600 transition-colors hover:text-teal-700">
             الجوائز
           </Link>
           <Link href="/course" className="text-sm font-medium text-teal-600 transition-colors hover:text-teal-700"> {/* Updated href */}
@@ -77,7 +77,7 @@ export default function Header() {
               <Link href="/" className="text-base font-medium text-teal-600 py-2 border-b border-gray-100">
                 الرئيسية
               </Link>
-              <Link href="#awards" className="text-base font-medium text-teal-600 py-2 border-b border-gray-100">
+              <Link href="/prize" className="text-base font-medium text-teal-600 py-2 border-b border-gray-100">
                 الجوائز
               </Link>
               <Link href="/course" className="text-base font-medium text-teal-600 py-2 border-b border-gray-100"> {/* Updated href */}
