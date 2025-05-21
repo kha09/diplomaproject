@@ -10,7 +10,12 @@ export default function AwardsSite() {
     <div className="flex flex-col min-h-screen">
       <Header />
       {/* Hero section with curved bottom */}
-      <div className="relative bg-gradient-to-r from-teal-400 to-teal-500 pb-32">
+      <div 
+        className="relative pb-48 bg-cover bg-center" 
+        style={{ 
+          backgroundImage: "linear-gradient(rgba(0, 206, 204, 0.7), rgba(0, 206, 204, 0.2)), url('/static/images/NoPath.png')" 
+        }}
+      >
         <div className="container mx-auto px-4 py-12 text-center">
           <h1 className="text-white text-5xl font-bold rtl">الجوائز</h1>
         </div>
