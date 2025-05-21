@@ -11,7 +11,7 @@ export default function AwardsSite() {
       <Header />
       {/* Hero section with curved bottom */}
       <div 
-        className="relative pb-48 bg-cover bg-center" 
+        className="relative pb-32 bg-cover bg-center" 
         style={{ 
           backgroundImage: "linear-gradient(rgba(0, 206, 204, 0.7), rgba(0, 206, 204, 0.2)), url('/static/images/NoPath.png')" 
         }}
@@ -82,7 +82,7 @@ export default function AwardsSite() {
           </div>
 
           {/* Newsletter Section */}
-          <div className="bg-gradient-to-r from-teal-400 to-teal-500 rounded-3xl p-8 max-w-5xl mx-auto my-12">
+          <div className="bg-[#00CECC] rounded-3xl p-8 max-w-5xl mx-auto my-12">
             <div className="text-center rtl text-white mb-6">
               <h2 className="text-2xl font-bold mb-2">لا يفوتــك جديــد</h2>
               <p>اترك بريدك الإلكتروني ليصلك كل جديد لنا أول بأول</p>
@@ -91,7 +91,7 @@ export default function AwardsSite() {
               <Input type="email" placeholder="اترك بريدك الإلكتروني" className="bg-white rtl text-right" />
               <Button className="bg-blue-600 hover:bg-blue-700 rtl">إرسال</Button>
             </div>
-            <div className="flex justify-end mt-4 rtl">
+            <div className="flex justify-center mt-4 rtl">
               <div className="flex items-center gap-2">
                 <input type="checkbox" id="terms" className="h-4 w-4" />
                 <label htmlFor="terms" className="text-white text-sm">
