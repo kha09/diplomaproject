@@ -17,7 +17,7 @@ export default function AwardsSite() {
         }}
       >
         <div className="container mx-auto px-4 py-12 text-center">
-          <h1 className="text-white text-5xl font-bold rtl">الجوائز</h1>
+          <h1 className="text-white text-8xl font-bold rtl mt-16">الجوائــــز</h1>
         </div>
         {/* Curved bottom */}
         <div className="absolute bottom-0 left-0 right-0">
@@ -37,74 +37,37 @@ export default function AwardsSite() {
           {/* Award cards */}
           <div className="grid md:grid-cols-2 gap-8 max-w-5xl mx-auto">
             {/* Tourism Excellence Award */}
-            <Card className="overflow-hidden border-0 shadow-md rounded-3xl">
+            <Card className="bg-card text-card-foreground overflow-hidden border-0 shadow-md rounded-3xl">
               <CardContent className="p-0">
-                <div className="relative h-48">
-                  <div className="bg-gray-200 w-full h-full"></div>
-                  <div className="absolute inset-0 flex items-center justify-center">
-                    <div className="bg-orange-300 rounded-full p-4">
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        width="48"
-                        height="48"
-                        viewBox="0 0 24 24"
-                        fill="none"
-                        stroke="white"
-                        strokeWidth="2"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                      >
-                        <path d="M12 2L15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2z" />
-                        <circle cx="12" cy="12" r="4" />
-                      </svg>
-                    </div>
-                  </div>
+                <div className="relative h-56 bg-cover bg-center" style={{ backgroundImage: "url('/static/images/Mask Group 112.png')" }}>
+
                 </div>
                 <div className="p-6 text-center rtl">
-                  <h2 className="text-xl font-bold mb-2">جائــزة التميــز السياحــي</h2>
-                  <p className="text-gray-600 mb-4">نقاط6000للمكافآت تتكون من</p>
-                  <div className="flex justify-center gap-4 mt-4">
-                    <Button variant="outline" className="rounded-full border-blue-600 text-blue-600 hover:bg-blue-50">
+                  <h2 className="text-2xl font-bold mb-2 text-blue-900">جائــزة التميــز السياحــي</h2>
+                  <p className="text-gray-600 mb-4">معايير الممكنات تتكون من 600 نقطة</p>
+                  <div className="flex justify-center gap-4 mt-6">
+                    <Button variant="outline" className="rounded-full border-blue-600 text-blue-600 hover:bg-blue-50 px-6">
                       معرفة المزيد
                     </Button>
-                    <Button className="rounded-full bg-blue-600 hover:bg-blue-700">سجل الآن</Button>
+                    <Button className="rounded-full bg-blue-600 hover:bg-blue-700 px-6">سجل الآن</Button>
                   </div>
                 </div>
               </CardContent>
             </Card>
 
             {/* Tourism Quality Award */}
-            <Card className="overflow-hidden border-0 shadow-md rounded-3xl">
+            <Card className="bg-card text-card-foreground overflow-hidden border-0 shadow-md rounded-3xl">
               <CardContent className="p-0">
-                <div className="relative h-48">
-                  <div className="bg-gray-200 w-full h-full"></div>
-                  <div className="absolute inset-0 flex items-center justify-center">
-                    <div className="bg-orange-300 rounded-full p-4">
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        width="48"
-                        height="48"
-                        viewBox="0 0 24 24"
-                        fill="none"
-                        stroke="white"
-                        strokeWidth="2"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                      >
-                        <path d="M12 2L15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2z" />
-                        <circle cx="12" cy="12" r="4" />
-                      </svg>
-                    </div>
-                  </div>
+                <div className="relative h-56 bg-cover bg-center" style={{ backgroundImage: "url('/static/images/Mask Group 311.png')" }}>
                 </div>
                 <div className="p-6 text-center rtl">
-                  <h2 className="text-xl font-bold mb-2">جائــزة الجــودة السياحيــة</h2>
+                  <h2 className="text-2xl font-bold mb-2 text-blue-900">جائــزة الجــودة السياحيــة</h2>
                   <p className="text-gray-600 mb-4">في الخدمات السياحية والترويج السياحي</p>
-                  <div className="flex justify-center gap-4 mt-4">
-                    <Button variant="outline" className="rounded-full border-blue-600 text-blue-600 hover:bg-blue-50">
+                  <div className="flex justify-center gap-4 mt-6">
+                    <Button variant="outline" className="rounded-full border-blue-600 text-blue-600 hover:bg-blue-50 px-6">
                       معرفة المزيد
                     </Button>
-                    <Button className="rounded-full bg-blue-600 hover:bg-blue-700">سجل الآن</Button>
+                    <Button className="rounded-full bg-blue-600 hover:bg-blue-700 px-6">سجل الآن</Button>
                   </div>
                 </div>
               </CardContent>
