@@ -1,4 +1,5 @@
 import Image from "next/image"
+import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Card, CardContent } from "@/components/ui/card"
@@ -46,9 +47,11 @@ export default function AwardsSite() {
                   <h2 className="text-2xl font-bold mb-2 text-blue-900">جائــزة التميــز السياحــي</h2>
                   <p className="text-gray-600 mb-4">معايير الممكنات تتكون من 600 نقطة</p>
                   <div className="flex justify-center gap-4 mt-6">
-                    <Button variant="outline" className="rounded-full border-blue-600 text-blue-600 hover:bg-blue-50 px-6">
-                      معرفة المزيد
-                    </Button>
+                    <Link href="/prize/tourism-excellence">
+                      <Button variant="outline" className="rounded-full border-blue-600 text-blue-600 hover:bg-blue-50 px-6">
+                        معرفة المزيد
+                      </Button>
+                    </Link>
                     <Button className="rounded-full bg-blue-600 hover:bg-blue-700 px-6">سجل الآن</Button>
                   </div>
                 </div>
@@ -64,9 +67,11 @@ export default function AwardsSite() {
                   <h2 className="text-2xl font-bold mb-2 text-blue-900">جائــزة الجــودة السياحيــة</h2>
                   <p className="text-gray-600 mb-4">في الخدمات السياحية والترويج السياحي</p>
                   <div className="flex justify-center gap-4 mt-6">
-                    <Button variant="outline" className="rounded-full border-blue-600 text-blue-600 hover:bg-blue-50 px-6">
-                      معرفة المزيد
-                    </Button>
+                    <Link href="/prize/tourism-quality">
+                      <Button variant="outline" className="rounded-full border-blue-600 text-blue-600 hover:bg-blue-50 px-6">
+                        معرفة المزيد
+                      </Button>
+                    </Link>
                     <Button className="rounded-full bg-blue-600 hover:bg-blue-700 px-6">سجل الآن</Button>
                   </div>
                 </div>
