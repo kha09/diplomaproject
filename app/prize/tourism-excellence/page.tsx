@@ -36,70 +36,72 @@ export default function TourismExcellenceAward() {
       {/* Main content */}
       <main className="flex-grow bg-white">
         <div className="container mx-auto px-4 py-8">
-          <div className="max-w-6xl mx-auto">
-            <h2 className="text-4xl font-bold text-center text-blue-900 mb-12 rtl">معايير جائزة التميز السياحي</h2>
+          <div className="max-w-6xl mx-auto bg-white rounded-3xl shadow-lg p-8">
+            <div className="flex justify-center">
+              <h2 className="text-4xl font-bold text-center text-white mb-12 rtl bg-[#005A98] py-4 px-8 rounded-lg inline-block">معايير جائزة التميز السياحي</h2>
+            </div>
             
             {/* Grid of award criteria */}
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 rtl">
               {/* Criterion 1 */}
-              <div className="text-center">
-                <div className="w-24 h-24 mx-auto mb-4 bg-blue-100 rounded-lg flex items-center justify-center">
+              <div className="text-center bg-white p-4 rounded-lg shadow">
+                <div className="w-24 h-24 mx-auto mb-4 bg-blue-100 rounded-lg flex items-center justify-center shadow-md">
                   <Image src="/static/images/placeholder.png" alt="أنظمة وقوانين" width={48} height={48} />
                 </div>
                 <h3 className="text-xl font-semibold text-blue-900">أنظمة وقوانين</h3>
               </div>
 
               {/* Criterion 2 */}
-              <div className="text-center">
-                <div className="w-24 h-24 mx-auto mb-4 bg-blue-100 rounded-lg flex items-center justify-center">
+              <div className="text-center bg-white p-4 rounded-lg shadow">
+                <div className="w-24 h-24 mx-auto mb-4 bg-blue-100 rounded-lg flex items-center justify-center shadow-md">
                   <Image src="/static/images/placeholder.png" alt="إدارة المؤسسة" width={48} height={48} />
                 </div>
                 <h3 className="text-xl font-semibold text-blue-900">إدارة المؤسسة</h3>
               </div>
 
               {/* Criterion 3 */}
-              <div className="text-center">
-                <div className="w-24 h-24 mx-auto mb-4 bg-blue-100 rounded-lg flex items-center justify-center">
+              <div className="text-center bg-white p-4 rounded-lg shadow">
+                <div className="w-24 h-24 mx-auto mb-4 bg-blue-100 rounded-lg flex items-center justify-center shadow-md">
                   <Image src="/static/images/placeholder.png" alt="السكن والمرافق" width={48} height={48} />
                 </div>
                 <h3 className="text-xl font-semibold text-blue-900">السكن والمرافق</h3>
               </div>
 
               {/* Criterion 4 */}
-              <div className="text-center">
-                <div className="w-24 h-24 mx-auto mb-4 bg-blue-100 rounded-lg flex items-center justify-center">
+              <div className="text-center bg-white p-4 rounded-lg shadow">
+                <div className="w-24 h-24 mx-auto mb-4 bg-blue-100 rounded-lg flex items-center justify-center shadow-md">
                   <Image src="/static/images/placeholder.png" alt="الخدمة السياحية" width={48} height={48} />
                 </div>
                 <h3 className="text-xl font-semibold text-blue-900">الخدمة السياحية</h3>
               </div>
 
               {/* Criterion 5 */}
-              <div className="text-center">
-                <div className="w-24 h-24 mx-auto mb-4 bg-blue-100 rounded-lg flex items-center justify-center">
+              <div className="text-center bg-white p-4 rounded-lg shadow">
+                <div className="w-24 h-24 mx-auto mb-4 bg-blue-100 rounded-lg flex items-center justify-center shadow-md">
                   <Image src="/static/images/placeholder.png" alt="نقل المعارف والمهارات" width={48} height={48} />
                 </div>
                 <h3 className="text-xl font-semibold text-blue-900">نقل المعارف والمهارات</h3>
               </div>
 
               {/* Criterion 6 */}
-              <div className="text-center">
-                <div className="w-24 h-24 mx-auto mb-4 bg-blue-100 rounded-lg flex items-center justify-center">
+              <div className="text-center bg-white p-4 rounded-lg shadow">
+                <div className="w-24 h-24 mx-auto mb-4 bg-blue-100 rounded-lg flex items-center justify-center shadow-md">
                   <Image src="/static/images/placeholder.png" alt="النقل وسهولة الوصول" width={48} height={48} />
                 </div>
                 <h3 className="text-xl font-semibold text-blue-900">النقل وسهولة الوصول</h3>
               </div>
 
               {/* Criterion 7 */}
-              <div className="text-center">
-                <div className="w-24 h-24 mx-auto mb-4 bg-blue-100 rounded-lg flex items-center justify-center">
+              <div className="text-center bg-white p-4 rounded-lg shadow">
+                <div className="w-24 h-24 mx-auto mb-4 bg-blue-100 rounded-lg flex items-center justify-center shadow-md">
                   <Image src="/static/images/placeholder.png" alt="برامج الإرشاد التسويقي والإعلامي" width={48} height={48} />
                 </div>
                 <h3 className="text-xl font-semibold text-blue-900">برامج الإرشاد التسويقي والإعلامي</h3>
               </div>
 
               {/* Criterion 8 */}
-              <div className="text-center">
-                <div className="w-24 h-24 mx-auto mb-4 bg-blue-100 rounded-lg flex items-center justify-center">
+              <div className="text-center bg-white p-4 rounded-lg shadow">
+                <div className="w-24 h-24 mx-auto mb-4 bg-blue-100 rounded-lg flex items-center justify-center shadow-md">
                   <Image src="/static/images/placeholder.png" alt="مقاصد ووجهات سياحية" width={48} height={48} />
                 </div>
                 <h3 className="text-xl font-semibold text-blue-900">مقاصد ووجهات سياحية</h3>
