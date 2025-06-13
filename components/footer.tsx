@@ -68,7 +68,9 @@ export default function Footer() {
 
             {/* Column 3 */}
             <div className="flex flex-col text-right">
-              <h3 className="font-bold mb-4 text-lg">تواصل معنا</h3>
+              <Link href="/footerpage/terms">
+                <h3 className="font-bold mb-4 text-lg">الشروط والأحكام</h3>
+              </Link>
              {/* <Link href="#" className="mb-2 text-sm">
                 روابط فرعية
               </Link>
@@ -85,7 +87,9 @@ export default function Footer() {
 
             {/* Column 4 */}
             <div className="flex flex-col text-right">
-              <h3 className="font-bold mb-4 text-lg">الأسئلة الشائعة</h3>
+              <Link href="/footerpage/qeustions">
+                <h3 className="font-bold mb-4 text-lg">الأسئلة الشائعة</h3>
+              </Link>
              {/* <Link href="#" className="mb-2 text-sm">
                 روابط فرعية
               </Link>

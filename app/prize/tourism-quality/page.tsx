@@ -45,64 +45,64 @@ export default function TourismQualityAward() {
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 rtl">
               {/* Criterion 1 */}
               <div className="text-center bg-white p-4 rounded-lg shadow">
-                <div className="w-24 h-24 mx-auto mb-4 bg-blue-100 rounded-lg flex items-center justify-center shadow-md">
-                  <Image src="/static/images/placeholder.png" alt="أنظمة وقوانين" width={48} height={48} />
+                <div className="w-24 h-24 mx-auto mb-4   rounded-lg flex items-center justify-center shadow-md">
+                  <Image src="/static/images/أنظمة وقوانين.png" alt="أنظمة وقوانين" width={48} height={48} />
                 </div>
                 <h3 className="text-md font-semibold text-blue-900">أنظمة وقوانين</h3>
               </div>
 
               {/* Criterion 2 */}
               <div className="text-center bg-white p-4 rounded-lg shadow">
-                <div className="w-24 h-24 mx-auto mb-4 bg-blue-100 rounded-lg flex items-center justify-center shadow-md">
-                  <Image src="/static/images/placeholder.png" alt="إدارة المؤسسة" width={48} height={48} />
+                <div className="w-24 h-24 mx-auto mb-4   rounded-lg flex items-center justify-center shadow-md">
+                  <Image src="/static/images/إدارة المؤسسة.png" alt="إدارة المؤسسة" width={48} height={48} />
                 </div>
                 <h3 className="text-md font-semibold text-blue-900">إدارة المؤسسة</h3>
               </div>
 
               {/* Criterion 3 */}
               <div className="text-center bg-white p-4 rounded-lg shadow">
-                <div className="w-24 h-24 mx-auto mb-4 bg-blue-100 rounded-lg flex items-center justify-center shadow-md">
-                  <Image src="/static/images/placeholder.png" alt="السكن والمرافق" width={48} height={48} />
+                <div className="w-24 h-24 mx-auto mb-4   rounded-lg flex items-center justify-center shadow-md">
+                  <Image src="/static/images/السكن والمرافق.png" alt="السكن والمرافق" width={48} height={48} />
                 </div>
                 <h3 className="text-md font-semibold text-blue-900">السكن والمرافق</h3>
               </div>
 
               {/* Criterion 4 */}
               <div className="text-center bg-white p-4 rounded-lg shadow">
-                <div className="w-24 h-24 mx-auto mb-4 bg-blue-100 rounded-lg flex items-center justify-center shadow-md">
-                  <Image src="/static/images/placeholder.png" alt="الخدمة السياحية" width={48} height={48} />
+                <div className="w-24 h-24 mx-auto mb-4   rounded-lg flex items-center justify-center shadow-md">
+                  <Image src="/static/images/الخدمة السياحية.png" alt="الخدمة السياحية" width={48} height={48} />
                 </div>
                 <h3 className="text-md font-semibold text-blue-900">الخدمة السياحية</h3>
               </div>
 
               {/* Criterion 5 */}
               <div className="text-center bg-white p-4 rounded-lg shadow">
-                <div className="w-24 h-24 mx-auto mb-4 bg-blue-100 rounded-lg flex items-center justify-center shadow-md">
-                  <Image src="/static/images/placeholder.png" alt="نقل المعارف والمهارات" width={48} height={48} />
+                <div className="w-24 h-24 mx-auto mb-4   rounded-lg flex items-center justify-center shadow-md">
+                  <Image src="/static/images/نقل المهارات.png" alt="نقل المعارف والمهارات" width={48} height={48} />
                 </div>
                 <h3 className="text-md font-semibold text-blue-900">نقل المعارف والمهارات</h3>
               </div>
 
               {/* Criterion 6 */}
               <div className="text-center bg-white p-4 rounded-lg shadow">
-                <div className="w-24 h-24 mx-auto mb-4 bg-blue-100 rounded-lg flex items-center justify-center shadow-md">
-                  <Image src="/static/images/placeholder.png" alt="النقل وسهولة الوصول" width={48} height={48} />
+                <div className="w-24 h-24 mx-auto mb-4   rounded-lg flex items-center justify-center shadow-md">
+                  <Image src="/static/images/النقل.png" alt="النقل وسهولة الوصول" width={48} height={48} />
                 </div>
                 <h3 className="text-md font-semibold text-blue-900">النقل وسهولة الوصول</h3>
               </div>
 
               {/* Criterion 7 */}
               <div className="text-center bg-white p-4 rounded-lg shadow">
-                <div className="w-24 h-24 mx-auto mb-4 bg-blue-100 rounded-lg flex items-center justify-center shadow-md">
-                  <Image src="/static/images/placeholder.png" alt="برامج الإرشاد التسويقي والإعلامي" width={48} height={48} />
+                <div className="w-24 h-24 mx-auto mb-4   rounded-lg flex items-center justify-center shadow-md">
+                  <Image src="/static/images/برامج الإرشاد.png" alt="برامج الإرشاد التسويقي والإعلامي" width={48} height={48} />
                 </div>
                 <h3 className="text-md font-semibold text-blue-900">برامج الإرشاد التسويقي والإعلامي</h3>
               </div>
 
               {/* Criterion 8 */}
               <div className="text-center bg-white p-4 rounded-lg shadow">
-                <div className="w-24 h-24 mx-auto mb-4 bg-blue-100 rounded-lg flex items-center justify-center shadow-md">
-                  <Image src="/static/images/placeholder.png" alt="مقاصد ووجهات سياحية" width={48} height={48} />
+                <div className="w-24 h-24 mx-auto mb-4   rounded-lg flex items-center justify-center shadow-md">
+                  <Image src="/static/images/مقاصد ووجهات سياحية.png" alt="مقاصد ووجهات سياحية" width={48} height={48} />
                 </div>
                 <h3 className="text-md font-semibold text-blue-900">مقاصد ووجهات سياحية</h3>
               </div>
