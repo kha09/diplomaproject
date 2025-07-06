@@ -35,7 +35,7 @@ export default async function BlogPage() {
           <div className="relative pt-32 pb-48 px-4 text-white text-center">
             <div className="absolute inset-0 z-0">
               <Image
-                src="/static/images/01.jpeg" // Generic background
+                src="/static/images/blogs.png"
                 alt="Blog Background"
                 fill
                 className="object-cover"
