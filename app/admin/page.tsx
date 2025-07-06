@@ -7,6 +7,7 @@ export default function AdminDashboard() {
     { name: 'Diplomas', href: '/admin/diplomas' },
     { name: 'Courses', href: '/admin/courses' },
     { name: 'Events', href: '/admin/events' },
+    { name: 'Blog', href: '/admin/blog' },
     { name: 'Contact Messages', href: '/admin/contact' }
   ]
 
