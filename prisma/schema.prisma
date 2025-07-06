@@ -25,6 +25,7 @@ model User {
   sessions    Session[]
   diploma     Diploma?  @relation(fields: [diplomaId], references: [id])
   courses     Course[]  @relation("CourseToUser")
+  blogPosts   BlogPost[]
 }
 
 model Instructor {
@@ -95,4 +96,19 @@ model DiplomaCode {
   id        Int      @id @default(autoincrement())
   code      String   @unique
   available Boolean  @default(true)
+}
+
+model BlogPost {
+  id             Int      @id @default(autoincrement())
+  slug           String   @unique
+  title          String
+  description    String
+  content        String
+  mainImage      String
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+  authorId       Int
+  author         User     @relation(fields: [authorId], references: [id])
+  seoTitle       String
+  seoDescription String
 }

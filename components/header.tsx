@@ -52,6 +52,9 @@ export default function Header() {
           <Link href="#events" className="text-sm font-medium text-teal-600 transition-colors hover:text-teal-700">
             الفعاليات
           </Link>
+          <Link href="/blog" className="text-sm font-medium text-teal-600 transition-colors hover:text-teal-700">
+            المقالات
+          </Link>
           <Link href="#contact" className="text-sm font-medium text-teal-600 transition-colors hover:text-teal-700">
             اتصل بنا
           </Link>
@@ -88,6 +91,9 @@ export default function Header() {
               </Link>
               <Link href="#events" className="text-base font-medium text-teal-600 py-2 border-b border-gray-100">
                 الفعاليات
+              </Link>
+              <Link href="/blog" className="text-base font-medium text-teal-600 py-2 border-b border-gray-100">
+                المقالات
               </Link>
               <Link href="#contact" className="text-base font-medium text-teal-600 py-2 border-b border-gray-100">
                 اتصل بنا
