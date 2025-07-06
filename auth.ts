@@ -70,15 +70,17 @@ export const authOptions: NextAuthOptions = {
     maxAge: 30 * 60, // 30 minutes in seconds
   },
   // Explicitly configure cookies for production/Vercel
-  useSecureCookies: process.env.NEXTAUTH_URL?.startsWith("https://"),
+  useSecureCookies: process.env.NEXTAUTH_URL?.startsWith("https://") && !process.env.NEXTAUTH_URL?.startsWith("http://localhost"),
   cookies: {
     sessionToken: {
-      name: `__Secure-next-auth.session-token`, // Use secure prefix if using HTTPS
+      name: process.env.NEXTAUTH_URL?.startsWith("https://") && !process.env.NEXTAUTH_URL?.startsWith("http://localhost")
+        ? `__Secure-next-auth.session-token`
+        : `next-auth.session-token`,
       options: {
         httpOnly: true,
         sameSite: 'lax',
         path: '/',
-        secure: process.env.NEXTAUTH_URL?.startsWith("https://"),
+        secure: process.env.NEXTAUTH_URL?.startsWith("https://") && !process.env.NEXTAUTH_URL?.startsWith("http://localhost"),
         // Consider adding domain if needed, but often not required on Vercel
         // domain: process.env.NEXTAUTH_URL ? new URL(process.env.NEXTAUTH_URL).hostname : undefined, 
       },
@@ -87,6 +89,7 @@ export const authOptions: NextAuthOptions = {
   },
   callbacks: {
     async jwt({ token, user, trigger, session }: { token: any, user?: any, trigger?: "signIn" | "signUp" | "update", session?: any }) {
+      console.log("JWT callback START:", { token, user, trigger, session });
       // 1. Initial sign in: Add basic info from authorize() result
       if (user) {
         token.id = user.id;
@@ -159,9 +162,11 @@ export const authOptions: NextAuthOptions = {
         }
       }
 
+      console.log("JWT callback END:", token);
       return token;
     },
     async session({ session, token }: { session: any, token?: any }) {
+      console.log("SESSION callback START:", { session, token });
       // Copy all enriched data from the token to the session.user object
       if (token) {
         session.user.id = token.id;
@@ -177,7 +182,8 @@ export const authOptions: NextAuthOptions = {
          session.user.imagePath = token.imagePath; // Also keep original imagePath if needed
          session.user.hasActivatedCode = token.hasActivatedCode; // Add hasActivatedCode to session
        }
-       return session;
+      console.log("SESSION callback END:", session);
+      return session;
     },
     // Redirect callback remains the same
     async redirect({ url, baseUrl, token }: { url: string, baseUrl: string, token?: any }) {
@@ -186,7 +192,24 @@ export const authOptions: NextAuthOptions = {
        console.log("Base URL:", baseUrl);
        console.log("Token Role:", token?.role);
 
-      // If the user is logged in (token exists), determine redirect target
+      // Local development routing fix
+      const isLocal = baseUrl.startsWith('http://localhost') || process.env.NODE_ENV === 'development';
+      if (isLocal) {
+        if (token) {
+          if (token.role === 'ADMIN') {
+            const adminUrl = `${baseUrl}/admin`;
+            console.log("Local dev: ADMIN detected, redirecting to:", adminUrl);
+            return adminUrl;
+          }
+          const profileUrl = `${baseUrl}/profile`;
+          console.log("Local dev: Non-admin, redirecting to:", profileUrl);
+          return profileUrl;
+        }
+        console.log("Local dev: No token, allowing original URL:", url);
+        return url;
+      }
+
+      // Production logic (unchanged)
       if (token) {
         let targetPath = '/profile'; // Default target for logged-in USER
         if (token.role === 'ADMIN') {
