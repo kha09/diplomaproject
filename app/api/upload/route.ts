@@ -1,31 +1,7 @@
 import { NextResponse } from 'next/server';
-import { writeFile, mkdir } from 'fs/promises';
-import path from 'path';
+import { put } from '@vercel/blob';
 import { getServerSession } from 'next-auth/next';
 import { authOptions } from '@/auth'; // Adjust path if needed
-import { stat } from 'fs/promises'; // Import stat for checking directory existence
-
-// Helper function to ensure directory exists
-async function ensureDirExists(dirPath: string) {
-  try {
-    await stat(dirPath);
-  } catch (error: any) {
-    if (error.code === 'ENOENT') {
-      try {
-        await mkdir(dirPath, { recursive: true });
-        console.log(`Created directory: ${dirPath}`);
-      } catch (mkdirError) {
-        console.error(`Error creating directory ${dirPath}:`, mkdirError);
-        throw new Error(`Could not create upload directory.`); // Re-throw specific error
-      }
-    } else {
-      // Re-throw other errors (e.g., permission issues)
-      console.error(`Error checking directory ${dirPath}:`, error);
-      throw error;
-    }
-  }
-}
-
 
 export async function POST(request: Request) {
   const session = await getServerSession(authOptions);
@@ -54,27 +30,16 @@ export async function POST(request: Request) {
     }
     // --- End Validation ---
 
-    const bytes = await file.arrayBuffer();
-    const buffer = Buffer.from(bytes);
+    // Create a unique filename for Vercel Blob
+    const filename = `blog/${session.user.id}-${Date.now()}-${file.name}`;
 
-    // Create a unique filename (e.g., user-<userId>-<timestamp>.<ext>)
-    const fileExtension = path.extname(file.name);
-    const filename = `user-${session.user.id}-${Date.now()}${fileExtension}`;
+    // Upload to Vercel Blob
+    const blob = await put(filename, file, {
+      access: 'public',
+    });
 
-    // Define the path relative to the project root
-    const uploadDir = path.join(process.cwd(), 'public/uploads/avatars');
-    const filePath = path.join(uploadDir, filename);
-    const publicPath = `/uploads/avatars/${filename}`; // Path accessible via URL
-
-    // Ensure the upload directory exists before writing
-    await ensureDirExists(uploadDir);
-
-    // Write the file
-    await writeFile(filePath, buffer);
-    console.log(`File uploaded to ${filePath}`);
-
-    // Return the public path of the uploaded file
-    return NextResponse.json({ success: true, filePath: publicPath }, { status: 201 });
+    // Return the public URL of the uploaded file
+    return NextResponse.json({ success: true, filePath: blob.url }, { status: 201 });
 
   } catch (error) {
     console.error('Error uploading file:', error);
