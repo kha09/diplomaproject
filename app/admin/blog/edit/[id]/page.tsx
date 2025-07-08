@@ -4,6 +4,7 @@ import { useRouter, useParams } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card } from "@/components/ui/card";
+import { slugify } from "@/lib/utils";
 
 type BlogPost = {
   id: number;
@@ -44,8 +45,16 @@ export default function EditBlogPostPage() {
   }, [id]);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    setForm({ ...form, [e.target.name]: e.target.value });
+    const { name, value } = e.target;
+    setForm((prev) => ({ ...prev, [name]: value }));
   };
+
+  useEffect(() => {
+    if (form.title) {
+      const newSlug = slugify(form.title);
+      setForm((prev) => ({ ...prev, slug: newSlug }));
+    }
+  }, [form.title]);
 
   const handleImageChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];

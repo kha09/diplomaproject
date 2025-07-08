@@ -1,9 +1,10 @@
 "use client";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card } from "@/components/ui/card";
+import { slugify } from "@/lib/utils";
 
 export default function NewBlogPostPage() {
   const router = useRouter();
@@ -22,8 +23,15 @@ export default function NewBlogPostPage() {
   const [uploading, setUploading] = useState(false);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    setForm({ ...form, [e.target.name]: e.target.value });
+    const { name, value } = e.target;
+    setForm((prev) => ({ ...prev, [name]: value }));
   };
+
+  useEffect(() => {
+    if (form.title) {
+      setForm((prev) => ({ ...prev, slug: slugify(form.title) }));
+    }
+  }, [form.title]);
 
   // Handle image file selection and upload
   const handleImageChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
