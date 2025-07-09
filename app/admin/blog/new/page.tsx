@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card } from "@/components/ui/card";
 import { slugify } from "@/lib/utils";
+import Editor from "@/components/editor";
 
 export default function NewBlogPostPage() {
   const router = useRouter();
@@ -25,6 +26,10 @@ export default function NewBlogPostPage() {
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
     setForm((prev) => ({ ...prev, [name]: value }));
+  };
+
+  const handleContentChange = (value: string) => {
+    setForm((prev) => ({ ...prev, content: value }));
   };
 
   useEffect(() => {
@@ -92,7 +97,7 @@ export default function NewBlogPostPage() {
           <Input name="slug" placeholder="Slug (URL path)" value={form.slug} onChange={handleChange} required />
           <Input name="title" placeholder="Title" value={form.title} onChange={handleChange} required />
           <Input name="description" placeholder="Short Description" value={form.description} onChange={handleChange} required />
-          <textarea name="content" placeholder="Content" value={form.content} onChange={handleChange} required className="w-full h-32 p-2 border rounded" />
+          <Editor value={form.content} onChange={handleContentChange} />
           <div>
             <label className="block mb-1 font-medium">الصورة الرئيسية</label>
             <input type="file" accept="image/*" onChange={handleImageChange} disabled={uploading} />
