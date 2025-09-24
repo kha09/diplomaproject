@@ -108,7 +108,6 @@ export default function Home() {
                 <br/> {/* Add a line break for separation */}
                 <li className="font-semibold">شهادة معتمدة</li> {/* Make subheading bold */}
                 <li>شهادة دبلوم أخصائي جودة وتميز سياحي</li>
-                <li>معتمدة من المنظمة العربية للسياحة</li>
               </ul> {/* Closed ul */}
             </div>
             <div className="flex justify-center p-4 mt-auto border-t">

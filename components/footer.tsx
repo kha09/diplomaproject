@@ -13,9 +13,8 @@ export default function Footer() {
           <div className="md:col-span-3 flex flex-col items-center text-center">
             
             <div className="text-sm">
-              <p>© 2025 جائزة المنظمة العربية</p>
-              <p>للسياحة في الجودة والتميز</p>
-              <p>السياحي</p>
+              <p>© 2025 جائزة الجودة والتميز السياحي</p>
+
             </div>
             <div className="mt-4">
               <Image src="/static/images/aljawdah.png" alt="Logo" width={120} height={60} className="mb-4" />
@@ -108,7 +107,7 @@ export default function Footer() {
           {/* Right Logo */}
           <div className="md:col-span-3 flex flex-col items-center">
             <div className="mb-4">
-              <Image src="/static/images/logoprizenew.png" alt="Logo" width={220} height={220} className="mb-4" />
+              <Image src="/static/images/QEATwhite.png" alt="Logo" width={220} height={220} className="mb-4" />
             </div>
             <div className="flex gap-4 mt-auto">
               <Link href="https://www.linkedin.com/company/%D8%AC%D8%A7%D8%A6%D8%B2%D8%A9-%D8%A7%D9%84%D9%85%D9%86%D8%B8%D9%85%D8%A9-%D8%A7%D9%84%D8%B9%D8%B1%D8%A8%D9%8A%D8%A9-%D9%84%D9%84%D8%B3%D9%8A%D8%A7%D8%AD%D8%A9-%D9%81%D9%8A-%D8%A7%D9%84%D8%AC%D9%88%D8%AF%D8%A9-%D9%88%D8%A7%D9%84%D8%AA%D9%85%D9%8A%D8%B2-%D8%A7%D9%84%D8%B3%D9%8A%D8%A7%D8%AD%D9%8A/posts/?feedView=all" target="_blank" aria-label="LinkedIn">

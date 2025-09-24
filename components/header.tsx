@@ -64,7 +64,7 @@ export default function Header() {
         <div className="flex items-center">
           <Link href="/" className="flex items-center">
             <Image
-              src="/static/images/logo01.png?height=60&width=120"
+              src="/static/images/QEATleft.png?height=60&width=120"
               alt="Tourism Quality and Excellence Award"
               width={200}
               height={100}
